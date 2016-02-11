@@ -1,0 +1,28 @@
+#!/bin/sh
+lock() {
+    i3lock -c "#000000"
+}
+
+case "$1" in
+    lock)
+        ~/.config/i3/scripts/lock.sh
+        ;;
+    logout)
+        i3-msg exit
+        ;;
+    suspend)
+        lock && systemctl suspend
+        ;;
+    hibernate)
+        lock && systemctl hibernate
+        ;;
+    reboot)
+        systemctl reboot
+        ;;
+    shutdown)
+        systemctl poweroff
+        ;;
+    *)
+        echo "Usage: $0 {kill|lock|logout|suspend|hibernate|reboot|shutdown}"
+        exit 2
+esac

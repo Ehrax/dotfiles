@@ -1,0 +1,272 @@
+###############################################################################
+# VARIABLES {{{
+###############################################################################
+set $scripts /home/alex/.config/i3/scripts
+set $mod Mod4
+set $nsi --no-startup-id
+
+# workspaces
+set $ws1 				"1:&#xf120;"
+set $ws2 				"2:&#xf268;"
+set $ws3 				"3:&#xf121;"
+set $ws4 				"4:&#xf1d0;"
+set $ws5 				"5:&#xf1bc;"
+set $ws6				"6:&#xf03e;"
+set $ws7 				"7:&#xf003;"
+set $ws8 				"8:&#xf108;"
+set $ws9 				"9:&#xf108;"
+set $WS10 			    "10:&#xf108;"
+###############################################################################
+# }}}
+###############################################################################
+
+###############################################################################
+# AUTOSTART {{{
+###############################################################################
+
+exec $nsi nitrogen --restore
+exec $nsi setxkbmap de
+exec $nsi ~/Applications/skripts/screen_validate.sh
+exec $nsi compton --config ~/.config/compton/compton.conf
+
+###############################################################################
+# }}}
+###############################################################################
+
+###############################################################################
+# LOOK {{{
+###############################################################################
+
+font pango:Terminus 8
+
+# Layout colors                 border              bg        text
+client.focused                  "#343D46" "#343D46" "#BBBBBB" "#4F4F4F"
+client.focused_inactive         "#080808" "#080808" "#424242" "#121212"
+client.unfocused                "#080808" "#080808" "#4F4F4F" "#1A1A1A"
+client.urgent                   "#242C33" "#3B89B5" "#a5a5a5" "#1A1A1A"
+client.background               "#242C33"
+
+# disable window border
+new_window none
+new_float none
+
+# i3-gaps
+gaps inner 10
+smart_gaps on
+
+# Laptop eDP1 bar
+bar {
+        status_command python ~/.config/i3/pystatus.py
+        position top
+      	font pango:Source Sans Pro 12, FontAwesome 10
+        separator_symbol " ❱ "
+        colors {
+            background          "#242C33"
+            statusline          "#ecedee"
+            separator           "#565656"
+            focused_workspace   "#242c33" "#C64742" "#CACACA"
+            active_workspace    "#242c33" "#242c33" "#797979"
+            inactive_workspace  "#242c33" "#242c33" "#CACACA"
+            urgent_workspace    "#242c33" "#242c33" "#ff9d17" #"#f3ea0c"
+        }
+}
+
+#############################################################################
+# }}}
+###############################################################################
+
+###############################################################################
+# WORKSPACE NAVIGATION{{{
+###############################################################################
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+###############################################################################
+# }}}
+
+###############################################################################
+# NAVIGATION {{{
+###############################################################################
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move window 
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+n split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+###############################################################################
+# }}}
+###############################################################################
+
+###############################################################################
+# KEYBINDINGS {{{
+#
+###############################################################################
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+########################## PULSE AUDIO CONTROL ################################
+
+#increase sound volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% 
+#decrease sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% 
+# mute sound
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle 
+
+########################## SCREEN BRIGHTNESS CONTROL ##########################
+
+# increase screen brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 
+# decrease screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 
+
+########################## TOUCHPAD CONTROLS ##################################
+
+bindsym XF86TouchpadToggle exec Applications/skripts/toggletouchpad.sh 
+
+########################## MEDIA PLAYER CONTROL  ##############################
+
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+###############################################################################
+# }}}
+###############################################################################
+
+###############################################################################
+# CUSTOM MODES{{{
+###############################################################################
+
+# mode_system
+bindsym $mod+Escape mode "$mode_system"
+set $mode_system (l)ock, (e)xit, (r)eboot, (q)ui, (s)uspen
+mode "$mode_system" {
+    bindsym l exec $nsi $scripts/i3exit lock, mode "default"
+    bindsym e exec $nsi $scripts/i3exit logout, mode "default"
+    bindsym r exec $nsi $scripts/i3exit reboot, mode "default"
+    bindsym q exec $nsi $scripts/i3exit shutdown, mode "default"
+    bindsym s exec $nsi $scripts/i3exit suspend, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# rezize
+mode "resize" {
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+
+
+###############################################################################
+# }}}
+
+###############################################################################
+# RULE {{{
+###############################################################################
+workspace $ws1 				output eDP1
+workspace $ws4				output eDP1
+workspace $ws5 				output eDP1
+
+assign [class="^google-chrome$"]	                            "2:&#xf268;"
+assign [class="^jetbrains-idea$"]	                            "3:&#xf121;"
+assign [instance="^subl3$"]		                                "3:&#xf121;"
+assign [instance="^spotify"]		                            "5:&#xf1bc;"
+assign [class="^Thunderbird$"]                                  "7:&#xf003;"
+assign [class="^smplayer$"]                                     "6:&#xf03e;"
+assign [instance="^atom$"]                                      "3:&#xf121;"
+
+for_window [instance="arandr"]                                  floating enable, border normal, focus, move absolute center
+for_window [instance="nitrogen"]	                            floating enable, border normal, focus, move absolute center
+for_window [class="^Lxappearance$"]	                            floating enable, border normal, focus, move absolute center
+for_window [class="^Termite$"] 	                                focus
+for_window [class="^google-chrome$"]	                        focus
+for_window [class="^smplayer$"]		                            focus
+for_window [class="^spotify$"]		                            focus
+for_window [instance="^xfce4-taskmanager$"]	                    floating enable, border normal, focus, move absolute center
+for_window [class="^jetbrains-idea$"]	                        focus
+for_window [instance="^subl3$"]		                            focus
+for_window [class="^Thunderbird$"]                              focus
+for_window [instance="^urxvt$"]                                 focus
+for_window [instance="^atom$"]                                  focus
+
+###############################################################################
+# }}}
+
+###############################################################################
+# PROGRAMM BINDINGS {{{
+###############################################################################
+bindsym $mod+a 				exec $nsi google-chrome-stable
+bindsym $mod+c				exec $nsi thunar
+bindsym $mod+Print          exec $nsi ~/Applications/skripts/screenshot.sh
+
+# start a terminal
+bindsym $mod+Return         exec $nsi urxvt
+# ROFI 
+bindsym $mod+space exec $nsi rofi -show run -lines 3 -eh 2 -width 100 -padding 305 -opacity "70" -bw 0 -bc "#040405" -bg "#040405" -fg "#c5c8c6" -hlbg "#040405" -hlfg "#ffffff" -monitor 0
+###############################################################################
+# }}}
