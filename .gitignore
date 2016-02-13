@@ -1,3 +1,4 @@
 # basic stuff 
 vim
 i3/.config.*
+skripts/connect_mysql.sh

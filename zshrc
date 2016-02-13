@@ -16,7 +16,6 @@ ZSH_THEME="alanpeabody"
 # {{{ PLUGINS 
 # 
 # Add wisely, as too many plugins slow down shell startup.
-###############################################################################
 plugins=(git docker colored-man-pages zsh-syntax-highlighting)
 
 ###############################################################################
@@ -68,6 +67,14 @@ alias int="~/Applications/idea-IU-143.1184.17/bin/idea.sh"
 alias sopra="cd /home/alex/Studium/Sopra/git/"
 alias meinserver="ssh root@87.106.15.110"
 
+# Start & Stop Eduroam
+alias edu="sudo netctl start eduroam"
+alias dedu="sudo netctl stop eduroam"
+
+# Start & Stop network
+alias nt="sudo netctl start"
+alias dnt="sudo netclt stop"
+
 ###############################################################################
 # }}}
 
@@ -98,3 +105,5 @@ zle -N other-widget auto-ls
 ###############################################################################
 # }}}
 
+# fuzzy finder
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
