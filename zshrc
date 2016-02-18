@@ -16,7 +16,12 @@ ZSH_THEME="alanpeabody"
 # {{{ PLUGINS 
 # 
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker colored-man-pages zsh-syntax-highlighting)
+plugins=(git docker colored-man-pages tmux)
+
+# fuzzy-finder
+if [ -f ~/.fzf.zsh ]; then
+    source ~/.fzf.zsh
+fi
 
 ###############################################################################
 # }}} 
@@ -104,6 +109,3 @@ zle -N other-widget auto-ls
 
 ###############################################################################
 # }}}
-
-# fuzzy finder
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
