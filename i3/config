@@ -9,9 +9,9 @@ set $nsi --no-startup-id
 set $ws1 				"1:&#xf120;"
 set $ws2 				"2:&#xf268;"
 set $ws3 				"3:&#xf121;"
-set $ws4 				"4:&#xf1d0;"
+set $ws4 				"4:&#xf1d8;"
 set $ws5 				"5:&#xf1bc;"
-set $ws6				"6:&#xf03e;"
+set $ws6				"6:&#xf1d0;"
 set $ws7 				"7:&#xf003;"
 set $ws8 				"8:&#xf108;"
 set $ws9 				"9:&#xf108;"
@@ -26,7 +26,7 @@ set $WS10 			    "10:&#xf108;"
 
 exec $nsi nitrogen --restore
 exec $nsi setxkbmap de
-exec $nsi ~/Applications/skripts/screen_validate.sh
+exec $nsi ~/Applications/skripts/bash/screen_validate.sh
 exec $nsi compton --config ~/.config/compton/compton.conf
 
 ###############################################################################

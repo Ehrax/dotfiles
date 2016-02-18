@@ -1,4 +1,6 @@
 # basic stuff 
-vim
+vim/undodir
+vim/viminfo
 i3/.config.*
 skripts/connect_mysql.sh
+tmux/resurrect
