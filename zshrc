@@ -7,7 +7,7 @@ export ZSH=/home/alex/.oh-my-zsh
 
 # ZSH_THEME="agnoster"
 # ZSH_THEME="bullet-train"
-ZSH_THEME="alanpeabody"
+ZSH_THEME="ehrax"
 
 ###############################################################################
 # }}}
@@ -17,11 +17,6 @@ ZSH_THEME="alanpeabody"
 # 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git docker colored-man-pages tmux)
-
-# fuzzy-finder
-if [ -f ~/.fzf.zsh ]; then
-    source ~/.fzf.zsh
-fi
 
 ###############################################################################
 # }}} 
@@ -58,6 +53,8 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 # DEFAULT user
 DEFAULT_USER="alex"
+
+
 
 ###############################################################################
 # }}}
@@ -109,3 +106,6 @@ zle -N other-widget auto-ls
 
 ###############################################################################
 # }}}
+
+# fuzzy finder
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
