@@ -2,10 +2,11 @@
 " {{{ BASIC SETTINGS
 " =============================================================================
 set nocompatible
+hi CursorLineNr   term=bold ctermfg=Yellow gui=bold guifg=Yellow
 
 filetype off 
 filetype plugin off 
-filetype indent off 
+filetype indent off
 
 let mapleader="\<space>"
 
@@ -111,6 +112,8 @@ set clipboard=unnamedplus
 if has('gui_running') 
     set guioptions-=T       "disable tool bar
     set guioptions-=m       "disable menu bar
+    set guioptions-=r       "disable right scrollbar
+    set guioptions-=L       "disable left scrollbar
 endif
 
 " }}}
@@ -128,6 +131,8 @@ call vundle#begin()
   Plugin 'chriskempson/base16-vim'
   " nerdtree file manager
   Plugin 'scrooloose/nerdtree'
+  " Nerdtree in all tabs
+  Plugin 'jistr/vim-nerdtree-tabs'
   " complete me, auto completion
   Plugin 'Valloric/YouCompleteMe'
   " toogle cursor
@@ -146,7 +151,13 @@ call vundle#begin()
   " Matching Tags
   Plugin 'Valloric/MatchTagAlways'
   " shows color
-  Plugin 'lilydjwg/colorizer'
+  Plugin 'lilydjwg/colorizer' 
+  " more syntax highlighting
+  Plugin 'justinmk/vim-syntax-extra'
+  " show indentions
+  Plugin 'Yggdroot/indentLine'
+  " rainbow brackets
+  Plugin 'vim-ruby/vim-ruby'
 
   filetype on 
   filetype plugin on
@@ -200,9 +211,8 @@ let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
 let g:airline_theme='tomorrow'
 
-
 " ######## GIT GLITTER ########################################################
-set updatetime=250
+ set updatetime=250
 
 " ######## CTRL SPACE #########################################################
 let g:ctrlp_mruf_max = 10000
@@ -212,6 +222,7 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_extensions = ['mixed']
 let g:ctrlp_cmd = 'CtrlPMixed'
 set hidden
+
 " }}}
 " =============================================================================
 " {{{ KEYBINDINGS 
@@ -248,8 +259,4 @@ map <Esc><Esc> :w<CR>
 "buffer browsing bwith left/right arrows
 nnoremap <Left> :bprev<CR>
 nnoremap <Right> : bnext<CR>
-
-"use Ctrl Tab to toggle between splits
-nnoremap <C-Tab> <C-W><C-W>
 " }}}
-

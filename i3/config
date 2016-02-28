@@ -176,14 +176,14 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 
 ########################## TOUCHPAD CONTROLS ##################################
 
-bindsym XF86TouchpadToggle exec Applications/skripts/toggletouchpad.sh 
+bindsym XF86TouchpadToggle exec $scripts/toggletouchpad.sh 
 
 ########################## MEDIA PLAYER CONTROL  ##############################
 
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay   exec playerctl play
+bindsym XF86AudioPause  exec playerctl pause
+bindsym XF86AudioNext   exec playerctl next
+bindsym XF86AudioPrev   exec playerctl previous
 
 ###############################################################################
 # }}}
@@ -262,7 +262,7 @@ for_window [instance="^atom$"]                                  focus
 ###############################################################################
 bindsym $mod+a 				exec $nsi google-chrome-stable
 bindsym $mod+c				exec $nsi thunar
-bindsym $mod+Print          exec $nsi ~/Applications/skripts/screenshot.sh
+bindsym $mod+Print          exec $nsi $scripts/screenshot.sh
 
 # start a terminal
 bindsym $mod+Return         exec $nsi urxvt

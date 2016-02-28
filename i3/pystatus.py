@@ -11,16 +11,16 @@ status.register("clock",
 
 # Battery Status
 status.register("battery",
-    format = "{status} {percentage: .2f}% {remaining}",
+    format = "{status} {percentage: .1f}%",
     alert = True,
     full_color = "#94F397",
     critical_color = "#b30000",
     charging_color = "#8BC3E7",
     interval = 10,
     status={
-        "DIS":  "",
-        "CHR":  "",
-        "FULL": "",
+        "DIS":  "",
+        "CHR":  "",
+        "FULL": "",
     },)
 
 # Memory status
@@ -36,7 +36,7 @@ status.register("mem",
 
 # CPU status
 status.register("cpu_usage",
-    format = " {usage:02}%",
+    format = " {usage:02}%",
     color = "#B987D9",)
 
 # Volume Status
