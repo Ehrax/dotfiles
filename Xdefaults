@@ -13,7 +13,7 @@ URxvt.scrollBar: false
 URxvt.letterSpace: -1
 # URxvt.internalBorder: 5
 URxvt.hintstyle: hintfull
-# URxvt.cursorBlink: true
+URxvt.cursorBlink: false
 
 ! Settings
 URxvt.depth: 32

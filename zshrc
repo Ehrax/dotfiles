@@ -13,8 +13,7 @@ ZSH_THEME="ehrax"
 # }}}
 
 ###############################################################################
-# {{{ PLUGINS 
-# 
+# {{{ PLUGINS # 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git docker colored-man-pages tmux)
 
