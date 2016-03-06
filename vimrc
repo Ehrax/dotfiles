@@ -2,7 +2,6 @@
 " {{{ BASIC SETTINGS
 " =============================================================================
 set nocompatible
-hi CursorLineNr   term=bold ctermfg=Yellow gui=bold guifg=Yellow
 
 filetype off 
 filetype plugin off 
@@ -76,7 +75,7 @@ set scrolloff=5
 " folding
 set foldmethod=marker
 " set antialias
-set antialias
+" set antialias
 " use tabs
 set switchbuf=usetab
 " make Vim run moar smooth
@@ -114,6 +113,10 @@ if has('gui_running')
     set guioptions-=m       "disable menu bar
     set guioptions-=r       "disable right scrollbar
     set guioptions-=L       "disable left scrollbar
+
+    " font
+    set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
+
 endif
 
 " }}}
@@ -176,7 +179,7 @@ autocmd GUIEnter * set visualbell t_vb=
 " ######## FILESYSTEM #########################################################
 set undofile
 " maximum number of changes that can be undone
-set undolevels=1000 
+set undolevels=1000
 " maximum number lines to save for undo on a buffer reload
 set undoreload=10000 
 set undodir=~/.vim/undodir//
@@ -209,7 +212,7 @@ endif
 set laststatus=2
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
-let g:airline_theme='tomorrow'
+let g:airline_theme='base16'
 
 " ######## GIT GLITTER ########################################################
  set updatetime=250

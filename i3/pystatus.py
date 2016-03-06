@@ -14,7 +14,7 @@ status.register("battery",
     format = "{status} {percentage: .1f}%",
     alert = True,
     full_color = "#94F397",
-    critical_color = "#b30000",
+    critical_color = "#bf616a",
     charging_color = "#8BC3E7",
     interval = 10,
     status={
@@ -44,5 +44,7 @@ status.register("pulseaudio",
     format = " {volume}%",
     color_unmuted = "#8BADF9",
     color_muted = "#ff797b",)
+
+
 
 status.run()
