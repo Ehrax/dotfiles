@@ -64,17 +64,16 @@ DEFAULT_USER="alex"
 alias yi="yaourt"
 alias so="source ~/.zshrc"
 alias home="cd ~/"
-alias int="~/Applications/idea-IU-143.1184.17/bin/idea.sh"
-alias sopra="cd /home/alex/Studium/Sopra/git/"
+alias int="~/app/idea/bin/idea.sh"
+alias sopra="~/doc/studium/Sopra/git"
 alias meinserver="ssh root@87.106.15.110"
 
 # Start & Stop Eduroam
 alias edu="sudo netctl start eduroam"
-alias dedu="sudo netctl stop eduroam"
 
 # Start & Stop network
 alias nt="sudo netctl start"
-alias dnt="sudo netclt stop"
+alias ntd="sudo netctl stop"
 
 ###############################################################################
 # }}}

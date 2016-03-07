@@ -26,7 +26,7 @@ set $WS10 			    "10:&#xf108;"
 
 exec $nsi nitrogen --restore
 exec $nsi setxkbmap de
-exec $nsi ~/Applications/skripts/bash/screen_validate.sh
+exec $nsi ~/.config/i3/scripts/screen_validate.sh
 exec $nsi compton --config ~/.config/compton/compton.conf
 
 ###############################################################################

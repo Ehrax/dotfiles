@@ -2,7 +2,7 @@
 
 # Directory info.
 local current_dir='${PWD/#$HOME/~}'
-local return_code="%{$fg[red]%}%(?..⏎)%{$reset_color%} "
+local return_code="%{$fg[red]%}%(?..⍉)%{$reset_color%} "
 
 # Git info.
 local git_info='$(git_prompt_info)'
