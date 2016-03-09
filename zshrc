@@ -1,9 +1,9 @@
 export ZSH=/home/alex/.oh-my-zsh
 ###############################################################################
-# {{{ CUSTOM THEME 
-# 
-# Set name of the theme to load.
+# CUSTOM THEME {{{ 
 ###############################################################################
+
+# Set name of the theme to load.
 
 # ZSH_THEME="agnoster"
 # ZSH_THEME="bullet-train"
@@ -11,17 +11,17 @@ ZSH_THEME="ehrax"
 
 ###############################################################################
 # }}}
-
 ###############################################################################
-# {{{ PLUGINS # 
+# PLUGINS {{{  
+###############################################################################
+
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git docker colored-man-pages tmux)
 
 ###############################################################################
 # }}} 
-
 ###############################################################################
-# {{{ User configuration
+# User configuration {{{ 
 ###############################################################################
 
 # Uncomment the following line to display red dots whilst waiting for completion.
@@ -31,8 +31,8 @@ source $ZSH/oh-my-zsh.sh
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export PATH=/opt/android-sdk/platform-tools:$PATH # export VISUAL="vim"
-
+export PATH=/opt/android-sdk/platform-tools:$PATH 
+PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 # export EDITOR='vim'
@@ -40,7 +40,7 @@ export PATH=/opt/android-sdk/platform-tools:$PATH # export VISUAL="vim"
 # export EDITOR='mvim'
 # fi
 
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
@@ -57,7 +57,6 @@ DEFAULT_USER="alex"
 
 ###############################################################################
 # }}}
-
 ###############################################################################
 # ALIASES {{{
 ###############################################################################
@@ -67,6 +66,8 @@ alias home="cd ~/"
 alias int="~/app/idea/bin/idea.sh"
 alias sopra="~/doc/studium/Sopra/git"
 alias meinserver="ssh root@87.106.15.110"
+alias vim="nvim"
+alias dot="cd ~/dotfiles"
 
 # Start & Stop Eduroam
 alias edu="sudo netctl start eduroam"
@@ -75,9 +76,9 @@ alias edu="sudo netctl start eduroam"
 alias nt="sudo netctl start"
 alias ntd="sudo netctl stop"
 
+
 ###############################################################################
 # }}}
-
 ###############################################################################
 # FUNCTIONS {{{
 ###############################################################################

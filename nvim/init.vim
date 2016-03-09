@@ -16,7 +16,7 @@ set runtimepath^=~/dotfiles/nvim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/dotfiles/nvim/bundle/'))
 
 " Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My Bundles:
  NeoBundle 'https://github.com/tpope/vim-fugitive.git' 
@@ -33,7 +33,6 @@ NeoBundleFetch 'Shougo/neobundle.vim'
  NeoBundle 'https://github.com/Valloric/MatchTagAlways.git'
  NeoBundle 'https://github.com/justinmk/vim-syntax-extra.git'
  NeoBundle 'https://github.com/Yggdroot/indentLine.git'
- NeoBundle 'https://github.com/vim-ruby/vim-ruby.git'
 
 call neobundle#end()
 
@@ -168,7 +167,8 @@ endif
 
 " }}}
 " =============================================================================
-" PLUGINS SETTINGS {{{ =============================================================================
+" PLUGINS SETTINGS {{{ 
+" =============================================================================
 
 " ######## AIRLINE ############################################################
 set laststatus=2
@@ -189,24 +189,6 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 set hidden
 
 " ######## DEOPLETE ###########################################################
-let g:deoplete#enable_at_startup = 1
-if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
-endif
-
-" omnifuncs
-augroup omnifuncs
-  autocmd!
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType ruby set omnifunc=rubycomplete#Complete
-  autocmd FileType ruby let g:rubycomplete_buffer_loading=1
-  autocmd FileType ruby let g:rubycomplete_classes_in_global=1
-augroup end
-
 " }}}
 " =============================================================================
 " KEYBINDINGS {{{ 

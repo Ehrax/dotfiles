@@ -10,7 +10,7 @@ vim-airline
 vim-airline-themes
 vim-fugitive
 vim-gitgutter
+vim-monster
 vim-nerdtree-tabs
-vim-ruby
 vim-syntax-extra
 vim-togglecursor
