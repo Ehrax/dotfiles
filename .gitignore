@@ -1,6 +1,7 @@
 # basic stuff 
 nvim/undodir
 nvim/.init.vim-rplugin~
+nvim/bundle
 i3/.config.*
 skripts/connect_mysql.sh
 tmux/resurrect

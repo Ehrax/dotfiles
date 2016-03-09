@@ -23,7 +23,6 @@ call neobundle#begin(expand('~/dotfiles/nvim/bundle/'))
  NeoBundle 'https://github.com/chriskempson/base16-vim.git'
  NeoBundle 'https://github.com/scrooloose/nerdtree.git'
  NeoBundle 'https://github.com/jistr/vim-nerdtree-tabs.git'
- NeoBundle 'https://github.com/jszakmeister/vim-togglecursor.git'
  NeoBundle 'https://github.com/vim-airline/vim-airline.git'
  NeoBundle 'https://github.com/vim-airline/vim-airline-themes.git'
  NeoBundle 'https://github.com/airblade/vim-gitgutter.git'
