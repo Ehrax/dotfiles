@@ -1,0 +1,16 @@
+MatchTagAlways
+base16-vim
+ctrlp.vim
+delimitMate
+indentLine
+neobundle.vim
+nerdcommenter
+nerdtree
+vim-airline
+vim-airline-themes
+vim-fugitive
+vim-gitgutter
+vim-nerdtree-tabs
+vim-ruby
+vim-syntax-extra
+vim-togglecursor

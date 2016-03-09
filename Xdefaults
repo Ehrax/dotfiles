@@ -7,8 +7,8 @@ Xft.hintstyle: hintfull
 
 ! urxvt basic setting
 URxvt.perl-ext-common: default,execute
-URxvt.font: xft:DejaVu Sans Mono for Powerline:size=10.8
-!URxvt.font: xft:Hack:size=10.6
+URxvt.font: xft:DejaVu Sans Mono for Powerline:size=10
+!URxvt.font: xft:Hack:size=10
 
 URxvt.scrollBar: false
 # URxvt.geometry: 80x27
