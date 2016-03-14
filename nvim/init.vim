@@ -10,7 +10,7 @@ set nocompatible               " Be iMproved
 endif
 
 " Required:
-set runtimepath^=~/dotfiles/nvim/bundle/neobundle.vim/
+set runtimepath^=~/Dotfiles/nvim/bundle/neobundle.vim/
 
 " Required:
 call neobundle#begin(expand('~/dotfiles/nvim/bundle/'))
