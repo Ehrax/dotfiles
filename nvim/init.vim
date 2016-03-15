@@ -13,7 +13,7 @@ endif
 set runtimepath^=~/Dotfiles/nvim/bundle/neobundle.vim/
 
 " Required:
-call neobundle#begin(expand('~/dotfiles/nvim/bundle/'))
+call neobundle#begin(expand('~/Dotfiles/nvim/bundle/'))
 
 " Required:
  NeoBundleFetch 'Shougo/neobundle.vim'
@@ -116,7 +116,7 @@ set scrolloff=3
 set foldmethod=marker
 
 " use tabs
-set switchbuf=usetab
+" set switchbuf=usetab
 
 " make Vim run moar smooth
 set ttyfast
@@ -144,7 +144,7 @@ set undofile
 set undolevels=1000
 " maximum number lines to save for undo on a buffer reload
 set undoreload=10000 
-set undodir=~/dotfiles/nvim/undodir//
+set undodir=~/Dotfiles/nvim/undodir//
 
 " ######## COLORSCHEME SETTINGS ###############################################
 let base16colorspace=256
