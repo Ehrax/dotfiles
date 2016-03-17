@@ -1,2 +1,3 @@
 # dotfiles
-My dotfiles for vim, zshrc and i3
+My dotfiles 
+![Screenshot](http://i.imgur.com/CTqeWx1.png "Desktop")
