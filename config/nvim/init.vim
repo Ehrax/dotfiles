@@ -10,10 +10,10 @@ set nocompatible               " Be iMproved
 endif
 
 " Required:
-set runtimepath^=~/Dotfiles/nvim/bundle/neobundle.vim/
+set runtimepath^=~/Dotfiles/config/nvim/bundle/neobundle.vim/
 
 " Required:
-call neobundle#begin(expand('~/Dotfiles/nvim/bundle/'))
+call neobundle#begin(expand('~/Dotfiles/config/nvim/bundle/'))
 
 " Required:
  NeoBundleFetch 'Shougo/neobundle.vim'
@@ -144,7 +144,7 @@ set undofile
 set undolevels=1000
 " maximum number lines to save for undo on a buffer reload
 set undoreload=10000 
-set undodir=~/Dotfiles/nvim/undodir//
+set undodir=~/Dotfiles/config/nvim/undodir//
 
 " ######## COLORSCHEME SETTINGS ###############################################
 let base16colorspace=256

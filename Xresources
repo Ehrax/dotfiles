@@ -1,0 +1,53 @@
+! global x11 font settings
+Xft.dpi: 96
+Xft.antialise: 1
+Xft.rgba: rgb
+Xft.hinting: 1
+Xft.hintstyle: hintfull
+
+! urxvt basic settings
+! URxvt.perl-ext-common: default,execute
+URxvt.perl-ext-common:     default,matcher,resize-font,fullscreen
+URxvt.font:                xft:DejaVu Sans Mono for Powerline:size=10
+URxvt.letterSpace:         -1
+
+URxvt.internalBorder:      5
+URxvt.externalBorder:      0
+
+URxvt.scrollBar:           false
+
+URxvt.url-launcher:        /usr/bin/google-chrome-stable
+URxvt.keysym.M-Delete:     perl:matcher:list
+URxvt.colorUL:             #dfe1e8
+
+! color settings
+URxvt*background:          #2b303b
+URxvt*foreground:          #cccccc
+URxvt*cursorColor:         #aeafad
+URxvt.depth: 32
+
+URxvt*color0:              #2b303b
+URxvt*color1:              #343d46
+URxvt*color2:              #4f5b66
+URxvt*color3:              #65737e
+URxvt*color4:              #a7adba
+URxvt*color5:              #c0c5ce
+URxvt*color6:              #56B6C2
+URxvt*color7:              #eff1f5
+URxvt*color8:              #bf616a
+URxvt*color9:              #d08770
+URxvt*color10:             #ebcb8b
+URxvt*color11:             #a3be8c
+URxvt*color12:             #96b5b4
+URxvt*color13:             #8fa1b3
+URxvt*color14:             #b48ead
+URxvt*color15:             #ab7957
+
+! -----------------------------------------------------------------------------
+! ROFI Color theme
+! -----------------------------------------------------------------------------
+rofi.color-enabled: true
+rofi.color-window: #2b303b, #2b303b, #96b5b4
+rofi.color-normal: #2b303b, #eff1f5, #2b303b, #96b5b4, #2b303b
+rofi.color-active: #2b303b, #eff1f5, #2b303b, #96b5b4, #2b303b
+rofi.color-urgent: #2b303b, #bf616a, #2b303b, #bf616a, #2b303b
