@@ -32,7 +32,8 @@ call neobundle#begin(expand('~/Dotfiles/config/nvim/bundle/'))
  NeoBundle 'https://github.com/Valloric/MatchTagAlways.git'
  NeoBundle 'https://github.com/justinmk/vim-syntax-extra.git'
  NeoBundle 'https://github.com/Yggdroot/indentLine.git'
-
+ NeoBundle 'https://github.com/Shougo/deoplete.nvim.git'
+ NeoBundle 'https://github.com/ervandew/supertab.git'
 call neobundle#end()
 
 " Required:
@@ -169,8 +170,7 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline_theme='base16'
 
 " ######## GIT GLITTER ########################################################
- set updatetime=1000
-
+set updatetime=1000
 " ######## CTRL SPACE #########################################################
 let g:ctrlp_mruf_max = 10000
 let g:ctrlp_max_files = 10000
@@ -181,6 +181,23 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 set hidden
 
 " ######## DEOPLETE ###########################################################
+let g:deoplete#enable_at_startup = 1
+if !exists('g:deoplete#omni#input_patterns')
+  let g:deoplete#omni#input_patterns = {}
+endif
+
+" omnifuncs
+augroup omnifuncs
+  autocmd!
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup end
+
+" ######## SUPERTAB ###########################################################
+let g:SuperTabDefaultCompletionType = "<c-n>"
 " }}}
 " =============================================================================
 " KEYBINDINGS {{{ 
