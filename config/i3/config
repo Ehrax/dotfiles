@@ -185,7 +185,7 @@ bindsym XF86AudioPrev   exec playerctl previous
 
 # mode_system
 bindsym $mod+Escape mode "$mode_system"
-set $mode_system (l)ock, (e)xit, (r)eboot, (q)ui, (s)uspen
+set $mode_system (l)ock, (e)xit, (r)eboot, (q)uit, (s)uspen
 mode "$mode_system" {
     bindsym l exec $nsi $scripts/i3exit lock, mode "default"
     bindsym e exec $nsi $scripts/i3exit logout, mode "default"
@@ -197,12 +197,24 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 
+# spotify_control 
+bindsym $mod+p mode "$spotify_control"
+set $spotify_control (p)ause, (n)ext, (l)ast
+mode "$spotify_control" {
+    bindsym p exec $nsi $scripts/spotify_control pause, mode "default"
+    bindsym n exec $nsi $scripts/spotify_control next, mode "default"
+    bindsym l exec $nsi $scripts/spotify_control last, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
 # rezize
 mode "resize" {
-        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Right resize shrink width 10 px or 10 ppt
         bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape bindsym Return mode "default"
         bindsym Escape mode "default"

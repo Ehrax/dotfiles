@@ -11,7 +11,7 @@ URxvt.perl-ext-common:     default,matcher,resize-font,fullscreen
 URxvt.font:                xft:DejaVu Sans Mono for Powerline:size=10
 URxvt.letterSpace:         -1
 
-URxvt.internalBorder:      0
+URxvt.internalBorder:      5
 URxvt.externalBorder:      0
 
 URxvt.scrollBar:           false

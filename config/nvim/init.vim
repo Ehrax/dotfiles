@@ -6,7 +6,7 @@
 if 0 | endif
 
 if &compatible
-set nocompatible               " Be iMproved
+    set nocompatible                            " Be iMproved
 endif
 
 " Required:
@@ -30,7 +30,6 @@ call neobundle#begin(expand('~/Dotfiles/config/nvim/bundle/'))
  NeoBundle 'https://github.com/kien/ctrlp.vim.git'
  NeoBundle 'https://github.com/Raimondi/delimitMate.git'
  NeoBundle 'https://github.com/Valloric/MatchTagAlways.git'
- NeoBundle 'https://github.com/justinmk/vim-syntax-extra.git'
  NeoBundle 'https://github.com/Yggdroot/indentLine.git'
  NeoBundle 'https://github.com/Shougo/deoplete.nvim.git'
  NeoBundle 'https://github.com/ervandew/supertab.git'
@@ -53,6 +52,7 @@ set splitright
 
 " line numbers 
 set number
+set relativenumber 
 
 " syntax 
 syntax enable
@@ -60,9 +60,6 @@ set background=dark
 
 " encoding
 set encoding=utf8
-
-" lang
-set spelllang=de,en
 
 " stfu vim
 set noerrorbells visualbell t_vb=
@@ -120,7 +117,7 @@ set foldmethod=marker
 " set switchbuf=usetab
 
 " make Vim run moar smooth
-set ttyfast
+" set ttyfast
 
 " mouse in all modes
 set mouse=a
@@ -135,11 +132,11 @@ set colorcolumn=80
 " fu swapfiles
 set noswapfile
 set nobackup
+
 " auto read file when a file is changed from outside
 set autoread
 " normal OS clipboard interaction
 set clipboard=unnamedplus
-
 set undofile
 " maximum number of changes that can be undone
 set undolevels=1000
@@ -205,17 +202,14 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
+
 " save as sudo
 cabbrev w!! w !sudo tee % > /dev/null %
-
-" Paste mode
-nnoremap <F2> :set invpaste paste?<CR>
-set pastetoggle=<F2>
-set showmode
 
 " use, y and ,p to copy and paste from system clipboard
 noremap <leader>y "+y
 noremap <leader>Y "+Y
+
 " when pasting from clipboard toggle the paste feature and use the indent
 " adjusted paste ]p and ]P. This prevents breaking of alignment when pasting
 " in code from websites and etc..

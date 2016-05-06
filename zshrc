@@ -68,6 +68,7 @@ alias sopra="~/Doc/Studium/Sopra/git"
 alias meinserver="ssh root@87.106.15.110"
 alias vim="nvim"
 alias dot="cd ~/Dotfiles"
+alias pycharm="~/App/pycharm/bin/pycharm.sh"
 
 # Start & Stop Eduroam
 alias edu="sudo netctl start eduroam"

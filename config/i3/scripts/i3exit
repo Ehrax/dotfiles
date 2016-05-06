@@ -1,8 +1,4 @@
 #!/bin/sh
-lock() {
-    i3lock -c "#000000"
-}
-
 case "$1" in
     lock)
         ~/.config/i3/scripts/i3lock/lock.sh 
