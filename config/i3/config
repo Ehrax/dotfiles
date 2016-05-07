@@ -56,15 +56,17 @@ bar {
         status_command python ~/.config/i3/pystatus.py
         position top
       	font pango:Source Sans Pro 12, FontAwesome 10
-        separator_symbol " ❱ "
+        #separator_symbol "❰"
+        separator_symbol "|"
+        #separator_symbol " ❱ "
         colors {
-            background          "#242C33"
-            statusline          "#ecedee"
-            separator           "#565656"
-            focused_workspace   "#242c33" "#C64742" "#CACACA"
-            active_workspace    "#242c33" "#242c33" "#797979"
-            inactive_workspace  "#242c33" "#242c33" "#CACACA"
-            urgent_workspace    "#242c33" "#242c33" "#ff9d17" #"#f3ea0c"
+            background          "#1b181b"
+            statusline          "#f7f3f7"
+            separator           "#464346"
+            focused_workspace   "#1b181b" "#1b181b" "#7b59c0"
+            active_workspace    "#1b181b" "#1b181b" "#797979"
+            inactive_workspace  "#1b181b" "#1b181b" "#f7f3f7"
+            urgent_workspace    "#1b181b" "#1b181b" "#ca402b" 
         }
 }
 

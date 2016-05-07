@@ -1,7 +1,5 @@
 from i3pystatus import Status
-
-status = Status(standalone=True)
-
+status = Status(standalone=True) 
 # Displays clock 
 status.register("clock",
     hints = {"markup": "pango"},
@@ -42,5 +40,6 @@ status.register("pulseaudio",
     format = " {volume}%",
     color_unmuted = "#8BADF9",
     color_muted = "#ff797b",)
+
 
 status.run()

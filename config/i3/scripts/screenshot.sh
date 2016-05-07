@@ -1,4 +1,4 @@
 #! /bin/zsh
-scrot '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/Pictures/Screenshots'
+scrot '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/Media/Pictures/Screenshots'
 sleep 0.1
 Thunar ~/Media/Pictures/Screenshots
