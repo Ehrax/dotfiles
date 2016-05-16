@@ -4,17 +4,17 @@ status = Status(standalone=True)
 
 # Displays clock
 status.register("clock", hints = {"markup": "pango"},
-    format = "<span color=\"#3498DB\"> %a %-d %b</span><span color=\"#E74C3C\"> | </span> %X",
-    color = "#E74C3C",
+    format = "<span color=\"#81a2be\"> %a %-d %b</span><span color=\"#373b41\"> | </span> %X",
+    color = "#cc6666",
     on_leftclick = "google-chrome-stable https://calendar.google.com/calendar/",)
 
 # Battery Status
 status.register("battery",
     format = "{status} {percentage: .1f}%",
     alert = True,
-    full_color = "#2ECC71",
-    critical_color = "#E74C3C",
-    charging_color = "#9B59B6",
+    full_color = "#b5bd68",
+    critical_color = "#cc6666",
+    charging_color = "#e0e0e0",
     interval = 10,
     status={
         "DIS":  "",
@@ -25,8 +25,9 @@ status.register("battery",
 # Memory status
 status.register("mem",
     format = " {used_mem} M",
-    color = "#F1C40F",
-    warn_color = "#e66e21", alert_color = "#eb654f",
+    color = "#f0c674",
+    warn_color = "#de935f",
+    alert_color = "#cc6666",
     interval = 5,
     warn_percentage = 80,
     alert_percentage = 95,
@@ -35,24 +36,24 @@ status.register("mem",
 # CPU status
 status.register("cpu_usage",
     format = " {usage:02}%",
-    color = "#1ABC9C",)
+    color = "#81a2be",)
 
 # Volume Status
 status.register("pulseaudio",
     format = " {volume}%",
-    color_unmuted = "#3498DB",
-    color_muted = "#E74C3C",)
+    color_unmuted = "#8abeb7",
+    color_muted = "#cc6666",)
 
 # Pacman Updates Count
 status.register("shell",
     command="/home/alex/Dotfiles/config/i3/scripts/pacman_update.sh",
-    color = "#E67E22",
+    color = "#de935f",
     interval = 500)
 
 # current song
 status.register("shell",
     command="/home/alex/Dotfiles/config/i3/scripts/now_playing.sh",
-    color = "#BDC3C7",
+    color = "#e0e0e0",
     interval = 10)
 
 

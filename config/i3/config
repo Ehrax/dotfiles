@@ -62,11 +62,11 @@ bar {
         colors {
             background          "#1b181b"
             statusline          "#f7f3f7"
-            separator           "#34495E"
-            focused_workspace   "#1b181b" "#1b181b" "#E74C3C"
+            separator           "#373b41"
+            focused_workspace   "#1b181b" "#1b181b" "#cc6666"
             active_workspace    "#1b181b" "#1b181b" "#ECF0F1"
-            inactive_workspace  "#1b181b" "#1b181b" "#ECF0F1"
-            urgent_workspace    "#1b181b" "#1b181b" "#ca402b" 
+            inactive_workspace  "#1b181b" "#1b181b" "#e0e0e0"
+            urgent_workspace    "#1b181b" "#1b181b" "#f0c674"
         }
 }
 
