@@ -264,6 +264,7 @@ for_window [instance="^atom$"]                                  focus
 bindsym $mod+a 				exec $nsi google-chrome-stable
 bindsym $mod+c				exec $nsi thunar
 bindsym $mod+Print          exec $nsi $scripts/screenshot.sh
+bindsym $mod+o              exec $nsi spotify --force-device-scale-factor=1.0000001
 
 # start a terminal
 bindsym $mod+Return         exec $nsi urxvt
