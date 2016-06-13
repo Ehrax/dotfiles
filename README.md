@@ -1,2 +1,2 @@
 # dotfiles
-![Screenshot](http://i.imgur.com/CTqeWx1.png "Desktop")
+![Screenshot](http://i.imgur.com/V7yWiXi.jpg "Desktop")
