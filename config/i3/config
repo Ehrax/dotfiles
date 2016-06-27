@@ -27,7 +27,7 @@ exec $nsi nitrogen --restore
 exec $nsi setxkbmap de
 exec $nsi ~/.config/i3/scripts/screen_validate.sh
 exec $nsi compton --config ~/.config/compton/compton.conf
-exec $nsi yabar
+#exec $nsi yabar
 
 ###############################################################################
 # }}}
@@ -53,23 +53,23 @@ gaps inner 10
 smart_gaps on
 
 # Laptop eDP1 bar
-#bar {
-        #status_command python ~/.config/i3/pystatus.py
-        #position top
-          #font pango:Source Sans Pro 12, FontAwesome 10
-        ##separator_symbol "❰"
-        #separator_symbol "| "
-        ##separator_symbol " ❱ "
-        #colors {
-            #background          "#1b181b"
-            #statusline          "#f7f3f7"
-            #separator           "#1b181b"
-            #focused_workspace   "#1b181b" "#1b181b" "#cc6666"
-            #active_workspace    "#1b181b" "#1b181b" "#ECF0F1"
-            #inactive_workspace  "#1b181b" "#1b181b" "#e0e0e0"
-            #urgent_workspace    "#1b181b" "#1b181b" "#f0c674"
-        #}
-#}
+bar {
+        status_command python ~/.config/i3/pystatus.py
+        position top
+          font pango:Source Sans Pro 12, FontAwesome 10
+        #separator_symbol "❰"
+        separator_symbol " "
+        #separator_symbol " ❱ "
+        colors {
+            background          "#1b181b"
+            statusline          "#f7f3f7"
+            separator           "#1b181b"
+            focused_workspace   "#1b181b" "#1b181b" "#cc6666"
+            active_workspace    "#1b181b" "#1b181b" "#ECF0F1"
+            inactive_workspace  "#1b181b" "#1b181b" "#e0e0e0"
+            urgent_workspace    "#1b181b" "#1b181b" "#f0c674"
+        }
+}
 
 #############################################################################
 # }}}

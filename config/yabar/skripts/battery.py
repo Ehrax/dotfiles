@@ -24,4 +24,7 @@ if bat_status == "Discharging\n":
     elif bar_capacity >= 10:
         output = " {}%".format(bar_capacity)
 
+if bat_status == "Full\n":
+    output = " {}%".format(bar_capacity)
+
 print(output)

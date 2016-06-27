@@ -4,7 +4,7 @@ status = Status(standalone=True)
 
 # Displays clock
 status.register("clock", hints = {"markup": "pango"},
-    format = "<span color=\"#81a2be\"> %a %-d %b</span><span color=\"#373b41\">    </span> %X",
+    format = "<span color=\"#81a2be\"> %a %-d %b</span><span color=\"#373b41\">  </span> %X",
     color = "#cc6666",
     on_leftclick = "google-chrome-stable https://calendar.google.com/calendar/",)
 
