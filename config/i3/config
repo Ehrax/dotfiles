@@ -27,7 +27,7 @@ exec $nsi nitrogen --restore
 exec $nsi setxkbmap de
 exec $nsi ~/.config/i3/scripts/screen_validate.sh
 exec $nsi compton --config ~/.config/compton/compton.conf
-exec $nsi yabar
+# exec $nsi yabar
 
 ###############################################################################
 # }}}
@@ -45,31 +45,34 @@ client.urgent                   "#242C33" "#3B89B5" "#a5a5a5" "#1A1A1A"
 client.background               "#242C33"
 
 # disable window border
-new_window none
-new_float none
+smart_borders on
+
+# display window bordrs
+new_window pixel 2
+new_float pixel 2
 
 # i3-gaps
 gaps inner 10
 smart_gaps on
 
 # Laptop eDP1 bar
-#bar {
-        #status_command python ~/.config/i3/pystatus.py
-        #position top
-          #font pango:Source Sans Pro 12, FontAwesome 10
-        ##separator_symbol "❰"
-        #separator_symbol "| "
-        ##separator_symbol " ❱ "
-        #colors {
-            #background          "#1b181b"
-            #statusline          "#f7f3f7"
-            #separator           "#1b181b"
-            #focused_workspace   "#1b181b" "#1b181b" "#cc6666"
-            #active_workspace    "#1b181b" "#1b181b" "#ECF0F1"
-            #inactive_workspace  "#1b181b" "#1b181b" "#e0e0e0"
-            #urgent_workspace    "#1b181b" "#1b181b" "#f0c674"
-        #}
-#}
+bar {
+        status_command python ~/.config/i3/pystatus.py
+        position top
+          font pango:Source Sans Pro 12, FontAwesome 10
+        #separator_symbol "❰"
+        separator_symbol " "
+        #separator_symbol " ❱ "
+        colors {
+            background          "#1b181b"
+            statusline          "#f7f3f7"
+            separator           "#1b181b"
+            focused_workspace   "#1b181b" "#1b181b" "#cc6666"
+            active_workspace    "#1b181b" "#1b181b" "#ECF0F1"
+            inactive_workspace  "#1b181b" "#1b181b" "#e0e0e0"
+            urgent_workspace    "#1b181b" "#1b181b" "#f0c674"
+        }
+}
 
 #############################################################################
 # }}}
@@ -115,7 +118,7 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# move window 
+# move window
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
@@ -156,22 +159,22 @@ bindsym $mod+Shift+r restart
 ########################## PULSE AUDIO CONTROL ################################
 
 #increase sound volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% 
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5%
 #decrease sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% 
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5%
 # mute sound
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle 
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle
 
 ########################## SCREEN BRIGHTNESS CONTROL ##########################
 
 # increase screen brightness
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20
 # decrease screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 
 ########################## TOUCHPAD CONTROLS ##################################
 
-bindsym XF86TouchpadToggle exec $scripts/toggletouchpad.sh 
+bindsym XF86TouchpadToggle exec $scripts/toggletouchpad.sh
 
 ########################## MEDIA PLAYER CONTROL  ##############################
 
@@ -200,7 +203,7 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 
-# spotify_control 
+# spotify_control
 bindsym $mod+p mode "$spotify_control"
 set $spotify_control (p)ause, (n)ext, (l)ast
 mode "$spotify_control" {
@@ -269,7 +272,7 @@ bindsym $mod+o              exec $nsi spotify --force-device-scale-factor=1.0000
 
 # start a terminal
 bindsym $mod+Return         exec $nsi urxvt
-# ROFI 
+# ROFI
 bindsym $mod+space exec $nsi $scripts/rofi.sh
 ###############################################################################
 # }}}

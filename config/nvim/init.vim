@@ -20,7 +20,7 @@ call neobundle#begin(expand('~/Dotfiles/config/nvim/bundle/'))
 
 " My Bundles:
  NeoBundle 'https://github.com/tpope/vim-fugitive.git' 
- NeoBundle 'https://github.com/chriskempson/base16-vim.git'
+ "NeoBundle 'https://github.com/chriskempson/base16-vim.git'
  NeoBundle 'https://github.com/scrooloose/nerdtree.git'
  NeoBundle 'https://github.com/jistr/vim-nerdtree-tabs.git'
  NeoBundle 'https://github.com/vim-airline/vim-airline.git'
@@ -33,6 +33,7 @@ call neobundle#begin(expand('~/Dotfiles/config/nvim/bundle/'))
  NeoBundle 'https://github.com/Yggdroot/indentLine.git'
  NeoBundle 'https://github.com/Shougo/deoplete.nvim.git'
  NeoBundle 'https://github.com/ervandew/supertab.git'
+ NeoBundle 'https://github.com/morhetz/gruvbox.git'
 call neobundle#end()
 
 " Required:
@@ -145,8 +146,7 @@ set undoreload=10000
 set undodir=~/Dotfiles/config/nvim/undodir//
 
 " ######## COLORSCHEME SETTINGS ###############################################
-let base16colorspace=256
-colorscheme base16-ocean
+colorscheme gruvbox
 set background=dark
 set t_Co=256
 " dont syntax highlight extrem long lines...
