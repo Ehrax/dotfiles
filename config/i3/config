@@ -38,10 +38,10 @@ exec $nsi compton --config ~/.config/compton/compton.conf
 font pango:Terminus 8
 
 # Layout colors                 border              bg        text
-client.focused                  "#343D46" "#343D46" "#BBBBBB" "#4F4F4F"
-client.focused_inactive         "#080808" "#080808" "#424242" "#121212"
-client.unfocused                "#080808" "#080808" "#4F4F4F" "#1A1A1A"
-client.urgent                   "#242C33" "#3B89B5" "#a5a5a5" "#1A1A1A"
+client.focused                  "#d08770" "#d08770" "#eff1f5" "#d08770"
+client.focused_inactive         "#2b303b" "#2b303b" "#eff1f5" "#121212"
+client.unfocused                "#2b303b" "#2b303b" "#eff1f5" "#1A1A1A"
+client.urgent                   "#242C33" "#3B89B5" "#eff1f5" "#1A1A1A"
 client.background               "#242C33"
 
 # disable window border
