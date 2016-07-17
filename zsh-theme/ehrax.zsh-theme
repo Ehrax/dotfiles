@@ -82,6 +82,6 @@ PROMPT="
 %{$fg[blue]%}[%{$reset_color%}%T%{$fg[blue]%}]%{$reset_color%} \
 %{$terminfo[bold]$fg[yellow]%}${current_dir}%{$reset_color%}\
 ${git_info}
-%{$terminfo[bold]$fg[red]%}└❱ %{$reset_color%}"
+%{$terminfo[bold]$fg[red]%}└❱%{$reset_color%}%{$fg[yellow]%}❱%{$reset_color%} "
 
 RPROMPT='${return_code}$(git_prompt_status)%{$reset_color%} $(git_time_since_commit)'

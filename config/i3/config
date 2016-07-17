@@ -41,18 +41,18 @@ font pango:Terminus 8
 client.focused                  "#d08770" "#d08770" "#eff1f5" "#d08770"
 client.focused_inactive         "#2b303b" "#2b303b" "#eff1f5" "#121212"
 client.unfocused                "#2b303b" "#2b303b" "#eff1f5" "#1A1A1A"
-client.urgent                   "#242C33" "#3B89B5" "#eff1f5" "#1A1A1A"
-client.background               "#242C33"
+client.urgent                   "#2b303b" "#2b303b" "#eff1f5" "#1A1A1A"
+client.background               "#2b303b"
 
 # disable window border
 smart_borders on
 
 # display window bordrs
-new_window pixel 2
-new_float pixel 2
+  new_window pixel 2
+  new_float pixel 2
 
 # i3-gaps
-gaps inner 10
+gaps inner 10 
 smart_gaps on
 
 # Laptop eDP1 bar
@@ -125,7 +125,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+n split h
+bindsym $mod+m split h
 
 # split in vertical orientation
 bindsym $mod+v split v
