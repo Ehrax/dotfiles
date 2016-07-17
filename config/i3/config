@@ -27,7 +27,6 @@ exec $nsi nitrogen --restore
 exec $nsi setxkbmap de
 exec $nsi ~/.config/i3/scripts/screen_validate.sh
 exec $nsi compton --config ~/.config/compton/compton.conf
-# exec $nsi yabar
 
 ###############################################################################
 # }}}
