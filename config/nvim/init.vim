@@ -19,13 +19,10 @@ call neobundle#begin(expand('~/Dotfiles/config/nvim/bundle/'))
  NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My Bundles:
- NeoBundle 'https://github.com/tpope/vim-fugitive.git' 
  NeoBundle 'https://github.com/chriskempson/base16-vim.git'
  NeoBundle 'https://github.com/scrooloose/nerdtree.git'
- NeoBundle 'https://github.com/jistr/vim-nerdtree-tabs.git'
  NeoBundle 'https://github.com/vim-airline/vim-airline.git'
  NeoBundle 'https://github.com/vim-airline/vim-airline-themes.git'
- NeoBundle 'https://github.com/airblade/vim-gitgutter.git'
  NeoBundle 'https://github.com/scrooloose/nerdcommenter.git'
  NeoBundle 'https://github.com/kien/ctrlp.vim.git'
  NeoBundle 'https://github.com/Raimondi/delimitMate.git'
@@ -33,6 +30,7 @@ call neobundle#begin(expand('~/Dotfiles/config/nvim/bundle/'))
  NeoBundle 'https://github.com/Yggdroot/indentLine.git'
  NeoBundle 'https://github.com/Shougo/deoplete.nvim.git'
  NeoBundle 'https://github.com/ervandew/supertab.git'
+ NeoBundle 'https://github.com/airblade/vim-gitgutter.git'
 call neobundle#end()
 
 " Required:
@@ -52,18 +50,11 @@ set splitright
 
 " line numbers 
 set number
-set relativenumber 
-
-" syntax 
-syntax enable
-set background=dark
+"set relativenumber 
+" syntax syntax enable
 
 " encoding
 set encoding=utf8
-
-" stfu vim
-set noerrorbells visualbell t_vb=
-autocmd GUIEnter * set visualbell t_vb=
 
 " ######## SEARCH #############################################################
 " instant regex preview
@@ -83,47 +74,40 @@ set ignorecase
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
+
 " copy the indention from prev line
 set autoindent
 " auto indent in some files e.g. C-line
 set smartindent
-" wrapping words
-set formatoptions+=t
-" no new line after 80 chars
-set textwidth=0
-" wrap long lines - only for display, no new lines!
-set linebreak
-set wrap
-" wrap 5 chars before right window border
-set wrapmargin=5
+
 " Tab-stuff
 set expandtab
 set smarttab
+
 " smart backspace
 set backspace=indent,eol,start
 
+" wrap long lines - only for display, no new lines!
+set linebreak
+set wrap
+
+" no new line after 80 chars
+set textwidth=0
+
 " ######## VISUAL #############################################################
-set nolazyredraw
 " show matching brackets
 set showmatch
+
 " graphical menu for command mode autocomplete
 set wildmenu
-
-set scrolloff=3
 " folding
 set foldmethod=marker
-
-" use tabs
-" set switchbuf=usetab
-
-" make Vim run moar smooth
-" set ttyfast
 
 " mouse in all modes
 set mouse=a
 
 " cursor-zeile markieren
-set cursorline
+"set cursorline
 
 " show column number 80
 set colorcolumn=80
@@ -148,11 +132,6 @@ set undodir=~/Dotfiles/config/nvim/undodir//
 let base16colorspace=256
 colorscheme base16-ocean
 set background=dark
-set t_Co=256
-" dont syntax highlight extrem long lines...
-set synmaxcol=300
-set gcr=n:blinkon0
-
 " cursor sawp
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 " }}}
@@ -176,6 +155,8 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_extensions = ['mixed']
 let g:ctrlp_cmd = 'CtrlPMixed'
 set hidden
+
+let g:gitgutter_override_sign_column_highlight = 0
 
 " ######## DEOPLETE ###########################################################
 let g:deoplete#enable_at_startup = 1

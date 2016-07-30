@@ -37,10 +37,10 @@ exec $nsi compton --config ~/.config/compton/compton.conf
 font pango:Terminus 8
 
 # Layout colors                 border              bg        text
-client.focused                  "#d08770" "#d08770" "#eff1f5" "#d08770"
-client.focused_inactive         "#2b303b" "#2b303b" "#eff1f5" "#121212"
-client.unfocused                "#2b303b" "#2b303b" "#eff1f5" "#1A1A1A"
-client.urgent                   "#2b303b" "#2b303b" "#eff1f5" "#1A1A1A"
+client.focused                  "#d08770" "#d08770" "#f7f3f7" "#f7f3f7"
+client.focused_inactive         "#2b303b" "#2b303b" "#f7f3f7" "#f7f3f7"
+client.unfocused                "#2b303b" "#2b303b" "#f7f3f7" "#f7f3f7"
+client.urgent                   "#2b303b" "#2b303b" "#f7f3f7" "#f7f3f7"
 client.background               "#2b303b"
 
 # disable window border
@@ -63,13 +63,13 @@ bar {
         separator_symbol " "
         #separator_symbol " ❱ "
         colors {
-            background          "#1b181b"
+            background          "#2b303b"
             statusline          "#f7f3f7"
-            separator           "#1b181b"
-            focused_workspace   "#1b181b" "#1b181b" "#cc6666"
-            active_workspace    "#1b181b" "#1b181b" "#ECF0F1"
-            inactive_workspace  "#1b181b" "#1b181b" "#e0e0e0"
-            urgent_workspace    "#1b181b" "#1b181b" "#f0c674"
+            separator           "#2b303b"
+            focused_workspace   "#2b303b" "#2b303b" "#cc6666"
+            active_workspace    "#2b303b" "#2b303b" "#ECF0F1"
+            inactive_workspace  "#2b303b" "#2b303b" "#e0e0e0"
+            urgent_workspace    "#2b303b" "#2b303b" "#f0c674"
         }
 }
 
