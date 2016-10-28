@@ -24,9 +24,9 @@ set $WS10 			    "10:&#xf108;"
 ###############################################################################
 
 exec $nsi nitrogen --restore
-exec $nsi setxkbmap de
-exec $nsi ~/.config/i3/scripts/screen_validate.sh
-exec $nsi compton --config ~/.config/compton/compton.conf
+# exec $nsi ~/.config/i3/scripts/screen_validate.sh
+# exec $nsi compton --backend xrender --vsync drm --unredir-if-possible --xrender-sync-fence
+exec $nsi compton
 
 ###############################################################################
 # }}}
@@ -34,42 +34,64 @@ exec $nsi compton --config ~/.config/compton/compton.conf
 # LOOK {{{
 ###############################################################################
 
-font pango:Terminus 8
+font pango:Source Sans Pro 9
 
 # Layout colors                 border              bg        text
-client.focused                  "#d08770" "#d08770" "#f7f3f7" "#f7f3f7"
-client.focused_inactive         "#2b303b" "#2b303b" "#f7f3f7" "#f7f3f7"
-client.unfocused                "#2b303b" "#2b303b" "#f7f3f7" "#f7f3f7"
-client.urgent                   "#2b303b" "#2b303b" "#f7f3f7" "#f7f3f7"
-client.background               "#2b303b"
+client.focused                  "#be5046" "#be5046" "#f7f3f7" "#be5046"
+client.focused_inactive         "#282c34" "#282c34" "#f7f3f7" "#be5046"
+client.unfocused                "#282c34" "#282c34" "#f7f3f7" "#be5046"
+client.urgent                   "#282c34" "#282c34" "#f7f3f7" "#be5046"
+client.background               "#282c34"
 
 # disable window border
 smart_borders on
 
 # display window bordrs
-  new_window pixel 2
+  new_window pixel 3
   new_float pixel 2
 
 # i3-gaps
-gaps inner 10 
-smart_gaps on
+#gaps inner 10 
+#smart_gaps on
 
 # Laptop eDP1 bar
 bar {
         status_command python ~/.config/i3/pystatus.py
+        strip_workspace_numbers yes
         position top
-          font pango:Source Sans Pro 12, FontAwesome 10
-        #separator_symbol "❰"
+        height 20
+        font pango:Source Sans Pro 12, FontAwesome 10
+        output eDP1
         separator_symbol " "
-        #separator_symbol " ❱ "
+        tray_output primary
         colors {
-            background          "#2b303b"
+            background          "#282c34"
             statusline          "#f7f3f7"
-            separator           "#2b303b"
-            focused_workspace   "#2b303b" "#2b303b" "#cc6666"
-            active_workspace    "#2b303b" "#2b303b" "#ECF0F1"
-            inactive_workspace  "#2b303b" "#2b303b" "#e0e0e0"
-            urgent_workspace    "#2b303b" "#2b303b" "#f0c674"
+            separator           "#282c34"
+            focused_workspace   "#282c34" "#282c34" "#be5046"
+            active_workspace    "#282c34" "#282c34" "#ECF0F1"
+            inactive_workspace  "#282c34" "#282c34" "#e0e0e0"
+            urgent_workspace    "#282c34" "#282c34" "#f0c674"
+        }
+}
+
+bar {
+        status_command python ~/.config/i3/pystatus.py
+        strip_workspace_numbers yes
+        position top
+        height 20
+        font pango:Source Sans Pro 12, FontAwesome 10
+        output HDMI1
+        tray_output none
+        separator_symbol " "
+        colors {
+            background          "#282c34"
+            statusline          "#f7f3f7"
+            separator           "#282c34"
+            focused_workspace   "#282c34" "#282c34" "#be5046"
+            active_workspace    "#282c34" "#282c34" "#ECF0F1"
+            inactive_workspace  "#282c34" "#282c34" "#e0e0e0"
+            urgent_workspace    "#282c34" "#282c34" "#f0c674"
         }
 }
 
@@ -158,9 +180,9 @@ bindsym $mod+Shift+r restart
 ########################## PULSE AUDIO CONTROL ################################
 
 #increase sound volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5%
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +1%
 #decrease sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -1%
 # mute sound
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle
 
@@ -217,17 +239,24 @@ mode "$spotify_control" {
 # rezize
 mode "resize" {
         bindsym Right resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Up resize grow height 10 px or 10 ppt
+        bindsym Down resize shrink height 10 px or 10 ppt
         bindsym Left resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
 bindsym $mod+r mode "resize"
 
+# change screen resolution
+bindsym $mod+i mode "$resolution"
+set $resolution (q) university
+mode "$resolution" {
+    bindsym q exec $nsi $scripts/resolution.sh university, mode "default"
 
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
 
 ###############################################################################
 # }}}
@@ -235,25 +264,13 @@ bindsym $mod+r mode "resize"
 # RULE {{{
 ###############################################################################
 workspace $ws1 				output eDP1
-workspace $ws4				output eDP1
-workspace $ws5 				output eDP1
-
-assign [class="^google-chrome$"]	                            "2:&#xf268;"
-assign [class="^jetbrains-idea$"]	                            "3:&#xf121;"
-assign [instance="^subl3$"]		                                "3:&#xf121;"
-assign [instance="^spotify"]		                            "5:&#xf1bc;"
-assign [class="^Thunderbird$"]                                  "7:&#xf003;"
-assign [class="^smplayer$"]                                     "6:&#xf03e;"
-assign [instance="^atom$"]                                      "3:&#xf121;"
 
 for_window [instance="arandr"]                                  floating enable, border normal, focus, move absolute center
 for_window [instance="nitrogen"]	                            floating enable, border normal, focus, move absolute center
 for_window [class="^Lxappearance$"]	                            floating enable, border normal, focus, move absolute center
-for_window [class="^Termite$"] 	                                focus
-for_window [class="^google-chrome$"]	                        focus
+for_window [class="^google-chrome-stable$"]	                    focus
 for_window [class="^smplayer$"]		                            focus
 for_window [class="^spotify$"]		                            focus
-for_window [instance="^xfce4-taskmanager$"]	                    floating enable, border normal, focus, move absolute center
 for_window [class="^jetbrains-idea$"]	                        focus
 for_window [instance="^subl3$"]		                            focus
 for_window [class="^Thunderbird$"]                              focus
@@ -267,11 +284,13 @@ for_window [instance="^atom$"]                                  focus
 bindsym $mod+a 				exec $nsi google-chrome-stable
 bindsym $mod+c				exec $nsi thunar
 bindsym $mod+Print          exec $nsi $scripts/screenshot.sh
-bindsym $mod+o              exec $nsi spotify --force-device-scale-factor=1.0000001
+bindsym $mod+o              exec $nsi spotify 
 
 # start a terminal
-bindsym $mod+Return         exec $nsi urxvt
+bindsym $mod+Return         exec $nsi roxterm
+
 # ROFI
 bindsym $mod+space exec $nsi $scripts/rofi.sh
+
 ###############################################################################
 # }}}

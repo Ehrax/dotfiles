@@ -4,9 +4,6 @@ export ZSH=/home/alex/.oh-my-zsh
 ###############################################################################
 
 # Set name of the theme to load.
-
-# ZSH_THEME="agnoster"
-# ZSH_THEME="bullet-train"
 ZSH_THEME="ehrax"
 
 ###############################################################################
@@ -16,7 +13,7 @@ ZSH_THEME="ehrax"
 ###############################################################################
 
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker colored-man-pages tmux)
+plugins=(git docker colored-man-pages)
 
 ###############################################################################
 # }}} 
@@ -42,13 +39,11 @@ PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 
 export EDITOR='nvim'
 
-# Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-eval $(dircolors ~/.dircolors)
+export DERBY_HOME=/home/alex/App/db-derby-10.12.1.1-bin
+export PATH=$DERBY_HOME/bin:$PATH
 
 ## fish-like syntax highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # DEFAULT user
 DEFAULT_USER="alex"
@@ -64,11 +59,11 @@ alias yi="yaourt"
 alias so="source ~/.zshrc"
 alias home="cd ~/"
 alias int="~/App/idea/bin/idea.sh"
-alias sopra="~/Doc/Studium/Sopra/git"
-alias meinserver="ssh root@87.106.15.110"
 alias vim="nvim"
 alias dot="cd ~/Dotfiles"
 alias pycharm="~/App/pycharm/bin/pycharm.sh"
+alias src="cd ~/Src"
+alias and='~/App/android-studio/bin/studio.sh'
 
 # Start & Stop Eduroam
 alias edu="sudo netctl start eduroam"
@@ -76,6 +71,9 @@ alias edu="sudo netctl start eduroam"
 # Start & Stop network
 alias nt="sudo netctl start"
 alias ntd="sudo netctl stop"
+
+alias tmux='env TERM=xterm-256color tmux'
+
 
 
 ###############################################################################

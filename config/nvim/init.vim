@@ -15,22 +15,34 @@ set runtimepath^=~/Dotfiles/config/nvim/bundle/neobundle.vim/
 " Required:
 call neobundle#begin(expand('~/Dotfiles/config/nvim/bundle/'))
 
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
+
 " Required:
  NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My Bundles:
- NeoBundle 'https://github.com/chriskempson/base16-vim.git'
  NeoBundle 'https://github.com/scrooloose/nerdtree.git'
  NeoBundle 'https://github.com/vim-airline/vim-airline.git'
  NeoBundle 'https://github.com/vim-airline/vim-airline-themes.git'
  NeoBundle 'https://github.com/scrooloose/nerdcommenter.git'
  NeoBundle 'https://github.com/kien/ctrlp.vim.git'
  NeoBundle 'https://github.com/Raimondi/delimitMate.git'
- NeoBundle 'https://github.com/Valloric/MatchTagAlways.git'
  NeoBundle 'https://github.com/Yggdroot/indentLine.git'
- NeoBundle 'https://github.com/Shougo/deoplete.nvim.git'
- NeoBundle 'https://github.com/ervandew/supertab.git'
- NeoBundle 'https://github.com/airblade/vim-gitgutter.git'
+ NeoBundle 'https://github.com/joshdick/onedark.vim.git'
+ NeoBundle 'https://github.com/Valloric/YouCompleteMe.git'
+ NeoBundle 'https://github.com/leafgarland/typescript-vim.git'
+ NeoBundle 'https://github.com/sheerun/vim-polyglot.git'
+ NeoBundle 'Quramy/tsuquyomi'
+ NeoBundle 'https://github.com/tpope/vim-surround.git'
+ NeoBundle 'https://github.com/mattn/emmet-vim.git'
 call neobundle#end()
 
 " Required:
@@ -51,7 +63,6 @@ set splitright
 " line numbers 
 set number
 "set relativenumber 
-" syntax syntax enable
 
 " encoding
 set encoding=utf8
@@ -100,8 +111,6 @@ set showmatch
 
 " graphical menu for command mode autocomplete
 set wildmenu
-" folding
-set foldmethod=marker
 
 " mouse in all modes
 set mouse=a
@@ -129,9 +138,21 @@ set undoreload=10000
 set undodir=~/Dotfiles/config/nvim/undodir//
 
 " ######## COLORSCHEME SETTINGS ###############################################
-let base16colorspace=256
-colorscheme base16-ocean
-set background=dark
+" set background=dark
+
+if (empty($TMUX))
+  if (has("nvim"))
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+
+syntax on
+colorscheme onedark
+
+
 " cursor sawp
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 " }}}
@@ -142,40 +163,16 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 " ######## AIRLINE ############################################################
 set laststatus=2
 let g:airline_powerline_fonts=1
-let g:airline#extensions#tabline#enabled=1
 let g:airline_theme='base16'
+let g:airline#extensions#tabline#enabled=1
 
-" ######## GIT GLITTER ########################################################
-set updatetime=1000
-" ######## CTRL SPACE #########################################################
-let g:ctrlp_mruf_max = 10000
-let g:ctrlp_max_files = 10000
-let g:ctrlp_mruf_last_entered = 0
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_extensions = ['mixed']
-let g:ctrlp_cmd = 'CtrlPMixed'
-set hidden
+" ######## AIRLINE ############################################################
+set completeopt-=preview 
+let g:ycm_add_preview_to_completeopt=0
 
-let g:gitgutter_override_sign_column_highlight = 0
+" ######## NERDTREE ###########################################################
+map <C-n> :NERDTreeToggle<CR>
 
-" ######## DEOPLETE ###########################################################
-let g:deoplete#enable_at_startup = 1
-if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
-endif
-
-" omnifuncs
-augroup omnifuncs
-  autocmd!
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup end
-
-" ######## SUPERTAB ###########################################################
-let g:SuperTabDefaultCompletionType = "<c-n>"
 " }}}
 " =============================================================================
 " KEYBINDINGS {{{ 
@@ -196,9 +193,6 @@ noremap <leader>Y "+Y
 " in code from websites and etc..
 noremap <leader>p :set paste<cr>"+]p:set nopaste<cr>
 noremap <leader>P :set paste<cr>"+]P:set nopaste<cr>
-
-" NERDTree to F1 
-nnoremap <F1> :NERDTreeToggle<cr>
 
 " turn of highlighting on backspace
 nnoremap <silent> <bs> :nohl<cr>
