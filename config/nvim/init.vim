@@ -1,17 +1,14 @@
 " =============================================================================
-" Plugins {{{
+" Plugins
 " =============================================================================
-
 " Note: Skip initialization for vim-tiny or vim-small.
 if 0 | endif
-
 if &compatible
     set nocompatible                            " Be iMproved
 endif
 
 " Required:
 set runtimepath^=~/Dotfiles/config/nvim/bundle/neobundle.vim/
-
 " Required:
 call neobundle#begin(expand('~/Dotfiles/config/nvim/bundle/'))
 
@@ -33,16 +30,17 @@ NeoBundle 'Shougo/vimproc.vim', {
  NeoBundle 'https://github.com/vim-airline/vim-airline.git'
  NeoBundle 'https://github.com/vim-airline/vim-airline-themes.git'
  NeoBundle 'https://github.com/scrooloose/nerdcommenter.git'
- NeoBundle 'https://github.com/kien/ctrlp.vim.git'
+ NeoBundle 'https://github.com/ctrlpvim/ctrlp.vim.git'
  NeoBundle 'https://github.com/Raimondi/delimitMate.git'
  NeoBundle 'https://github.com/Yggdroot/indentLine.git'
- NeoBundle 'https://github.com/joshdick/onedark.vim.git'
  NeoBundle 'https://github.com/Valloric/YouCompleteMe.git'
- NeoBundle 'https://github.com/leafgarland/typescript-vim.git'
  NeoBundle 'https://github.com/sheerun/vim-polyglot.git'
  NeoBundle 'Quramy/tsuquyomi'
  NeoBundle 'https://github.com/tpope/vim-surround.git'
  NeoBundle 'https://github.com/mattn/emmet-vim.git'
+ NeoBundle 'https://github.com/skammer/vim-css-color.git'
+ NeoBundle 'https://github.com/rakr/vim-one.git'
+ NeoBundle 'https://github.com/ryanoasis/vim-devicons.git'
 call neobundle#end()
 
 " Required:
@@ -51,21 +49,21 @@ filetype plugin indent on
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 NeoBundleCheck
-" }}}
+
 " =============================================================================
-" Basic Settings {{{ 
+" Basic Settings
 " =============================================================================
 let mapleader="\<space>"
 
 " split windows to right
 set splitright
 
-" line numbers 
+" line numbers
 set number
-"set relativenumber 
 
 " encoding
 set encoding=utf8
+
 
 " ######## SEARCH #############################################################
 " instant regex preview
@@ -134,11 +132,12 @@ set undofile
 " maximum number of changes that can be undone
 set undolevels=1000
 " maximum number lines to save for undo on a buffer reload
-set undoreload=10000 
+set undoreload=10000
 set undodir=~/Dotfiles/config/nvim/undodir//
 
 " ######## COLORSCHEME SETTINGS ###############################################
-" set background=dark
+
+set background=dark
 
 if (empty($TMUX))
   if (has("nvim"))
@@ -150,14 +149,13 @@ if (empty($TMUX))
 endif
 
 syntax on
-colorscheme onedark
-
+colorscheme one
 
 " cursor sawp
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-" }}}
+
 " =============================================================================
-" PLUGINS SETTINGS {{{ 
+" PLUGINS SETTINGS
 " =============================================================================
 
 " ######## AIRLINE ############################################################
@@ -166,16 +164,14 @@ let g:airline_powerline_fonts=1
 let g:airline_theme='base16'
 let g:airline#extensions#tabline#enabled=1
 
-" ######## AIRLINE ############################################################
-set completeopt-=preview 
+" ######## YOU COMPLETE ME ####################################################
+set completeopt-=preview
 let g:ycm_add_preview_to_completeopt=0
-
 " ######## NERDTREE ###########################################################
 map <C-n> :NERDTreeToggle<CR>
 
-" }}}
 " =============================================================================
-" KEYBINDINGS {{{ 
+" KEYBINDINGS
 " =============================================================================
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
@@ -203,4 +199,3 @@ map <Esc><Esc> :w<CR>
 "buffer browsing bwith left/right arrows
 nnoremap <Left> :bprev<CR>
 nnoremap <Right> : bnext<CR>
-" }}}

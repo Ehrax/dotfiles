@@ -1,0 +1,7 @@
+#####################################################################
+# vi-mode OS global
+#####################################################################
+lalt - h         ![HyperTerm,Terminal]      :   khd -p "- left"
+lalt - j         ![HyperTerm,Terminal]      :   khd -p "- down"
+lalt - k         ![HyperTerm,Terminal]      :   khd -p "- up"
+lalt - l         ![HyperTerm,Terminal]      :   khd -p "- right"
