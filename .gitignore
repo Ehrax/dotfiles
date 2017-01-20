@@ -5,3 +5,6 @@ config/nvim/bundle
 config/i3/.config.*
 tmux/resurrect
 tmux/plugins
+
+# mac stuff
+.DS_Store

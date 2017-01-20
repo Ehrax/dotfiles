@@ -38,7 +38,6 @@ NeoBundle 'Shougo/vimproc.vim', {
  NeoBundle 'Quramy/tsuquyomi'
  NeoBundle 'https://github.com/tpope/vim-surround.git'
  NeoBundle 'https://github.com/mattn/emmet-vim.git'
- NeoBundle 'https://github.com/skammer/vim-css-color.git'
  NeoBundle 'https://github.com/rakr/vim-one.git'
  NeoBundle 'https://github.com/ryanoasis/vim-devicons.git'
 call neobundle#end()
