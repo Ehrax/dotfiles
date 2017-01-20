@@ -1,5 +1,5 @@
 " =============================================================================
-" Plugins
+" Plugin
 " =============================================================================
 " Note: Skip initialization for vim-tiny or vim-small.
 if 0 | endif
@@ -40,6 +40,7 @@ NeoBundle 'Shougo/vimproc.vim', {
  NeoBundle 'https://github.com/mattn/emmet-vim.git'
  NeoBundle 'https://github.com/rakr/vim-one.git'
  NeoBundle 'https://github.com/ryanoasis/vim-devicons.git'
+ NeoBundle 'https://github.com/jistr/vim-nerdtree-tabs.git'
 call neobundle#end()
 
 " Required:
@@ -62,7 +63,6 @@ set number
 
 " encoding
 set encoding=utf8
-
 
 " ######## SEARCH #############################################################
 " instant regex preview
@@ -138,13 +138,8 @@ set undodir=~/Dotfiles/config/nvim/undodir//
 
 set background=dark
 
-if (empty($TMUX))
-  if (has("nvim"))
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  if (has("termguicolors"))
+if has("termguicolors")
     set termguicolors
-  endif
 endif
 
 syntax on
@@ -162,12 +157,36 @@ set laststatus=2
 let g:airline_powerline_fonts=1
 let g:airline_theme='base16'
 let g:airline#extensions#tabline#enabled=1
-
+let g:airline#extensions#whitespace#enabled=0
 " ######## YOU COMPLETE ME ####################################################
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt=0
+
 " ######## NERDTREE ###########################################################
-map <C-n> :NERDTreeToggle<CR>
+nnoremap <silent> <leader>n :NERDTreeTabsToggle<Cr>
+
+let g:nerdtree_tabs_open_on_gui_startup=0
+let g:nerdtree_open_open_on_console_startup=0
+
+" ######## ctrlp ###########################################################
+
+nnoremap <leader>p :CtrlPMixed<Cr>
+
+map <leader>F :CtrlP %%<cr>
+
+let g:ctrlp_mruf_max = 10000
+let g:ctrlp_max_files = 10000
+let g:ctrlp_mruf_last_entered = 0
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_extensions = ['mixed']
+let g:ctrlp_cmd = 'CtrlPMixed'
+
+" Open list of buffers in CtrlP
+nnoremap <leader>be :CtrlPBuffer<CR>
+
+" Faster access to CtrlP's MRU list
+cabbrev mr CtrlPMRUFiles<CR>
+nnoremap <leader>mr :CtrlPMRUFiles<cr>
 
 " =============================================================================
 " KEYBINDINGS
@@ -176,18 +195,9 @@ map <C-n> :NERDTreeToggle<CR>
 map j gj
 map k gk
 
-" save as sudo
-cabbrev w!! w !sudo tee % > /dev/null %
-
 " use, y and ,p to copy and paste from system clipboard
 noremap <leader>y "+y
 noremap <leader>Y "+Y
-
-" when pasting from clipboard toggle the paste feature and use the indent
-" adjusted paste ]p and ]P. This prevents breaking of alignment when pasting
-" in code from websites and etc..
-noremap <leader>p :set paste<cr>"+]p:set nopaste<cr>
-noremap <leader>P :set paste<cr>"+]P:set nopaste<cr>
 
 " turn of highlighting on backspace
 nnoremap <silent> <bs> :nohl<cr>
@@ -197,4 +207,4 @@ map <Esc><Esc> :w<CR>
 
 "buffer browsing bwith left/right arrows
 nnoremap <Left> :bprev<CR>
-nnoremap <Right> : bnext<CR>
+nnoremap <Right> :bnext<CR>
