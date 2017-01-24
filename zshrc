@@ -69,6 +69,8 @@ if [ -f ~/.fzf.zsh ]; then
 fi
 
 export FZF_TMUX=1
+export FZF_TMUX_HEIGHT=10
+export FZF_CTRL_R_OPTS="$FZF_DEFAULT_OPTS"
 
 ###############################################################################
 # ALIASES
