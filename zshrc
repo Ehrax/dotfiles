@@ -72,6 +72,10 @@ export FZF_TMUX=1
 export FZF_TMUX_HEIGHT=10
 export FZF_CTRL_R_OPTS="$FZF_DEFAULT_OPTS"
 
+# Add rbenv to bash so that it loads every time you open a terminal
+echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
+source ~/.bash_profile
+
 ###############################################################################
 # ALIASES
 ###############################################################################
