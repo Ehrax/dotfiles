@@ -50,18 +50,6 @@
 ;; current cursor line
 (global-hl-line-mode t)
 
-;; Show column
-(use-package fill-column-indicator
-  :ensure t
-  :init
-  (add-hook 'c-mode-common-hook #'fci-mode)
-  (add-hook 'mail-mode-hook #'fci-mode)
-  (add-hook 'js2-mode-hook #'fci-mode)
-  :config
-  (setq fci-rule-width 1)
-  (setq fci-rule-color "#ABB2BF")
-  (setq-default fill-column 80))
-
 
 ;; Show system name and full file path in emacs frame title
 (setq frame-title-format
@@ -130,6 +118,19 @@
   (package-refresh-contents) (package-install 'use-package))
 (require 'use-package)
 (setq use-package-verbose t)
+
+
+;; Show column
+(use-package fill-column-indicator
+  :ensure t
+  :init
+  (add-hook 'c-mode-common-hook #'fci-mode)
+  (add-hook 'mail-mode-hook #'fci-mode)
+  (add-hook 'js2-mode-hook #'fci-mode)
+  :config
+  (setq fci-rule-width 1)
+  (setq fci-rule-color "#ABB2BF")
+  (setq-default fill-column 80))
 
 
 ;; no idea where this comes from...
@@ -225,6 +226,7 @@
       "f" 'onc/indent-whole-buffer
       "o" 'helm-find-files
       "b" 'helm-mini
+      "p" 'helm-projectile
       "ci" 'evilnc-comment-or-uncomment-lines
       "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
       "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
@@ -275,7 +277,18 @@
   ;; Don't use full width of the frame
 
   (setq helm-split-window-in-side-p t)
-  (helm-autoresize-mode t))
+  (helm-autoresize-mode t)
+  (use-package helm-projectile
+    :ensure t
+    :init (helm-projectile-on)
+    :config
+    (setq projectile-completion-system 'helm)))
+
+
+;; Projects in emacs
+(use-package projectile
+  :ensure t
+  :init (projectile-mode t))
 
 
 ;; show git modification
@@ -505,15 +518,6 @@
   (setq web-mode-markup-indent-offset 2
                  web-mode-css-indent-offset 2
                  web-mode-code-indent-offset 2))
-
-;; ;; XML files
-;; (use-package nxml-mode
-;;   :mode (("\\.xml\\'" . nxml-mode)
-;;          ("\\.xslt\\'" . nxml-mode)
-;;          ("\\.xsd\\'" . nxml-mode))
-;;   :config
-;;   (setq nxml-child-indent 2
-;;                  nxml-attribute-indent 2))
 
 
 ;; Support for AsciiDoc
