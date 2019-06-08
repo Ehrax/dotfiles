@@ -7,48 +7,20 @@ if &compatible
     set nocompatible                            " Be iMproved
 endif
 
-" Required:
-set runtimepath^=~/Dotfiles/config/nvim/bundle/neobundle.vim/
-" Required:
-call neobundle#begin(expand('~/Dotfiles/config/nvim/bundle/'))
-
-NeoBundle 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
-
-" Required:
- NeoBundleFetch 'Shougo/neobundle.vim'
-
-" My Bundles:
- NeoBundle 'https://github.com/scrooloose/nerdtree.git'
- NeoBundle 'https://github.com/vim-airline/vim-airline.git'
- NeoBundle 'https://github.com/vim-airline/vim-airline-themes.git'
- NeoBundle 'https://github.com/scrooloose/nerdcommenter.git'
- NeoBundle 'https://github.com/ctrlpvim/ctrlp.vim.git'
- NeoBundle 'https://github.com/Raimondi/delimitMate.git'
- NeoBundle 'https://github.com/Yggdroot/indentLine.git'
- NeoBundle 'https://github.com/Valloric/YouCompleteMe.git'
- NeoBundle 'https://github.com/sheerun/vim-polyglot.git'
- NeoBundle 'Quramy/tsuquyomi'
- NeoBundle 'https://github.com/tpope/vim-surround.git'
- NeoBundle 'https://github.com/mattn/emmet-vim.git'
- NeoBundle 'https://github.com/rakr/vim-one.git'
- NeoBundle 'https://github.com/ryanoasis/vim-devicons.git'
- NeoBundle 'https://github.com/jistr/vim-nerdtree-tabs.git'
-call neobundle#end()
-
-" Required:
-filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.local/share/nvim/plugged')
+ Plug 'https://github.com/vim-airline/vim-airline.git'
+ Plug 'https://github.com/vim-airline/vim-airline-themes.git'
+ Plug 'https://github.com/joshdick/onedark.vim.git'
+ Plug 'https://github.com/Raimondi/delimitMate.git'
+ Plug 'https://github.com/Yggdroot/indentLine.git'
+ Plug 'https://github.com/sheerun/vim-polyglot.git'
+ Plug 'https://github.com/tpope/vim-surround.git'
+ Plug 'https://github.com/mattn/emmet-vim.git'
+" Initialize plugin system
+call plug#end()
 
 " =============================================================================
 " Basic Settings
@@ -143,7 +115,7 @@ if has("termguicolors")
 endif
 
 syntax on
-colorscheme one
+colorscheme onedark
 
 " cursor sawp
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
@@ -155,38 +127,12 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 " ######## AIRLINE ############################################################
 set laststatus=2
 let g:airline_powerline_fonts=1
-let g:airline_theme='base16'
+let g:airline_theme='onedark'
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#whitespace#enabled=0
 " ######## YOU COMPLETE ME ####################################################
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt=0
-
-" ######## NERDTREE ###########################################################
-nnoremap <silent> <leader>n :NERDTreeTabsToggle<Cr>
-
-let g:nerdtree_tabs_open_on_gui_startup=0
-let g:nerdtree_open_open_on_console_startup=0
-
-" ######## ctrlp ###########################################################
-
-nnoremap <leader>p :CtrlPMixed<Cr>
-
-map <leader>F :CtrlP %%<cr>
-
-let g:ctrlp_mruf_max = 10000
-let g:ctrlp_max_files = 10000
-let g:ctrlp_mruf_last_entered = 0
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_extensions = ['mixed']
-let g:ctrlp_cmd = 'CtrlPMixed'
-
-" Open list of buffers in CtrlP
-nnoremap <leader>be :CtrlPBuffer<CR>
-
-" Faster access to CtrlP's MRU list
-cabbrev mr CtrlPMRUFiles<CR>
-nnoremap <leader>mr :CtrlPMRUFiles<cr>
 
 " =============================================================================
 " KEYBINDINGS

@@ -18,7 +18,7 @@ ZSH_THEME="ehrax"
 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(osx git git-flow-avh docker colored-man-pages tmux rails
-        brew zsh-syntax-highlighting colorize)
+        brew colorize)
 
 ###############################################################################
 # User configuration 
