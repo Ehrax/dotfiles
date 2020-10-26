@@ -3,7 +3,7 @@
 ###############################################################################
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/alexanderrasputin/.oh-my-zsh
+export ZSH=/Users/ehrax/.oh-my-zsh
 # RVM
 export PATH="$PATH:$HOME/.rvm/bin"
 # BREW
