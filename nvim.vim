@@ -104,7 +104,7 @@ set undofile
 set undolevels=1000
 " maximum number lines to save for undo on a buffer reload
 set undoreload=10000
-set undodir=~/Dotfiles/config/nvim/undodir//
+set undodir=~/Projects/Dotfiles/config/nvim/undodir//
 
 " ######## COLORSCHEME SETTINGS ###############################################
 

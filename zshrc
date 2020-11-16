@@ -3,22 +3,18 @@
 ###############################################################################
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/alexanderrasputin/.oh-my-zsh
+export ZSH=/Users/alekei/.oh-my-zsh
+# Flutter
+export PATH="$PATH:`pwd`/Applications/Flutter/bin"
+# NVM
+export NVM_DIR=~/.nvm
+eval "$(rbenv init -)"
 # RVM
 export PATH="$PATH:$HOME/.rvm/bin"
-# BREW
-export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:$PATH"
-
-###############################################################################
-# THEME & PLUGINS
-###############################################################################
+source "$(brew --prefix nvm)/nvm.sh"
 
 # Set name of theme to load.
 ZSH_THEME="ehrax"
-
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(osx git git-flow-avh docker colored-man-pages tmux rails
-        brew colorize)
 
 ###############################################################################
 # User configuration 
@@ -72,10 +68,6 @@ export FZF_TMUX=1
 export FZF_TMUX_HEIGHT=10
 export FZF_CTRL_R_OPTS="$FZF_DEFAULT_OPTS"
 
-# Add rbenv to bash so that it loads every time you open a terminal
-echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
-source ~/.bash_profile
-
 ###############################################################################
 # ALIASES
 ###############################################################################
@@ -83,4 +75,7 @@ alias so="source ~/.zshrc"
 alias home="cd ~/"
 alias vim="nvim"
 
+###############################################################################
+# CUSTOM
+###############################################################################
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
