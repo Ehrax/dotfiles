@@ -1,9 +1,6 @@
 ###############################################################################
 # PATH
 ###############################################################################
-# NPM TOKEN
-export NPM_TOKEN="e0991481-0fd0-437a-95cd-c86f6c65a493"
-
 # Android
 export ANDROID_SDK_ROOT="/Users/ehrax/Library/Android/sdk"
 
@@ -37,7 +34,7 @@ plugins=(osx git git-flow-avh docker colored-man-pages tmux rails
         brew colorize)
 
 ###############################################################################
-# User configuration 
+# User configuration
 ###############################################################################
 
 # uncomment following line if you want red dots to be displayed while waitinf for completion

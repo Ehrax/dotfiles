@@ -1,10 +1,11 @@
-# basic stuff 
+# basic stuff
 config/nvim/undodir
 config/nvim/.init.vim-rplugin~
 config/nvim/bundle
 config/i3/.config.*
 tmux/resurrect
 tmux/plugins
+.idea
 
 # mac stuff
 .DS_Store
