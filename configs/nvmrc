@@ -1,2 +1,3 @@
 //registry.npmjs.org/:_authToken=${NPM_TOKEN}
+legacy-peer-deps=true
 16.13.1
