@@ -23,6 +23,7 @@ git clone https://github.com/Ehrax/dotfiles "$HOME_DIR/$DOTFILES_DIR"
 # Setting Up Dev Utilities
 echo "Installing Fish Shell & Starship"
 ln -s "$HOME/$DOTFILES_DIR/config.fish" "$HOME/.config/fish/config.fish"
+
 echo /usr/local/bin/fish | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
 
@@ -30,11 +31,7 @@ echo "Installing Java8"
 
 echo "Installing nvm"
 
-echo "Installing TMUX Settings"
-ln -s "$HOME/$DOTFILES_DIR/tmux.conf" "$HOME_DIR/.tmux.conf"
-
 echo "Installing up NeoVIM"
-ln -s "$HOME/$DOTFILES_DIR/nvim.vim" "$HOME_DIR/.config/nvim/init.vim"
 
 echo "Configurating Git"
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"

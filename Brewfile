@@ -15,26 +15,29 @@ brew 'wget'
 brew 'tree'
 brew 'trash'
 brew 'koekeishiya/formulae/khd'
+brew 'cocoapods
 
 ## Dev Utilities
 brew 'git'
 brew 'gh'
-brew 'nvm'
+brew 'fisher'
 brew 'diff-so-fancy'
-brew 'nvm'
 brew 'jenv'
 cask 'firefox'
 cask 'iterm2'
+cask 'webstorm'
 
 # Mac Apps
 ## Communication
 cask 'slack'
 cask 'spotify'
 cask 'whatsapp'
-cask 'webstorm'
+cask 'discord'
 
 ## Productivity
+cask 'figma'
 cask 'google-chrome'
+cask 'notion'
 
 ## System
 cask 'the-unarchiver'
