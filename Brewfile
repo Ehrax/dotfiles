@@ -1,47 +1,46 @@
 # Taps
-tap 'homebrew/cask-fonts'
+tap "homebrew/cask-fonts"
 
 ## Shell Utilities
-brew 'ack'
-brew 'tmux'
-brew 'starship'
-brew 'fish'
+brew "ack"
+brew "tmux"
+brew "starship"
+brew "fish"
 
 ## Network Utilities
-brew 'htop'
-brew 'wget'
+brew "htop"
+brew "wget"
 
 ## System Utilities
-brew 'tree'
-brew 'trash'
-brew 'koekeishiya/formulae/khd'
-brew 'cocoapods
+brew "tree"
+brew "trash"
+brew "cocoapods"
 
 ## Dev Utilities
-brew 'git'
-brew 'gh'
-brew 'fisher'
-brew 'diff-so-fancy'
-brew 'jenv'
-cask 'firefox'
-cask 'iterm2'
-cask 'webstorm'
+brew "git"
+brew "gh"
+brew "fisher"
+brew "diff-so-fancy"
+cask "iterm2"
+cask "webstorm"
+cask "visual-studio-code"
 
 # Mac Apps
 ## Communication
-cask 'slack'
-cask 'spotify'
-cask 'whatsapp'
-cask 'discord'
+cask "slack"
+cask "spotify"
+cask "whatsapp"
+cask "discord"
+cask "telegram"
 
 ## Productivity
-cask 'figma'
-cask 'google-chrome'
-cask 'notion'
+cask "figma"
+cask "google-chrome"
+cask "firefox"
+cask "notion"
 
 ## System
-cask 'the-unarchiver'
-cask 'visual-studio-code'
+cask "the-unarchiver"
 
 # Fonts
-cask 'font-fira-code-nerd-font'
+cask "font-fira-code-nerd-font"
