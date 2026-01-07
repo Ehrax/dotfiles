@@ -1,0 +1,51 @@
+# Lazygit Configuration
+# https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+
+gui:
+  # Use delta for diffs
+  pager: delta --dark --paging=never
+  theme:
+    activeBorderColor:
+      - "#61afef"
+      - bold
+    inactiveBorderColor:
+      - "#545862"
+    optionsTextColor:
+      - "#61afef"
+    selectedLineBgColor:
+      - "#3e4451"
+    cherryPickedCommitBgColor:
+      - "#98c379"
+    cherryPickedCommitFgColor:
+      - "#282c34"
+    unstagedChangesColor:
+      - "#e06c75"
+  showFileTree: true
+  showRandomTip: false
+  showCommandLog: false
+
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+  commit:
+    signOff: false
+  merging:
+    manualCommit: false
+    args: ""
+
+os:
+  editPreset: "nvim"
+
+refresher:
+  refreshInterval: 10
+
+update:
+  method: never
+
+confirmOnQuit: false
+
+keybinding:
+  universal:
+    quit: q
+    return: <esc>

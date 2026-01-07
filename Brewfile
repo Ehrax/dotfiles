@@ -1,33 +1,70 @@
 # Taps
 tap "homebrew/cask-fonts"
+tap "leoafarias/fvm"
 
-## Shell Utilities
-brew "ack"
-brew "tmux"
-brew "starship"
+# =============================================================================
+# CLI Tools
+# =============================================================================
+
+## Shell
 brew "fish"
+brew "fisher"
+brew "starship"
 
-## Network Utilities
-brew "htop"
-brew "wget"
-
-## System Utilities
+## Search & Navigation
+brew "ack"
+brew "fzf"
+brew "ripgrep"
+brew "fd"
 brew "tree"
-brew "trash"
-brew "cocoapods"
+brew "zoxide"
 
-## Dev Utilities
+## Modern CLI Replacements
+brew "bat"         # cat replacement
+brew "eza"         # ls replacement
+brew "sd"          # sed replacement
+brew "jq"          # JSON processor
+brew "tldr"        # man replacement
+brew "httpie"      # curl alternative
+
+## System Monitoring
+brew "btop"
+
+## Git & Version Control
 brew "git"
 brew "gh"
-brew "fisher"
-brew "diff-so-fancy"
-cask "iterm2"
-cask "webstorm"
+brew "lazygit"
+brew "delta"
+brew "tree-sitter"
+
+# =============================================================================
+# Development Tools
+# =============================================================================
+
+## Node.js
+brew "fnm"
+brew "bun"
+
+## Ruby
+brew "rbenv"
+
+## Flutter / Dart
+brew "leoafarias/fvm/fvm"
+brew "dart"
+
+## AI Tools
+brew "claude"
+
+# =============================================================================
+# Applications
+# =============================================================================
+
+## Development
+cask "ghostty"
+cask "android-studio"
 cask "visual-studio-code"
 
-# Mac Apps
 ## Communication
-cask "slack"
 cask "spotify"
 cask "whatsapp"
 cask "discord"
@@ -36,11 +73,12 @@ cask "telegram"
 ## Productivity
 cask "figma"
 cask "google-chrome"
-cask "firefox"
-cask "notion"
 
 ## System
 cask "the-unarchiver"
 
+# =============================================================================
 # Fonts
+# =============================================================================
+
 cask "font-fira-code-nerd-font"
