@@ -147,9 +147,9 @@ create_symlink "$DOTFILES_DIR/configs/nvim" "$HOME/.config/nvim"
 # Starship
 create_symlink "$DOTFILES_DIR/configs/starship/starship.toml" "$HOME/.config/starship.toml"
 
-# Ghostty
-mkdir -p "$HOME/.config/ghostty"
-create_symlink "$DOTFILES_DIR/configs/ghostty/config" "$HOME/.config/ghostty/config"
+# Ghostty (macOS path)
+mkdir -p "$HOME/Library/Application Support/com.mitchellh.ghostty"
+create_symlink "$DOTFILES_DIR/configs/ghostty/config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
 
 # Lazygit
 mkdir -p "$HOME/.config/lazygit"
