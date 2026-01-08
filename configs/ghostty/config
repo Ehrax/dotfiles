@@ -4,9 +4,21 @@
 # Font
 font-family = "FiraCode Nerd Font"
 font-size = 14
-
 # Shell
 command = /opt/homebrew/bin/fish
+
+# =============================================================================
+# Terminal Compatibility (fixes for Claude Code and other modern CLI tools)
+# =============================================================================
+
+# Use xterm-256color for better compatibility with tools that don't recognize
+# xterm-ghostty. This fixes issues with escape sequences like [27;2;13~
+term = xterm-256color
+
+# Shell integration - disable cursor feature to prevent blinking override
+# Fish shell handles cursor on its own, so we disable Ghostty's cursor control
+shell-integration = detect
+shell-integration-features = no-cursor,sudo,title
 
 # Window
 window-padding-x = 10
@@ -17,7 +29,6 @@ macos-titlebar-style = tabs
 # Cursor (block/square, no blinking)
 cursor-style = block
 cursor-style-blink = false
-shell-integration-features = no-cursor
 
 # Mouse
 mouse-hide-while-typing = true
@@ -27,18 +38,40 @@ clipboard-read = allow
 clipboard-write = allow
 copy-on-select = true
 
+# Image handling - required for pasting images into terminal applications
+# Note: Image pasting in Claude Code depends on the Kitty graphics protocol
+# which Ghostty supports, but Claude Code may need specific image encoding
+image-storage-limit = 320000000
+
 # Scrollback
 scrollback-limit = 10000
 
 # =============================================================================
-# One Dark Color Scheme
+# Vim-like Split Keybindings
 # =============================================================================
 
-background = 282c34
+# Create splits
+keybind = ctrl+w>v=new_split:right
+keybind = ctrl+w>s=new_split:down
+
+# Navigate splits
+keybind = ctrl+w>h=goto_split:left
+keybind = ctrl+w>j=goto_split:bottom
+keybind = ctrl+w>k=goto_split:top
+keybind = ctrl+w>l=goto_split:right
+
+# Close split
+keybind = ctrl+w>q=close_surface
+
+# =============================================================================
+# One Dark Color Scheme (VS Code style - darker background)
+# =============================================================================
+
+background = 21252b
 foreground = abb2bf
 
 # Normal colors
-palette = 0=#282c34
+palette = 0=#21252b
 palette = 1=#e06c75
 palette = 2=#98c379
 palette = 3=#e5c07b

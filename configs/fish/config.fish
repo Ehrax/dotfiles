@@ -6,6 +6,23 @@
 set -g fish_greeting
 
 # =============================================================================
+# Cursor Configuration (for Ghostty / terminals)
+# =============================================================================
+
+# Force Fish to set cursor styles (needed for Ghostty)
+set -g fish_vi_force_cursor 1
+
+# Set all cursor modes to non-blinking block
+# Values: block, line, underscore (prepend "blinking-" for blinking variants)
+set -g fish_cursor_default block
+set -g fish_cursor_insert block
+set -g fish_cursor_replace_one block
+set -g fish_cursor_replace block
+set -g fish_cursor_visual block
+set -g fish_cursor_external block
+set -g fish_cursor_unknown block
+
+# =============================================================================
 # PATH Configuration
 # =============================================================================
 

@@ -4,7 +4,7 @@ return {
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
 
   -- Disable mini.indentscope (animated indent guides)
-  { "echasnovski/mini.indentscope", enabled = false },
+  { "nvim-mini/mini.indentscope", enabled = false },
 
   -- Configure snacks.nvim (LazyVim's utility plugin)
   {
