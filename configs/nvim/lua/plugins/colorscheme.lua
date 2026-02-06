@@ -13,6 +13,9 @@ return {
         ending_tildes = false,
         cmp_itemkind_reverse = false,
         toggle_style_key = nil,
+        colors = {
+          bg0 = "#21252b",
+        },
         code_style = {
           comments = "italic",
           keywords = "none",
