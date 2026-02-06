@@ -63,6 +63,7 @@ Dotfiles/
 │   └── macos.sh        # macOS system preferences
 ├── docs/
 │   ├── FLUTTER_SETUP.md
+│   ├── GIT_WORKTREES.md
 │   └── MACOS_SETUP.md
 ├── archive/            # Old configs (zsh, etc.)
 ├── Brewfile            # Homebrew packages
@@ -92,6 +93,7 @@ After running `init.sh`:
 3. **Logout/restart** - for keyboard repeat settings
 
 For Flutter development, see [docs/FLUTTER_SETUP.md](docs/FLUTTER_SETUP.md)
+For parallel development with git worktrees, see [docs/GIT_WORKTREES.md](docs/GIT_WORKTREES.md)
 
 ## Customization
 
