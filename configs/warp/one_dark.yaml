@@ -1,0 +1,35 @@
+# One Dark Theme for Warp Terminal
+# Based on Atom's One Dark theme
+#
+# Installation:
+#   1. Create the themes directory: mkdir -p ~/.warp/themes
+#   2. Symlink this file: ln -sf ~/Projects/ehrax.dev/Dotfiles/configs/warp/one_dark.yaml ~/.warp/themes/one_dark.yaml
+#   3. Restart Warp or wait a few minutes for it to detect the new theme
+#   4. Go to Settings > Appearance > Current Theme and select "One Dark"
+
+name: One Dark
+accent: "#61afef"
+cursor: "#528bff"
+background: "#21252b"
+foreground: "#abb2bf"
+details: darker
+
+terminal_colors:
+  normal:
+    black: "#21252b"
+    red: "#e06c75"
+    green: "#98c379"
+    yellow: "#e5c07b"
+    blue: "#61afef"
+    magenta: "#c678dd"
+    cyan: "#56b6c2"
+    white: "#abb2bf"
+  bright:
+    black: "#545862"
+    red: "#e06c75"
+    green: "#98c379"
+    yellow: "#e5c07b"
+    blue: "#61afef"
+    magenta: "#c678dd"
+    cyan: "#56b6c2"
+    white: "#c8ccd4"
