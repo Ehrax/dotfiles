@@ -23,6 +23,7 @@ The setup script is interactive and will guide you through:
 - **Fish** - Modern shell with great defaults
 - **Starship** - Minimal, fast prompt
 - **Ghostty** - GPU-accelerated terminal (One Dark theme)
+- **tmux** - Terminal multiplexer with session persistence
 
 ### Editor
 - **Neovim** + LazyVim - Modern Vim with LSP, treesitter, etc.
@@ -55,6 +56,7 @@ Dotfiles/
 ├── configs/
 │   ├── fish/           # Fish shell config
 │   ├── nvim/           # LazyVim configuration
+│   ├── tmux/           # Tmux configuration
 │   ├── git/            # Git config + global ignore
 │   ├── starship/       # Starship prompt
 │   ├── ghostty/        # Terminal config
@@ -78,6 +80,13 @@ Dotfiles/
 - `v` / `vim` - Open Neovim
 - `reload` - Reload fish config
 
+### Tmux
+- `Ctrl+Space` - Prefix key
+- `Ctrl+h/j/k/l` - Navigate across vim splits and tmux panes seamlessly
+- `prefix + |` / `prefix + -` - Split panes
+- `prefix + s` - Session picker
+- See [docs/TMUX_SETUP.md](docs/TMUX_SETUP.md) for full reference
+
 ### Neovim (LazyVim)
 - `<Space>` - Leader key
 - `<Left>` / `<Right>` - Buffer navigation
@@ -92,6 +101,7 @@ After running `init.sh`:
 2. **Open Neovim** - plugins will auto-install
 3. **Logout/restart** - for keyboard repeat settings
 
+For tmux setup and keybindings, see [docs/TMUX_SETUP.md](docs/TMUX_SETUP.md)
 For Flutter development, see [docs/FLUTTER_SETUP.md](docs/FLUTTER_SETUP.md)
 For parallel development with git worktrees, see [docs/GIT_WORKTREES.md](docs/GIT_WORKTREES.md)
 

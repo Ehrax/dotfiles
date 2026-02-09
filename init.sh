@@ -159,6 +159,16 @@ create_symlink "$DOTFILES_DIR/configs/lazygit/config.yml" "$HOME/.config/lazygit
 create_symlink "$DOTFILES_DIR/configs/git/config" "$HOME/.gitconfig"
 create_symlink "$DOTFILES_DIR/configs/git/ignore" "$HOME/.gitignore"
 
+# Tmux
+mkdir -p "$HOME/.config/tmux"
+create_symlink "$DOTFILES_DIR/configs/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
+
+# Claude Code (shared settings for personal and work)
+mkdir -p "$HOME/.claude"
+mkdir -p "$HOME/.claude-work"
+create_symlink "$DOTFILES_DIR/configs/claude/settings.json" "$HOME/.claude/settings.json"
+create_symlink "$DOTFILES_DIR/configs/claude/settings.json" "$HOME/.claude-work/settings.json"
+
 # =============================================================================
 # Shell Setup
 # =============================================================================
@@ -189,6 +199,15 @@ fi
 # Install Fisher plugins
 print_step "Installing Fisher plugins..."
 fish -c "fisher update" 2>/dev/null || fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher" 2>/dev/null
+
+# Install TPM (Tmux Plugin Manager)
+if [[ ! -d "$HOME/.config/tmux/plugins/tpm" ]]; then
+    print_step "Installing TPM (Tmux Plugin Manager)..."
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.config/tmux/plugins/tpm"
+    print_success "TPM installed"
+else
+    print_success "TPM already installed"
+fi
 
 # =============================================================================
 # Optional: Development Setup
@@ -273,6 +292,8 @@ echo ""
 echo "Useful commands:"
 echo "  - lg          : Open Lazygit"
 echo "  - v / vim     : Open Neovim"
+echo "  - t           : Start tmux"
+echo "  - ta <name>   : Attach to tmux session"
 echo "  - reload      : Reload Fish config"
 echo ""
 
