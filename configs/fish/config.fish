@@ -53,6 +53,11 @@ fish_add_path $HOME/.cargo/bin
 set -gx BUN_INSTALL $HOME/.bun
 fish_add_path $BUN_INSTALL/bin
 
+# Load last set Claude config dir
+if test -f ~/.fish_claude_dir
+    source ~/.fish_claude_dir
+end
+
 # =============================================================================
 # Tool Initialization
 # =============================================================================
@@ -166,6 +171,17 @@ alias p='cd ~/Projects'
 alias reload='source ~/.config/fish/config.fish'
 
 # =============================================================================
+# Tmux
+# =============================================================================
+
+alias t='tmux'
+alias ta='tmux attach -t'
+alias tn='tmux new -s'
+alias tl='tmux ls'
+alias tk='tmux kill-session -t'
+alias tks='tmux kill-server'
+
+# =============================================================================
 # Claude Code
 # =============================================================================
 
@@ -173,6 +189,19 @@ alias c="clear; claude --dangerously-skip-permissions"
 alias co="clear; claude --dangerously-skip-permissions --model opus"
 alias cs="clear; claude --dangerously-skip-permissions --model sonnet"
 alias ch="clear; claude --dangerously-skip-permissions --model haiku"
+
+# Claude config dir switchers
+function cc --description "Switch to personal Claude config"
+    sed -i "" 's|CLAUDE_CONFIG_DIR.*|CLAUDE_CONFIG_DIR "/Users/ehrax/.claude"|' ~/.fish_claude_dir
+    set -gx CLAUDE_CONFIG_DIR "/Users/ehrax/.claude"
+    echo "Switched to personal"
+end
+
+function cm --description "Switch to work Claude config"
+    sed -i "" 's|CLAUDE_CONFIG_DIR.*|CLAUDE_CONFIG_DIR "/Users/ehrax/.claude-work"|' ~/.fish_claude_dir
+    set -gx CLAUDE_CONFIG_DIR "/Users/ehrax/.claude-work"
+    echo "Switched to work"
+end
 
 # =============================================================================
 # Git Worktree Functions (for parallel Claude Code development)

@@ -47,23 +47,6 @@ image-storage-limit = 320000000
 scrollback-limit = 10000
 
 # =============================================================================
-# Vim-like Split Keybindings
-# =============================================================================
-
-# Create splits
-keybind = ctrl+w>v=new_split:right
-keybind = ctrl+w>s=new_split:down
-
-# Navigate splits
-keybind = ctrl+w>h=goto_split:left
-keybind = ctrl+w>j=goto_split:bottom
-keybind = ctrl+w>k=goto_split:top
-keybind = ctrl+w>l=goto_split:right
-
-# Close split
-keybind = ctrl+w>q=close_surface
-
-# =============================================================================
 # One Dark Color Scheme (VS Code style - darker background)
 # =============================================================================
 

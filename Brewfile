@@ -10,6 +10,7 @@ tap "leoafarias/fvm"
 brew "fish"
 brew "fisher"
 brew "starship"
+brew "tmux"
 
 ## Search & Navigation
 brew "ack"

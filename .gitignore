@@ -3,8 +3,7 @@ config/nvim/undodir
 config/nvim/.init.vim-rplugin~
 config/nvim/bundle
 config/i3/.config.*
-tmux/resurrect
-tmux/plugins
+configs/tmux/plugins
 .idea
 
 # mac stuff
