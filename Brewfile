@@ -11,6 +11,7 @@ brew "fish"
 brew "fisher"
 brew "starship"
 brew "tmux"
+brew "gitmux"
 
 ## Search & Navigation
 brew "ack"
