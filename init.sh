@@ -163,11 +163,18 @@ create_symlink "$DOTFILES_DIR/configs/git/ignore" "$HOME/.gitignore"
 mkdir -p "$HOME/.config/tmux"
 create_symlink "$DOTFILES_DIR/configs/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
 
-# Claude Code (shared settings for personal and work)
+# Claude Code (shared settings, statusline, skills, and plugins)
 mkdir -p "$HOME/.claude"
 mkdir -p "$HOME/.claude-work"
+mkdir -p "$HOME/.claude/plugins"  # ensure personal plugins dir exists before work symlink
+
 create_symlink "$DOTFILES_DIR/configs/claude/settings.json" "$HOME/.claude/settings.json"
 create_symlink "$DOTFILES_DIR/configs/claude/settings.json" "$HOME/.claude-work/settings.json"
+create_symlink "$DOTFILES_DIR/configs/claude/statusline.sh" "$HOME/.claude/statusline.sh"
+
+# Share plugins and skills: work profile points to personal's dirs
+create_symlink "$HOME/.claude/plugins" "$HOME/.claude-work/plugins"
+create_symlink "$HOME/.claude/skills"  "$HOME/.claude-work/skills"
 
 # =============================================================================
 # Shell Setup
