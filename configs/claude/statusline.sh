@@ -1,9 +1,24 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # Claude Code Status Line (One Dark themed, no directory)
 # Model | Cost | Duration | Lines +/- | Context %
 
+if ! command -v jq &>/dev/null; then
+    printf 'statusline.sh: jq not found in PATH\n' >&2
+    exit 1
+fi
+
 input=$(cat)
+
+if [[ -z "$input" ]]; then
+    printf 'statusline.sh: received empty input\n' >&2
+    exit 1
+fi
+if ! echo "$input" | jq empty 2>/dev/null; then
+    printf 'statusline.sh: input is not valid JSON\n' >&2
+    exit 1
+fi
 
 # One Dark colors
 C_MODEL='\033[38;2;97;175;239m'    # #61afef blue

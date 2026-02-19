@@ -82,8 +82,8 @@ The prefix key is **Ctrl+Space** (instead of the default Ctrl+b).
 ## Session Persistence
 
 Sessions are automatically saved every 15 minutes by `tmux-continuum` and
-restored on tmux start via `tmux-resurrect`. Neovim sessions are also
-restored using `persistence.nvim`.
+restored on tmux start via `tmux-resurrect`. Neovim sessions can also be restored if a compatible session plugin
+(e.g. `persistence.nvim`) is installed.
 
 ## Plugin Management
 
@@ -91,8 +91,8 @@ Plugins are managed by TPM (Tmux Plugin Manager):
 
 | Key | Action |
 |-----|--------|
-| `prefix + I` | Install plugins |
-| `prefix + U` | Update plugins |
+| `prefix + I` | Install plugins (TPM default, not defined in this config) |
+| `prefix + U` | Update plugins (TPM default, not defined in this config) |
 
 ## How Vim-Tmux Navigation Works
 
@@ -104,6 +104,10 @@ The `vim-tmux-navigator` plugin creates seamless pane switching:
 
 This means `Ctrl+h/j/k/l` works transparently whether you are moving between
 vim splits, tmux panes, or crossing from a vim split into a tmux pane.
+
+> **Note:** The tmux-side keybindings for navigation are configured directly in
+> `tmux.conf` (not installed via TPM). The Neovim side uses the
+> `vim-tmux-navigator` plugin, managed by lazy.nvim.
 
 ## Troubleshooting
 

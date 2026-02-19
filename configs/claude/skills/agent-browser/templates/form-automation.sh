@@ -12,6 +12,7 @@
 # Customize: Update the refs (@e1, @e2, etc.) based on your form's snapshot output
 
 set -euo pipefail
+trap 'agent-browser close 2>/dev/null || true' EXIT
 
 FORM_URL="${1:?Usage: $0 <form-url>}"
 

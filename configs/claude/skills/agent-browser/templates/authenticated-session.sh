@@ -29,7 +29,7 @@ echo "Authentication workflow: $LOGIN_URL"
 # ================================================================
 if [[ -f "$STATE_FILE" ]]; then
     echo "Loading saved state from $STATE_FILE..."
-    if agent-browser --state "$STATE_FILE" open "$LOGIN_URL" 2>/dev/null; then
+    if agent_err=$(agent-browser --state "$STATE_FILE" open "$LOGIN_URL" 2>&1); then
         agent-browser wait --load networkidle
 
         CURRENT_URL=$(agent-browser get url)
@@ -41,7 +41,7 @@ if [[ -f "$STATE_FILE" ]]; then
         echo "Session expired, performing fresh login..."
         agent-browser close 2>/dev/null || true
     else
-        echo "Failed to load state, re-authenticating..."
+        echo "Failed to load state (reason: $agent_err), re-authenticating..."
     fi
     rm -f "$STATE_FILE"
 fi

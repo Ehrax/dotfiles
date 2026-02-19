@@ -12,9 +12,11 @@
 # Optional: Load auth state for protected pages
 
 set -euo pipefail
+trap 'agent-browser close 2>/dev/null || true' EXIT
 
 TARGET_URL="${1:?Usage: $0 <url> [output-dir]}"
 OUTPUT_DIR="${2:-.}"
+echo "Output directory: $(realpath "$OUTPUT_DIR")"
 
 echo "Capturing: $TARGET_URL"
 mkdir -p "$OUTPUT_DIR"

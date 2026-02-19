@@ -28,7 +28,7 @@ You MUST create a task for each of these items and complete them in order:
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
 4. **Present design** — in sections scaled to their complexity, get user approval after each section
 5. **Write design doc** — save to `docs/plans/YYYY-MM-DD-<topic>-design.md` and commit
-6. **Transition to implementation** — invoke writing-plans skill to create implementation plan
+6. **Transition to implementation** — invoke writing-plans skill to create implementation plan (note: `writing-plans` is a separate skill that must be installed independently)
 
 ## Process Flow
 
@@ -52,7 +52,7 @@ digraph brainstorming {
 }
 ```
 
-**The terminal state is invoking writing-plans.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. The ONLY skill you invoke after brainstorming is writing-plans.
+**The terminal state is invoking writing-plans.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. The ONLY skill you invoke after brainstorming is writing-plans. (Note: `writing-plans`, `mcp-builder`, and `frontend-design` are separate skills that must be installed independently.)
 
 ## The Process
 
@@ -79,7 +79,7 @@ digraph brainstorming {
 
 **Documentation:**
 - Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
-- Use elements-of-style:writing-clearly-and-concisely skill if available
+- Use elements-of-style:writing-clearly-and-concisely skill if available (separate skill, must be installed independently)
 - Commit the design document to git
 
 **Implementation:**

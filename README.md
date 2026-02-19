@@ -54,6 +54,7 @@ The setup script is interactive and will guide you through:
 ```
 Dotfiles/
 ├── configs/
+│   ├── claude/          # Claude Code settings + skills
 │   ├── fish/           # Fish shell config
 │   ├── nvim/           # LazyVim configuration
 │   ├── tmux/           # Tmux configuration
@@ -66,7 +67,8 @@ Dotfiles/
 ├── docs/
 │   ├── FLUTTER_SETUP.md
 │   ├── GIT_WORKTREES.md
-│   └── MACOS_SETUP.md
+│   ├── MACOS_SETUP.md
+│   └── TMUX_SETUP.md
 ├── archive/            # Old configs (zsh, etc.)
 ├── Brewfile            # Homebrew packages
 └── init.sh             # Setup script

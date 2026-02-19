@@ -4,6 +4,7 @@ config/nvim/.init.vim-rplugin~
 config/nvim/bundle
 config/i3/.config.*
 configs/tmux/plugins
+configs/tmux/resurrect
 .idea
 
 # mac stuff

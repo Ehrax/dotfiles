@@ -47,8 +47,11 @@ fish_add_path $ANDROID_HOME/tools/bin
 fish_add_path $ANDROID_HOME/platform-tools
 
 # Java (Android Studio bundled JDK — required for Gradle / React Native)
-set -gx JAVA_HOME /Applications/Android\ Studio.app/Contents/jbr/Contents/Home
-fish_add_path $JAVA_HOME/bin
+set -l android_jbr /Applications/Android\ Studio.app/Contents/jbr/Contents/Home
+if test -d $android_jbr
+    set -gx JAVA_HOME $android_jbr
+    fish_add_path $JAVA_HOME/bin
+end
 
 # Rust / Cargo
 fish_add_path $HOME/.cargo/bin
@@ -196,15 +199,15 @@ alias ch="clear; claude --dangerously-skip-permissions --model haiku"
 
 # Claude config dir switchers
 function cc --description "Switch to personal Claude config"
-    sed -i "" 's|CLAUDE_CONFIG_DIR.*|CLAUDE_CONFIG_DIR "/Users/ehrax/.claude"|' ~/.fish_claude_dir
-    set -gx CLAUDE_CONFIG_DIR "/Users/ehrax/.claude"
-    echo "Switched to personal"
+    echo "set -gx CLAUDE_CONFIG_DIR \"$HOME/.claude\"" > ~/.fish_claude_dir
+    set -gx CLAUDE_CONFIG_DIR "$HOME/.claude"
+    echo "Switched to personal ($HOME/.claude)"
 end
 
 function cm --description "Switch to work Claude config"
-    sed -i "" 's|CLAUDE_CONFIG_DIR.*|CLAUDE_CONFIG_DIR "/Users/ehrax/.claude-work"|' ~/.fish_claude_dir
-    set -gx CLAUDE_CONFIG_DIR "/Users/ehrax/.claude-work"
-    echo "Switched to work"
+    echo "set -gx CLAUDE_CONFIG_DIR \"$HOME/.claude-work\"" > ~/.fish_claude_dir
+    set -gx CLAUDE_CONFIG_DIR "$HOME/.claude-work"
+    echo "Switched to work ($HOME/.claude-work)"
 end
 
 # =============================================================================

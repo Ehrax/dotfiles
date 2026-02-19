@@ -90,6 +90,11 @@ if ! command -v brew &>/dev/null; then
     # Add Homebrew to PATH for Apple Silicon
     if [[ -d "/opt/homebrew" ]]; then
         eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -d "/usr/local/bin" ]]; then
+        eval "$(/usr/local/bin/brew shellenv)"
+    else
+        print_error "Homebrew installation directory not found after install."
+        exit 1
     fi
 else
     print_success "Homebrew already installed"
@@ -123,9 +128,19 @@ create_symlink() {
     local source="$1"
     local target="$2"
 
+    if [[ ! -e "$source" ]]; then
+        print_error "Symlink source does not exist, skipping: $source"
+        return 1
+    fi
+
     if [[ -e "$target" ]] && [[ ! -L "$target" ]]; then
-        print_warning "Backing up existing $target to ${target}.backup"
-        mv "$target" "${target}.backup"
+        local backup="${target}.backup"
+        if [[ -e "$backup" ]]; then
+            print_warning "Backup already exists at $backup — skipping to avoid overwrite"
+        else
+            print_warning "Backing up existing $target to $backup"
+            mv "$target" "$backup"
+        fi
     fi
 
     if [[ -L "$target" ]]; then
@@ -162,6 +177,7 @@ create_symlink "$DOTFILES_DIR/configs/git/ignore" "$HOME/.gitignore"
 # Tmux
 mkdir -p "$HOME/.config/tmux"
 create_symlink "$DOTFILES_DIR/configs/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
+create_symlink "$DOTFILES_DIR/configs/tmux/gitmux.conf" "$HOME/.config/tmux/gitmux.conf"
 
 # Claude Code (shared settings, statusline, skills, and plugins)
 mkdir -p "$HOME/.claude"
@@ -208,13 +224,21 @@ fi
 
 # Install Fisher plugins
 print_step "Installing Fisher plugins..."
-fish -c "fisher update" 2>/dev/null || fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher" 2>/dev/null
+if ! fish -c "fisher update"; then
+    print_warning "fisher update failed, attempting fresh Fisher install..."
+    if ! fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"; then
+        print_error "Failed to install Fisher plugins. Run manually: fish -c 'fisher update'"
+    fi
+fi
 
 # Install TPM (Tmux Plugin Manager)
 if [[ ! -d "$HOME/.config/tmux/plugins/tpm" ]]; then
     print_step "Installing TPM (Tmux Plugin Manager)..."
-    git clone https://github.com/tmux-plugins/tpm "$HOME/.config/tmux/plugins/tpm"
-    print_success "TPM installed"
+    if git clone https://github.com/tmux-plugins/tpm "$HOME/.config/tmux/plugins/tpm"; then
+        print_success "TPM installed"
+    else
+        print_error "Failed to clone TPM. Check your network or install manually: git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm"
+    fi
 else
     print_success "TPM already installed"
 fi
@@ -234,6 +258,8 @@ if ask_yes_no "Set up Flutter development environment?"; then
         fvm install stable
         fvm global stable
         print_success "Flutter installed via FVM"
+    else
+        print_warning "fvm not found in PATH. Flutter was not configured. You may need to open a new terminal and re-run."
     fi
 
     # Print Xcode instructions
@@ -261,6 +287,8 @@ if ask_yes_no "Set up Ruby development environment?"; then
         gem install cocoapods
 
         print_success "Ruby $RUBY_VERSION installed with CocoaPods"
+    else
+        print_warning "rbenv not found in PATH. Ruby was not configured. You may need to open a new terminal and re-run."
     fi
 fi
 
@@ -273,6 +301,8 @@ if ask_yes_no "Set up Node.js development environment?"; then
         fnm install --lts
         fnm default lts-latest
         print_success "Node.js LTS installed"
+    else
+        print_warning "fnm not found in PATH. Node was not configured. You may need to open a new terminal and re-run."
     fi
 fi
 
