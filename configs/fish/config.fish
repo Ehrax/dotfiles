@@ -46,6 +46,10 @@ fish_add_path $ANDROID_HOME/tools
 fish_add_path $ANDROID_HOME/tools/bin
 fish_add_path $ANDROID_HOME/platform-tools
 
+# Java (Android Studio bundled JDK — required for Gradle / React Native)
+set -gx JAVA_HOME /Applications/Android\ Studio.app/Contents/jbr/Contents/Home
+fish_add_path $JAVA_HOME/bin
+
 # Rust / Cargo
 fish_add_path $HOME/.cargo/bin
 
@@ -56,6 +60,12 @@ fish_add_path $BUN_INSTALL/bin
 # Load last set Claude config dir
 if test -f ~/.fish_claude_dir
     source ~/.fish_claude_dir
+end
+
+# Load local API secrets (not tracked in git)
+# See configs/claude/env.example for the required variables
+if test -f ~/.claude-secrets.fish
+    source ~/.claude-secrets.fish
 end
 
 # =============================================================================
