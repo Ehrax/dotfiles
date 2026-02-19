@@ -174,7 +174,8 @@ create_symlink "$DOTFILES_DIR/configs/claude/statusline.sh" "$HOME/.claude/statu
 create_symlink "$DOTFILES_DIR/configs/claude/mcp.json" "$HOME/.claude/mcp.json"
 create_symlink "$DOTFILES_DIR/configs/claude/mcp.json" "$HOME/.claude-work/mcp.json"
 
-# Share plugins and skills: work profile points to personal's dirs
+# Skills and plugins (shared across both profiles)
+create_symlink "$DOTFILES_DIR/configs/claude/skills" "$HOME/.claude/skills"
 create_symlink "$HOME/.claude/plugins" "$HOME/.claude-work/plugins"
 create_symlink "$HOME/.claude/skills"  "$HOME/.claude-work/skills"
 
