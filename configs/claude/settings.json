@@ -6,22 +6,17 @@
     "commit": "",
     "pr": ""
   },
+  "model": "sonnet",
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline.sh"
   },
   "enabledPlugins": {
-    "feature-dev@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
     "swift-lsp@claude-plugins-official": true,
-    "claude-code-setup@claude-plugins-official": false,
-    "claude-md-management@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true
   },
   "skipDangerousModePermissionPrompt": true,
-  "teammateMode": "tmux",
-  "model": "sonnet"
+  "teammateMode": "tmux"
 }
