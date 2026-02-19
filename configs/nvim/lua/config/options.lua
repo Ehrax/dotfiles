@@ -36,6 +36,9 @@ opt.undolevels = 10000
 -- Disable smooth scrolling
 opt.smoothscroll = false
 
+-- Plain markdown: no concealment/rendering, just syntax highlighting
+opt.conceallevel = 0
+
 -- Disable LazyVim's inlay hints by default
 vim.g.lazyvim_inlay_hints = false
 
@@ -75,3 +78,17 @@ opt.signcolumn = "yes"
 
 -- True color support
 opt.termguicolors = true
+
+-- =============================================================================
+-- Filetype-Specific Settings
+-- =============================================================================
+
+-- Elixir/Phoenix: 2-space indentation (community convention)
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "elixir", "eelixir", "heex", "surface" },
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.softtabstop = 2
+  end,
+})
