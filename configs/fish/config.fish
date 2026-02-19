@@ -62,12 +62,6 @@ if test -f ~/.fish_claude_dir
     source ~/.fish_claude_dir
 end
 
-# Load local API secrets (not tracked in git)
-# See configs/claude/env.example for the required variables
-if test -f ~/.claude-secrets.fish
-    source ~/.claude-secrets.fish
-end
-
 # =============================================================================
 # Tool Initialization
 # =============================================================================
