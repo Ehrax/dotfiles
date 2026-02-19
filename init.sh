@@ -171,6 +171,8 @@ mkdir -p "$HOME/.claude/plugins"  # ensure personal plugins dir exists before wo
 create_symlink "$DOTFILES_DIR/configs/claude/settings.json" "$HOME/.claude/settings.json"
 create_symlink "$DOTFILES_DIR/configs/claude/settings.json" "$HOME/.claude-work/settings.json"
 create_symlink "$DOTFILES_DIR/configs/claude/statusline.sh" "$HOME/.claude/statusline.sh"
+create_symlink "$DOTFILES_DIR/configs/claude/mcp.json" "$HOME/.claude/mcp.json"
+create_symlink "$DOTFILES_DIR/configs/claude/mcp.json" "$HOME/.claude-work/mcp.json"
 
 # Share plugins and skills: work profile points to personal's dirs
 create_symlink "$HOME/.claude/plugins" "$HOME/.claude-work/plugins"
