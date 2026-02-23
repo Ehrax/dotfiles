@@ -1,6 +1,9 @@
 # Dotfiles
 
-Personal macOS development environment configuration.
+Personal macOS development environment — one script to rule them all.
+
+<!-- TODO: Add terminal screenshot -->
+<!-- ![Setup](assets/screenshot.png) -->
 
 ## Quick Start
 
@@ -10,29 +13,25 @@ cd ~/Projects/Dotfiles
 ./init.sh
 ```
 
-The setup script is interactive and will guide you through:
-1. Installing Homebrew packages
-2. Creating symlinks
-3. Setting up Fish shell
-4. Optional: Flutter, Ruby, Node.js environments
-5. Optional: macOS system preferences
+The interactive setup handles Homebrew packages, symlinks, Fish shell, and optional dev environments (Flutter, Ruby, Node.js).
 
 ## What's Included
 
 ### Shell & Terminal
-- **Fish** - Modern shell with great defaults
-- **Starship** - Minimal, fast prompt
-- **Ghostty** - GPU-accelerated terminal (One Dark theme)
-- **tmux** - Terminal multiplexer with session persistence
+
+- **Fish** — Modern shell with great defaults
+- **Starship** — Minimal, fast prompt
+- **Ghostty** — GPU-accelerated terminal (One Dark theme)
+- **tmux** — Terminal multiplexer with session persistence
 
 ### Editor
-- **Neovim** + LazyVim - Modern Vim with LSP, treesitter, etc.
-- One Dark colorscheme
-- Animations/indent guides disabled
+
+- **Neovim** + LazyVim — LSP, treesitter, One Dark theme
 
 ### CLI Tools
-| Tool | Replaces | Description |
-|------|----------|-------------|
+
+| Tool | Replaces | Purpose |
+|------|----------|---------|
 | `bat` | cat | Syntax highlighting |
 | `eza` | ls | Icons, git integration |
 | `fd` | find | Faster, simpler syntax |
@@ -40,78 +39,36 @@ The setup script is interactive and will guide you through:
 | `zoxide` | cd | Smart directory jumping |
 | `delta` | diff | Beautiful git diffs |
 | `btop` | top | Resource monitor |
-| `lazygit` | - | Terminal UI for git |
+| `lazygit` | — | Terminal UI for git |
 
-### Development
-- **fnm** - Fast Node Manager
-- **bun** - JavaScript runtime
-- **rbenv** - Ruby version manager
-- **fvm** - Flutter version manager
-- **Claude Code** - AI coding assistant
+### Dev Environments
 
-## Directory Structure
+fnm (Node.js) · bun · rbenv (Ruby) · fvm (Flutter) · Claude Code
+
+## Structure
 
 ```
-Dotfiles/
-├── configs/
-│   ├── claude/          # Claude Code settings + skills
-│   ├── fish/           # Fish shell config
-│   ├── nvim/           # LazyVim configuration
-│   ├── tmux/           # Tmux configuration
-│   ├── git/            # Git config + global ignore
-│   ├── starship/       # Starship prompt
-│   ├── ghostty/        # Terminal config
-│   └── lazygit/        # Lazygit config
-├── scripts/
-│   └── macos.sh        # macOS system preferences
-├── docs/
-│   ├── FLUTTER_SETUP.md
-│   ├── GIT_WORKTREES.md
-│   ├── MACOS_SETUP.md
-│   └── TMUX_SETUP.md
-├── archive/            # Old configs (zsh, etc.)
-├── Brewfile            # Homebrew packages
-└── init.sh             # Setup script
+configs/       Shell, editor, terminal, git configs (symlinked to ~/.config/)
+scripts/       macOS system preferences
+docs/          Setup guides and references
+Brewfile       Homebrew packages
+init.sh        Setup script
 ```
 
-## Key Bindings
+## Post-Install
 
-### Fish Shell
-- Modern tool aliases: `cat`→bat, `ls`→eza, `find`→fd, etc.
-- `lg` - Open Lazygit
-- `v` / `vim` - Open Neovim
-- `reload` - Reload fish config
+1. Restart terminal or run `exec fish`
+2. Open Neovim — plugins auto-install
+3. Logout/restart for keyboard repeat settings
 
-### Tmux
-- `Ctrl+Space` - Prefix key
-- `Ctrl+h/j/k/l` - Navigate across vim splits and tmux panes seamlessly
-- `prefix + |` / `prefix + -` - Split panes
-- `prefix + s` - Session picker
-- See [docs/TMUX_SETUP.md](docs/TMUX_SETUP.md) for full reference
+## Docs
 
-### Neovim (LazyVim)
-- `<Space>` - Leader key
-- `<Left>` / `<Right>` - Buffer navigation
-- `<BS>` - Clear search highlight
-- `<Esc><Esc>` - Save file
-
-## Manual Steps
-
-After running `init.sh`:
-
-1. **Restart terminal** or run `exec fish`
-2. **Open Neovim** - plugins will auto-install
-3. **Logout/restart** - for keyboard repeat settings
-
-For tmux setup and keybindings, see [docs/TMUX_SETUP.md](docs/TMUX_SETUP.md)
-For Flutter development, see [docs/FLUTTER_SETUP.md](docs/FLUTTER_SETUP.md)
-For parallel development with git worktrees, see [docs/GIT_WORKTREES.md](docs/GIT_WORKTREES.md)
+- [Keybindings](docs/KEYBINDINGS.md)
+- [Tmux Setup](docs/TMUX_SETUP.md)
+- [Flutter Setup](docs/FLUTTER_SETUP.md)
+- [macOS Setup](docs/MACOS_SETUP.md)
+- [Claude Worktrees](docs/CLAUDE_WORKTREES.md)
 
 ## Customization
 
-Configs are symlinked to `~/.config/`. Edit files in this repo and changes apply immediately.
-
-To add Homebrew packages, edit `Brewfile` and run:
-```bash
-brew bundle
-```
+Configs are symlinked — edit files in this repo and changes apply immediately. Add Homebrew packages to `Brewfile` and run `brew bundle`.
