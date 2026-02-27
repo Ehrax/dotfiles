@@ -39,6 +39,9 @@ opt.smoothscroll = false
 -- Plain markdown: no concealment/rendering, just syntax highlighting
 opt.conceallevel = 0
 
+-- Hide tab indicators (LazyVim default shows ">")
+opt.list = false
+
 -- Disable LazyVim's inlay hints by default
 vim.g.lazyvim_inlay_hints = false
 
