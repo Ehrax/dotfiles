@@ -177,6 +177,10 @@ alias p='cd ~/Projects'
 # Reload fish config
 alias reload='source ~/.config/fish/config.fish'
 
+# Disk cleanup
+set -l _dotfiles_dir (path dirname (path dirname (path dirname (realpath (status filename)))))
+alias sweep="bash $_dotfiles_dir/scripts/sweep.sh"
+
 # =============================================================================
 # Tmux
 # =============================================================================

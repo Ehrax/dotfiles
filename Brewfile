@@ -28,6 +28,7 @@ brew "sd"          # sed replacement
 brew "jq"          # JSON processor
 brew "tldr"        # man replacement
 brew "httpie"      # curl alternative
+brew "gum"         # TUI components for shell scripts
 
 ## System Monitoring
 brew "btop"

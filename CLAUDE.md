@@ -47,6 +47,7 @@ Consistent One Dark colorscheme (`bg: #21252b`) across Ghostty, Neovim, tmux, la
 ./init.sh                        # Full interactive setup (prompts for each step — cannot run unattended)
 brew bundle --file=Brewfile      # Install/update Homebrew packages
 bash scripts/macos.sh            # Apply macOS system preferences (keyboard repeat, Finder, Dock)
+bash scripts/sweep.sh [--dry-run] # Interactive disk cleanup (requires gum)
 ```
 
 ## Shell Aliases (Fish)
@@ -59,6 +60,7 @@ Key aliases defined in `configs/fish/config.fish`:
 - `cc` / `cm` — switch Claude config to personal / work
 - `lg` — lazygit
 - `v` / `vim` — nvim
+- `sweep` — interactive disk cleanup (requires gum)
 - `reload` — re-source fish config
 
 ## Conventions
