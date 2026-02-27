@@ -226,6 +226,138 @@ end
 
 
 # =============================================================================
+# Git Worktree Functions (for parallel development)
+# =============================================================================
+
+# Helper: resolve main worktree root path
+function __wt_main_root
+    set -l lines (git worktree list --porcelain 2>/dev/null)
+    if test (count $lines) -eq 0
+        return 1
+    end
+    string replace 'worktree ' '' -- $lines[1]
+end
+
+# Create a new worktree as a sibling directory with a new branch
+# Usage: wt feature-name [base-branch]
+function wt --description "Create git worktree as sibling dir"
+    if test (count $argv) -eq 0
+        echo "Usage: wt <branch-name> [base-branch]"
+        return 1
+    end
+
+    set -l branch_name $argv[1]
+    set -l base_branch main
+    if test (count $argv) -ge 2
+        set base_branch $argv[2]
+    end
+
+    set -l main_root (__wt_main_root)
+    if test -z "$main_root"
+        echo "Error: not inside a git repository"
+        return 1
+    end
+
+    set -l project_name (basename $main_root)
+    set -l parent_dir (dirname $main_root)
+    set -l dir_suffix (string replace -a '/' '-' $branch_name)
+    set -l worktree_path $parent_dir/$project_name-$dir_suffix
+
+    if test -d $worktree_path
+        echo "Error: directory already exists: $worktree_path"
+        return 1
+    end
+
+    echo "Creating worktree at $worktree_path (branch: $branch_name from $base_branch)"
+    git worktree add -b $branch_name $worktree_path $base_branch
+    and echo "Done. cd with: wtc $branch_name"
+end
+
+# List all worktrees
+function wtl --description "List git worktrees"
+    git worktree list
+end
+
+# Remove a worktree by branch name
+# Usage: wtr feature-name
+function wtr --description "Remove git worktree by branch name"
+    if test (count $argv) -eq 0
+        echo "Usage: wtr <branch-name>"
+        return 1
+    end
+
+    set -l branch_name $argv[1]
+    set -l main_root (__wt_main_root)
+    if test -z "$main_root"
+        echo "Error: not inside a git repository"
+        return 1
+    end
+
+    set -l project_name (basename $main_root)
+    set -l parent_dir (dirname $main_root)
+    set -l dir_suffix (string replace -a '/' '-' $branch_name)
+    set -l worktree_path $parent_dir/$project_name-$dir_suffix
+
+    if not test -d $worktree_path
+        echo "Error: worktree directory not found: $worktree_path"
+        return 1
+    end
+
+    # If we are inside the worktree being removed, cd out first
+    if string match -q "$worktree_path*" (pwd)
+        echo "Currently inside this worktree, switching to $main_root"
+        cd $main_root
+    end
+
+    echo "Removing worktree: $worktree_path"
+    git worktree remove $worktree_path
+    and git worktree prune
+    and echo "Worktree removed and pruned."
+end
+
+# CD into a worktree by branch name
+# Usage: wtc feature-name
+function wtc --description "CD into git worktree by branch name"
+    if test (count $argv) -eq 0
+        echo "Usage: wtc <branch-name>"
+        return 1
+    end
+
+    set -l branch_name $argv[1]
+    set -l main_root (__wt_main_root)
+    if test -z "$main_root"
+        echo "Error: not inside a git repository"
+        return 1
+    end
+
+    set -l project_name (basename $main_root)
+    set -l parent_dir (dirname $main_root)
+    set -l dir_suffix (string replace -a '/' '-' $branch_name)
+    set -l worktree_path $parent_dir/$project_name-$dir_suffix
+
+    if not test -d $worktree_path
+        echo "Error: worktree directory not found: $worktree_path"
+        return 1
+    end
+
+    cd $worktree_path
+end
+
+# Create worktree and launch Claude Code in it
+# Usage: wtcc feature-name [base-branch]
+function wtcc --description "Create worktree and start Claude Code"
+    if test (count $argv) -eq 0
+        echo "Usage: wtcc <branch-name> [base-branch]"
+        return 1
+    end
+
+    wt $argv
+    and wtc $argv[1]
+    and echo "Starting Claude Code in worktree..."
+    and claude --dangerously-skip-permissions
+end
+
+# =============================================================================
 # Functions
 # =============================================================================
 
