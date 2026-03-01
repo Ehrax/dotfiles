@@ -26,12 +26,13 @@ Everything in `configs/` gets symlinked to its target location. Editing files he
 | `configs/claude/settings.json` | `~/.claude/settings.json` AND `~/.claude-work/settings.json` |
 | `configs/claude/mcp.json` | `~/.claude/mcp.json` AND `~/.claude-work/mcp.json` |
 | `configs/claude/statusline.sh` | `~/.claude/statusline.sh` |
-| `configs/claude/skills/` | `~/.claude/skills/` AND `~/.claude-work/skills/` |
+| `configs/agents/skills/` | `~/.claude/skills/`, `~/.claude-work/skills/`, AND `~/.config/opencode/skills/` |
+| `configs/opencode/opencode.json` | `~/.config/opencode/opencode.json` |
 | `configs/tmux/gitmux.conf` | `~/.config/tmux/gitmux.conf` |
 
 ### Dual Claude Config
 
-Two Claude Code profiles exist, switchable via `cc` (personal → `~/.claude`) and `cm` (work → `~/.claude-work`). Both share the same `settings.json`, `mcp.json`, skills, and plugins from this repo. The active profile is persisted via `CLAUDE_CONFIG_DIR` in `~/.fish_claude_dir` and restored on shell startup.
+Two Claude Code profiles exist, switchable via `cc` (personal → `~/.claude`) and `cm` (work → `~/.claude-work`). Both share the same `settings.json`, `mcp.json`, skills, and plugins from this repo, and OpenCode shares the same skills source. The active profile is persisted via `CLAUDE_CONFIG_DIR` in `~/.fish_claude_dir` and restored on shell startup.
 
 ### Neovim
 

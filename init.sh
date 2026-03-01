@@ -183,6 +183,7 @@ create_symlink "$DOTFILES_DIR/configs/tmux/gitmux.conf" "$HOME/.config/tmux/gitm
 mkdir -p "$HOME/.claude"
 mkdir -p "$HOME/.claude-work"
 mkdir -p "$HOME/.claude/plugins"  # ensure personal plugins dir exists before work symlink
+mkdir -p "$HOME/.config/opencode"
 
 create_symlink "$DOTFILES_DIR/configs/claude/settings.json" "$HOME/.claude/settings.json"
 create_symlink "$DOTFILES_DIR/configs/claude/settings.json" "$HOME/.claude-work/settings.json"
@@ -191,9 +192,13 @@ create_symlink "$DOTFILES_DIR/configs/claude/mcp.json" "$HOME/.claude/mcp.json"
 create_symlink "$DOTFILES_DIR/configs/claude/mcp.json" "$HOME/.claude-work/mcp.json"
 
 # Skills and plugins (shared across both profiles)
-create_symlink "$DOTFILES_DIR/configs/claude/skills" "$HOME/.claude/skills"
+create_symlink "$DOTFILES_DIR/configs/agents/skills" "$HOME/.claude/skills"
+create_symlink "$DOTFILES_DIR/configs/agents/skills" "$HOME/.config/opencode/skills"
 create_symlink "$HOME/.claude/plugins" "$HOME/.claude-work/plugins"
 create_symlink "$HOME/.claude/skills"  "$HOME/.claude-work/skills"
+
+# OpenCode
+create_symlink "$DOTFILES_DIR/configs/opencode/opencode.json" "$HOME/.config/opencode/opencode.json"
 
 # =============================================================================
 # Shell Setup

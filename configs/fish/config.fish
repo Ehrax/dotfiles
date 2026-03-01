@@ -379,3 +379,6 @@ function note
     end
 end
 set -gx PATH $HOME/.local/bin $PATH
+
+# opencode
+fish_add_path /Users/ehrax/.opencode/bin
