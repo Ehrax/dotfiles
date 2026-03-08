@@ -68,13 +68,24 @@ assert_not_contains() {
 
 # Source selected helper functions from sweep.sh
 source_helpers() {
+    DU_BIN="$(command -v gdu 2>/dev/null || command -v du)"
     eval "$(sed -n '/^human_size()/,/^}$/p' "$SWEEP")"
     eval "$(sed -n '/^dir_size_kb()/,/^}$/p' "$SWEEP")"
+    eval "$(sed -n '/^size_fragment_to_kb()/,/^}$/p' "$SWEEP")"
     eval "$(sed -n '/^project_label()/,/^}$/p' "$SWEEP")"
     eval "$(sed -n '/^record_item()/,/^}$/p' "$SWEEP")"
     eval "$(sed -n '/^validate_preset()/,/^}$/p' "$SWEEP")"
     eval "$(sed -n '/^preset_preselect()/,/^}$/p' "$SWEEP")"
     eval "$(sed -n '/^is_system_allowlisted_path()/,/^}$/p' "$SWEEP")"
+    eval "$(sed -n '/^path_is_nested_under()/,/^}$/p' "$SWEEP")"
+    eval "$(sed -n '/^is_repo_root()/,/^}$/p' "$SWEEP")"
+    eval "$(sed -n '/^tmutil_snapshot_count()/,/^}$/p' "$SWEEP")"
+    eval "$(sed -n '/^simctl_unavailable_udids()/,/^}$/p' "$SWEEP")"
+    eval "$(sed -n '/^simctl_unavailable_estimate_kb()/,/^}$/p' "$SWEEP")"
+    eval "$(sed -n '/^simctl_unavailable_count()/,/^}$/p' "$SWEEP")"
+    eval "$(sed -n '/^simctl_runtime_unused_ids()/,/^}$/p' "$SWEEP")"
+    eval "$(sed -n '/^simctl_runtime_records()/,/^}$/p' "$SWEEP")"
+    eval "$(sed -n '/^simctl_runtime_size_kb_by_id()/,/^}$/p' "$SWEEP")"
 }
 
 # Run scan mode and return results file path
@@ -96,7 +107,7 @@ run_scan() {
 results_paths() {
     local results_file="$1"
     if [[ -s "$results_file" ]]; then
-        while IFS="$DELIM" read -r _size _presel _cat _label path _type; do
+        while IFS="$DELIM" read -r _size _presel _cat _label path _type _risk _cons _flags; do
             echo "$path"
         done < "$results_file"
     fi
@@ -105,7 +116,7 @@ results_paths() {
 results_labels() {
     local results_file="$1"
     if [[ -s "$results_file" ]]; then
-        while IFS="$DELIM" read -r _size _presel _cat label _path _type; do
+        while IFS="$DELIM" read -r _size _presel _cat label _path _type _risk _cons _flags; do
             echo "$label"
         done < "$results_file"
     fi
@@ -140,14 +151,16 @@ test_record_item_sanitizes_delimiter() {
     record_item 100 "yes" "Dev" "bad${DELIM}label" "/tmp/bad${DELIM}path" "dir"
     local line
     line=$(sed -n '1p' "$RESULTS_FILE")
-    local _size _presel _cat label path _type
-    IFS="$DELIM" read -r _size _presel _cat label path _type <<< "$line"
+    local _size _presel _cat label path _type risk consequence flags
+    IFS="$DELIM" read -r _size _presel _cat label path _type risk consequence flags <<< "$line"
     local field_count
     field_count=$(awk -F "$DELIM" '{print NF}' <<< "$line")
 
-    assert_eq "record has 6 fields" "6" "$field_count"
+    assert_eq "record has 9 fields" "9" "$field_count"
     assert_not_contains "delimiter stripped from label" "$label" "$DELIM"
     assert_not_contains "delimiter stripped from path" "$path" "$DELIM"
+    assert_contains "risk auto-filled" "$risk" "Rebuild"
+    assert_contains "consequence auto-filled" "$consequence" "rebuild"
 
     teardown
 }
@@ -202,6 +215,46 @@ test_system_allowlist_helper() {
     fi
 }
 
+test_risk_metadata_in_scan_results() {
+    echo "--- scan: risk/consequence metadata ---"
+    setup
+
+    mkdir -p "$TEST_TMPDIR/projects/org/repo/node_modules"
+    echo "x" > "$TEST_TMPDIR/projects/org/repo/node_modules/data"
+
+    local results
+    results=$(run_scan "$TEST_TMPDIR/projects")
+
+    local matched=""
+    while IFS="$DELIM" read -r _size _presel _cat label _path _type risk consequence _flags; do
+        if [[ "$label" == node_modules* ]]; then
+            matched="yes"
+            if [[ -n "$risk" ]]; then
+                PASS=$(( PASS + 1 ))
+            else
+                FAIL=$(( FAIL + 1 ))
+                echo "  FAIL: risk should be populated"
+            fi
+            if [[ -n "$consequence" ]]; then
+                PASS=$(( PASS + 1 ))
+            else
+                FAIL=$(( FAIL + 1 ))
+                echo "  FAIL: consequence should be populated"
+            fi
+            break
+        fi
+    done < "$results"
+
+    if [[ "$matched" == "yes" ]]; then
+        PASS=$(( PASS + 1 ))
+    else
+        FAIL=$(( FAIL + 1 ))
+        echo "  FAIL: expected node_modules scan entry"
+    fi
+
+    teardown
+}
+
 # =============================================================================
 # Tests: scan — existing and expanded project artifacts
 # =============================================================================
@@ -233,6 +286,30 @@ test_scan_finds_existing_artifacts() {
     assert_contains "target found" "$paths" "/target"
     assert_contains ".dart_tool found" "$paths" ".dart_tool"
     assert_contains "Pods found" "$paths" "/Pods"
+
+    teardown
+}
+
+test_scan_dedupes_nested_same_artifacts() {
+    echo "--- scan: dedupes nested same artifacts ---"
+    setup
+
+    local root="$TEST_TMPDIR/projects/org/repo"
+    mkdir -p "$root/node_modules/.pnpm/pkg@1.0.0/node_modules"
+    echo "x" > "$root/node_modules/top"
+    echo "x" > "$root/node_modules/.pnpm/pkg@1.0.0/node_modules/nested"
+
+    local results
+    results=$(run_scan "$TEST_TMPDIR/projects")
+
+    local node_modules_count=0
+    local path
+    while IFS= read -r path; do
+        [[ "$path" == *"node_modules"* ]] || continue
+        node_modules_count=$(( node_modules_count + 1 ))
+    done < <(results_paths "$results")
+
+    assert_eq "only one node_modules entry is shown" "1" "$node_modules_count"
 
     teardown
 }
@@ -346,6 +423,76 @@ test_discover_mode_off_by_default() {
     teardown
 }
 
+test_discover_dedupes_nested_by_default() {
+    echo "--- discover: dedupes nested parent/child ---"
+    setup
+
+    local root="$TEST_TMPDIR/projects/org/app"
+    mkdir -p "$root/parent/child"
+    dd if=/dev/zero of="$root/parent/blob" bs=1024 count=4 2>/dev/null
+    dd if=/dev/zero of="$root/parent/child/blob" bs=1024 count=2 2>/dev/null
+
+    local results
+    results=$(run_scan "$TEST_TMPDIR/projects" "--discover" "SWEEP_DISCOVER_MIN_KB=1 SWEEP_DISCOVER_TOP_N=8 SWEEP_DISCOVER_DEPTH=4 SWEEP_DISCOVER_ROOTS='$root'")
+    local paths
+    paths=$(results_paths "$results")
+
+    assert_contains "includes parent" "$paths" "$root/parent"
+    assert_not_contains "excludes nested child by default" "$paths" "$root/parent/child"
+
+    teardown
+}
+
+test_discover_expand_includes_nested_children() {
+    echo "--- discover: expand includes nested children ---"
+    setup
+
+    local root="$TEST_TMPDIR/projects/org/app"
+    mkdir -p "$root/parent/child"
+    dd if=/dev/zero of="$root/parent/blob" bs=1024 count=4 2>/dev/null
+    dd if=/dev/zero of="$root/parent/child/blob" bs=1024 count=2 2>/dev/null
+
+    local results
+    results=$(run_scan "$TEST_TMPDIR/projects" "--discover --discover-expand" "SWEEP_DISCOVER_MIN_KB=1 SWEEP_DISCOVER_TOP_N=8 SWEEP_DISCOVER_DEPTH=4 SWEEP_DISCOVER_ROOTS='$root'")
+    local paths
+    paths=$(results_paths "$results")
+
+    assert_contains "includes parent" "$paths" "$root/parent"
+    assert_contains "includes nested child when expanded" "$paths" "$root/parent/child"
+
+    teardown
+}
+
+test_discover_repo_root_marked_inspect() {
+    echo "--- discover: repo roots inspect-only ---"
+    setup
+    source_helpers
+
+    local root="$TEST_TMPDIR/projects/org/app"
+    local repo="$root/repo"
+    mkdir -p "$repo/.git"
+    echo "x" > "$repo/file"
+    dd if=/dev/zero of="$repo/blob" bs=1024 count=2 2>/dev/null
+
+    if is_repo_root "$repo"; then
+        PASS=$(( PASS + 1 ))
+    else
+        FAIL=$(( FAIL + 1 ))
+        echo "  FAIL: repo root helper should detect .git"
+    fi
+
+    local results
+    results=$(run_scan "$TEST_TMPDIR/projects" "--discover" "SWEEP_DISCOVER_MIN_KB=1 SWEEP_DISCOVER_TOP_N=8 SWEEP_DISCOVER_DEPTH=4 SWEEP_DISCOVER_ROOTS='$root'")
+    local raw
+    raw=$(results_raw "$results")
+
+    assert_contains "repo root labeled" "$raw" "Repo root"
+    assert_contains "repo root uses inspect type" "$raw" "${DELIM}inspect${DELIM}"
+    assert_contains "repo root flag present" "$raw" "${DELIM}repo-root"
+
+    teardown
+}
+
 # =============================================================================
 # Tests: command-backed items and cache specs
 # =============================================================================
@@ -434,6 +581,7 @@ test_help_flag() {
     output=$(bash "$SWEEP" --help 2>&1)
     assert_contains "help shows usage" "$output" "Usage:"
     assert_contains "help shows discover" "$output" "--discover"
+    assert_contains "help shows discover-expand" "$output" "--discover-expand"
     assert_contains "help shows preset" "$output" "--preset"
     assert_contains "help shows allow-system" "$output" "--allow-system"
 }
@@ -507,6 +655,127 @@ test_scan_accepts_multiple_flags() {
     teardown
 }
 
+test_scan_accepts_discover_expand_flag() {
+    echo "--- CLI: --discover-expand parsing ---"
+    setup
+
+    local results_file="$TEST_TMPDIR/results"
+    : > "$results_file"
+
+    local root="$TEST_TMPDIR/projects/org/app"
+    mkdir -p "$root/parent/child"
+    dd if=/dev/zero of="$root/parent/blob" bs=1024 count=3 2>/dev/null
+    dd if=/dev/zero of="$root/parent/child/blob" bs=1024 count=2 2>/dev/null
+
+    local exit_code=0
+    SWEEP_PROJECTS_DIR="$TEST_TMPDIR/projects" SWEEP_DISCOVER_MIN_KB=1 SWEEP_DISCOVER_TOP_N=8 SWEEP_DISCOVER_DEPTH=4 SWEEP_DISCOVER_ROOTS="$root" \
+        bash "$SWEEP" --scan "$results_file" --discover --discover-expand || exit_code=$?
+
+    if (( exit_code == 0 )); then
+        PASS=$(( PASS + 1 ))
+    else
+        FAIL=$(( FAIL + 1 ))
+        echo "  FAIL: expected --discover-expand to parse in scan mode"
+    fi
+
+    assert_contains "expanded output includes nested child" "$(results_paths "$results_file")" "$root/parent/child"
+
+    teardown
+}
+
+test_hidden_space_helpers_without_real_tools() {
+    echo "--- helpers: hidden-space parsers ---"
+    setup
+    source_helpers
+
+    tmutil() {
+        if [[ "$1" == "listlocalsnapshots" ]]; then
+            cat <<'EOF'
+Snapshots for disk /:
+com.apple.TimeMachine.2026-03-07-101010.local
+com.apple.TimeMachine.2026-03-07-111111.local
+EOF
+        fi
+    }
+
+    assert_eq "snapshot count parsed" "2" "$(tmutil_snapshot_count)"
+
+    local fake_home="$TEST_TMPDIR/fakehome"
+    HOME="$fake_home"
+    mkdir -p "$fake_home/Library/Developer/CoreSimulator/Devices/AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA"
+    mkdir -p "$fake_home/Library/Developer/CoreSimulator/Devices/BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB"
+    dd if=/dev/zero of="$fake_home/Library/Developer/CoreSimulator/Devices/AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA/blob" bs=1024 count=3 2>/dev/null
+
+    xcrun() {
+        if [[ "$1" == "simctl" ]]; then
+            cat <<'EOF'
+== Devices ==
+iPhone 14 (AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA) (Shutdown) (unavailable, runtime profile not found)
+EOF
+        fi
+    }
+
+    assert_eq "unavailable count parsed" "1" "$(simctl_unavailable_count)"
+    local estimated
+    estimated=$(simctl_unavailable_estimate_kb)
+    if (( estimated >= 2 )); then
+        PASS=$(( PASS + 1 ))
+    else
+        FAIL=$(( FAIL + 1 ))
+        echo "  FAIL: expected unavailable simulator estimate to be >= 2 KB"
+    fi
+
+    teardown
+}
+
+test_sim_runtime_helpers_without_real_tools() {
+    echo "--- helpers: simulator runtime parsers ---"
+    setup
+    source_helpers
+
+    SIM_RUNTIME_UNUSED_DAYS=30
+    xcrun() {
+        if [[ "$1" == "simctl" && "$2" == "runtime" && "$3" == "list" && "$4" == "-v" ]]; then
+            cat <<'EOF'
+== Disk Images ==
+-- iOS --
+iOS 26.0 (23A343) - ACA65F2A-9B99-42B6-A601-4425C3356E6F
+    Deletable: YES
+    Last Used At: 2026-02-11 12:58:44 +0000
+    Size: 7.5G
+iOS 26.2 (23C54) - C76040F0-FF67-4C06-9DB9-4D74B8CFE664
+    Deletable: YES
+    Last Used At: 2026-03-06 13:33:41 +0000
+    Size: 7.8G
+EOF
+        elif [[ "$1" == "simctl" && "$2" == "runtime" && "$3" == "delete" && "$4" == "--notUsedSinceDays" ]]; then
+            cat <<'EOF'
+Would delete P: ACA65F2A-9B99-42B6-A601-4425C3356E6F iOS (26.0 - 23A343) (Ready)
+EOF
+        fi
+    }
+
+    local records
+    records=$(simctl_runtime_records)
+    assert_contains "runtime records include first id" "$records" "ACA65F2A-9B99-42B6-A601-4425C3356E6F"
+    assert_contains "runtime records include size fragment" "$records" "7.8G"
+
+    local unused
+    unused=$(simctl_runtime_unused_ids 30)
+    assert_contains "unused ids parser finds dry-run id" "$unused" "ACA65F2A-9B99-42B6-A601-4425C3356E6F"
+
+    local size_kb
+    size_kb=$(simctl_runtime_size_kb_by_id "ACA65F2A-9B99-42B6-A601-4425C3356E6F")
+    if (( size_kb >= 7000000 )); then
+        PASS=$(( PASS + 1 ))
+    else
+        FAIL=$(( FAIL + 1 ))
+        echo "  FAIL: runtime size helper should parse G suffix"
+    fi
+
+    teardown
+}
+
 # =============================================================================
 # Run all tests
 # =============================================================================
@@ -519,11 +788,16 @@ test_human_size
 test_record_item_sanitizes_delimiter
 test_validate_preset_and_preselect
 test_system_allowlist_helper
+test_risk_metadata_in_scan_results
 test_scan_finds_existing_artifacts
+test_scan_dedupes_nested_same_artifacts
 test_scan_finds_new_artifacts
 test_scan_venv_opt_in
 test_discover_mode_finds_large_dirs
 test_discover_mode_off_by_default
+test_discover_dedupes_nested_by_default
+test_discover_expand_includes_nested_children
+test_discover_repo_root_marked_inspect
 test_scan_adds_brew_cleanup_command_item
 test_scan_adds_extra_cache_specs
 test_scan_allow_system_flag_controls_item
@@ -532,6 +806,9 @@ test_unknown_flag_fails
 test_preset_validation_fails_for_bad_value
 test_scan_requires_results_file
 test_scan_accepts_multiple_flags
+test_scan_accepts_discover_expand_flag
+test_hidden_space_helpers_without_real_tools
+test_sim_runtime_helpers_without_real_tools
 
 echo ""
 if (( FAIL > 0 )); then
