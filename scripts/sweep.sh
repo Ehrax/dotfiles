@@ -448,6 +448,9 @@ discover_large_dirs() {
             [[ -n "$d" ]] || continue
             [[ "$d" == "$root" ]] && continue
             [[ -d "$d" ]] || continue
+            # Skip CoreSimulator/Devices — direct rm causes ghost devices;
+            # use simctl commands instead (offered separately).
+            [[ "$d" == *"/CoreSimulator/Devices"* ]] && continue
             is_path_recorded "$d" && continue
             (( s >= DISCOVER_MIN_KB )) || continue
             printf '%s%s%s\n' "$s" "$DELIM" "$d" >> "$scratch_file"
@@ -727,6 +730,15 @@ scan() {
         done < <(simctl_runtime_records)
 
         rm -f "$runtime_unused_ids_file"
+
+        local sim_devices_dir="$HOME/Library/Developer/CoreSimulator/Devices"
+        if [[ -d "$sim_devices_dir" ]]; then
+            local sim_erase_kb
+            sim_erase_kb=$(dir_size_kb "$sim_devices_dir")
+            if (( sim_erase_kb > 0 )); then
+                record_item "$sim_erase_kb" "no" "Hidden" "CoreSimulator erase all devices" "xcrun simctl shutdown all && xcrun simctl erase all" "command" "Potentially risky" "Shuts down and erases all simulator devices, resetting them to factory state." "destructive"
+            fi
+        fi
     fi
 
     if $DISCOVER_MODE; then
@@ -820,6 +832,15 @@ execute_command_item() {
             before_kb=$(simctl_unavailable_estimate_kb)
             xcrun simctl delete unavailable >/dev/null 2>&1
             after_kb=$(simctl_unavailable_estimate_kb)
+            echo $(( before_kb - after_kb ))
+            ;;
+        "xcrun simctl shutdown all && xcrun simctl erase all")
+            command -v xcrun >/dev/null 2>&1 || return 1
+            local sim_devices_dir="$HOME/Library/Developer/CoreSimulator/Devices"
+            before_kb=$(dir_size_kb "$sim_devices_dir")
+            xcrun simctl shutdown all >/dev/null 2>&1 || true
+            xcrun simctl erase all >/dev/null 2>&1
+            after_kb=$(dir_size_kb "$sim_devices_dir")
             echo $(( before_kb - after_kb ))
             ;;
         xcrun\ simctl\ runtime\ delete\ *)

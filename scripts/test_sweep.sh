@@ -728,6 +728,29 @@ EOF
     teardown
 }
 
+test_discover_skips_coresimulator_devices() {
+    echo "--- discover: skips CoreSimulator/Devices paths ---"
+    setup
+
+    local root="$TEST_TMPDIR/projects/org"
+    mkdir -p "$root/CoreSimulator/Devices/AAAA-BBBB"
+    dd if=/dev/zero of="$root/CoreSimulator/Devices/AAAA-BBBB/blob" bs=1024 count=4 2>/dev/null
+
+    # Also add a non-simulator dir to confirm discover still works
+    mkdir -p "$root/other-big-dir"
+    dd if=/dev/zero of="$root/other-big-dir/blob" bs=1024 count=4 2>/dev/null
+
+    local results
+    results=$(run_scan "$TEST_TMPDIR/projects" "--discover" "SWEEP_DISCOVER_MIN_KB=1 SWEEP_DISCOVER_TOP_N=8 SWEEP_DISCOVER_DEPTH=5 SWEEP_DISCOVER_ROOTS='$root'")
+    local paths
+    paths=$(results_paths "$results")
+
+    assert_not_contains "CoreSimulator/Devices excluded" "$paths" "CoreSimulator/Devices"
+    assert_contains "other dirs still discovered" "$paths" "other-big-dir"
+
+    teardown
+}
+
 test_sim_runtime_helpers_without_real_tools() {
     echo "--- helpers: simulator runtime parsers ---"
     setup
@@ -808,6 +831,7 @@ test_scan_requires_results_file
 test_scan_accepts_multiple_flags
 test_scan_accepts_discover_expand_flag
 test_hidden_space_helpers_without_real_tools
+test_discover_skips_coresimulator_devices
 test_sim_runtime_helpers_without_real_tools
 
 echo ""
