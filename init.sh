@@ -184,6 +184,8 @@ mkdir -p "$HOME/.claude"
 mkdir -p "$HOME/.claude-work"
 mkdir -p "$HOME/.claude/plugins"  # ensure personal plugins dir exists before work symlink
 mkdir -p "$HOME/.config/opencode"
+mkdir -p "$HOME/.gemini"
+mkdir -p "$HOME/.codex"
 
 create_symlink "$DOTFILES_DIR/configs/claude/settings.json" "$HOME/.claude/settings.json"
 create_symlink "$DOTFILES_DIR/configs/claude/settings.json" "$HOME/.claude-work/settings.json"
@@ -194,6 +196,8 @@ create_symlink "$DOTFILES_DIR/configs/claude/mcp.json" "$HOME/.claude-work/mcp.j
 # Skills and plugins (shared across both profiles)
 create_symlink "$DOTFILES_DIR/configs/agents/skills" "$HOME/.claude/skills"
 create_symlink "$DOTFILES_DIR/configs/agents/skills" "$HOME/.config/opencode/skills"
+create_symlink "$DOTFILES_DIR/configs/agents/skills" "$HOME/.gemini/skills"
+create_symlink "$DOTFILES_DIR/configs/agents/skills" "$HOME/.codex/skills"
 create_symlink "$HOME/.claude/plugins" "$HOME/.claude-work/plugins"
 create_symlink "$HOME/.claude/skills"  "$HOME/.claude-work/skills"
 

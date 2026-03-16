@@ -1,9 +1,7 @@
 ---
 name: gh-pr
 description: Commit all changes and create a GitHub pull request with a high-quality summary and testing instructions. Optionally closes an issue passed as URL or reference.
-argument-hint: [issue-url-or-ref]
-disable-model-invocation: true
-allowed-tools: Skill(gh), Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git branch:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Bash(gh:*)
+argument-hint: issue-url-or-ref
 ---
 
 # Commit And Create GitHub PR

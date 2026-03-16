@@ -26,7 +26,7 @@ Everything in `configs/` gets symlinked to its target location. Editing files he
 | `configs/claude/settings.json` | `~/.claude/settings.json` AND `~/.claude-work/settings.json` |
 | `configs/claude/mcp.json` | `~/.claude/mcp.json` AND `~/.claude-work/mcp.json` |
 | `configs/claude/statusline.sh` | `~/.claude/statusline.sh` |
-| `configs/agents/skills/` | `~/.claude/skills/`, `~/.claude-work/skills/`, AND `~/.config/opencode/skills/` |
+| `configs/agents/skills/` | `~/.claude/skills/`, `~/.claude-work/skills/`, `~/.config/opencode/skills/`, `~/.gemini/skills/`, AND `~/.codex/skills/` |
 | `configs/opencode/opencode.json` | `~/.config/opencode/opencode.json` |
 | `configs/tmux/gitmux.conf` | `~/.config/tmux/gitmux.conf` |
 

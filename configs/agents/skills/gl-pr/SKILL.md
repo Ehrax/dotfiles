@@ -1,9 +1,7 @@
 ---
 name: gl-pr
 description: Commit all changes and create a GitLab merge request with a clear summary and testing instructions. Optionally closes an issue passed as URL or reference.
-argument-hint: [issue-url-or-ref]
-disable-model-invocation: true
-allowed-tools: Skill(glab), Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git branch:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Bash(glab:*)
+argument-hint: issue-url-or-ref
 ---
 
 # Commit And Create GitLab MR
