@@ -197,6 +197,7 @@ alias tks='tmux kill-server'
 # =============================================================================
 
 alias c="clear; claude --dangerously-skip-permissions --model opus"
+alias cx="clear; codex --full-auto"
 function cw --description "Claude Code in a worktree"
     clear
     if test (count $argv) -gt 0
