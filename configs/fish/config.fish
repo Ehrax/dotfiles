@@ -53,6 +53,9 @@ if test -d $android_jbr
     fish_add_path $JAVA_HOME/bin
 end
 
+# Maestro (mobile UI testing)
+fish_add_path $HOME/.maestro/bin
+
 # Rust / Cargo
 fish_add_path $HOME/.cargo/bin
 
@@ -196,7 +199,7 @@ alias tks='tmux kill-server'
 # Claude Code
 # =============================================================================
 
-alias c="clear; claude --dangerously-skip-permissions --model opus"
+alias c="clear; claude --dangerously-skip-permissions"
 alias cx="clear; codex --yolo"
 function cw --description "Claude Code in a worktree"
     clear
