@@ -384,5 +384,64 @@ function note
 end
 set -gx PATH $HOME/.local/bin $PATH
 
+# =============================================================================
+# Skills Management (npx skills wrapper)
+# =============================================================================
+
+function skills --description "Manage global agent skills"
+    if not type -q npx
+        echo "Error: npx not found"
+        return 1
+    end
+
+    set -l cmd $argv[1]
+    set -l rest $argv[2..]
+
+    switch "$cmd"
+        case add a
+            npx skills add $rest -g -y
+            __skills_internalize
+        case update
+            npx skills update $rest
+            __skills_internalize
+        case check
+            npx skills check $rest
+        case remove rm
+            npx skills remove -g $rest
+        case list ls
+            npx skills ls -g $rest
+        case ''
+            echo "Usage: skills <command> [args]"
+            echo ""
+            echo "Commands:"
+            echo "  add <source>    Install a skill globally (e.g. obra/superpowers)"
+            echo "  update          Update all skills to latest"
+            echo "  check           Check for available updates"
+            echo "  remove <name>   Remove a skill"
+            echo "  list            List installed skills"
+        case '*'
+            npx skills $argv
+    end
+end
+
+function __skills_internalize --description "Replace symlinks with real copies in skills dir"
+    set -l skills_dir (realpath ~/.claude/skills 2>/dev/null)
+    if test -z "$skills_dir"; or not test -d "$skills_dir"
+        return
+    end
+    for item in $skills_dir/*/
+        set -l name (basename $item)
+        set -l full "$skills_dir/$name"
+        if test -L "$full"
+            set -l target (realpath "$full" 2>/dev/null)
+            if test -d "$target"
+                rm "$full"
+                cp -R "$target" "$full"
+                echo "  ✓ internalized $name"
+            end
+        end
+    end
+end
+
 # opencode
 fish_add_path /Users/ehrax/.opencode/bin

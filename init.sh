@@ -193,7 +193,9 @@ create_symlink "$DOTFILES_DIR/configs/claude/statusline.sh" "$HOME/.claude/statu
 create_symlink "$DOTFILES_DIR/configs/claude/mcp.json" "$HOME/.claude/mcp.json"
 create_symlink "$DOTFILES_DIR/configs/claude/mcp.json" "$HOME/.claude-work/mcp.json"
 
-# Skills and plugins (shared across both profiles)
+# Skills (single source of truth, symlinked to all agents + skills CLI)
+mkdir -p "$HOME/.agents"
+create_symlink "$DOTFILES_DIR/configs/agents/skills" "$HOME/.agents/skills"
 create_symlink "$DOTFILES_DIR/configs/agents/skills" "$HOME/.claude/skills"
 create_symlink "$DOTFILES_DIR/configs/agents/skills" "$HOME/.config/opencode/skills"
 create_symlink "$DOTFILES_DIR/configs/agents/skills" "$HOME/.gemini/skills"
