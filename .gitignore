@@ -9,3 +9,6 @@ configs/tmux/resurrect
 
 # mac stuff
 .DS_Store
+
+# codex auto-generated system skills
+configs/agents/skills/.system
