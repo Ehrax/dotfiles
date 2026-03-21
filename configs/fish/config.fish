@@ -56,6 +56,9 @@ end
 # Maestro (mobile UI testing)
 fish_add_path $HOME/.maestro/bin
 
+# Obsidian CLI
+fish_add_path /Applications/Obsidian.app/Contents/MacOS
+
 # Rust / Cargo
 fish_add_path $HOME/.cargo/bin
 
