@@ -29,7 +29,7 @@ You MUST create a task for each of these items and complete them in order:
 6. **Write design doc** — save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` and commit
 7. **Spec review loop** — dispatch spec-document-reviewer subagent with precisely crafted review context (never your session history); fix issues and re-dispatch until approved (max 3 iterations, then surface to human)
 8. **User reviews written spec** — ask user to review the spec file before proceeding
-9. **Transition to implementation** — invoke writing-plans skill to create implementation plan
+9. **Transition to implementation** — ask user: write a detailed plan (writing-plans) or jump straight to implementation?
 
 ## Process Flow
 
@@ -46,7 +46,7 @@ digraph brainstorming {
     "Spec review loop" [shape=box];
     "Spec review passed?" [shape=diamond];
     "User reviews spec?" [shape=diamond];
-    "Invoke writing-plans skill" [shape=doublecircle];
+    "Offer implementation path" [shape=doublecircle];
 
     "Explore project context" -> "Visual questions ahead?";
     "Visual questions ahead?" -> "Offer Visual Companion\n(own message, no other content)" [label="yes"];
@@ -62,11 +62,11 @@ digraph brainstorming {
     "Spec review passed?" -> "Spec review loop" [label="issues found,\nfix and re-dispatch"];
     "Spec review passed?" -> "User reviews spec?" [label="approved"];
     "User reviews spec?" -> "Write design doc" [label="changes requested"];
-    "User reviews spec?" -> "Invoke writing-plans skill" [label="approved"];
+    "User reviews spec?" -> "Offer implementation path" [label="approved"];
 }
 ```
 
-**The terminal state is invoking writing-plans.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. The ONLY skill you invoke after brainstorming is writing-plans.
+**The terminal state is offering the implementation path choice.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill directly. The only skills you may invoke after brainstorming are writing-plans (if the user chooses to write a plan) or an execution skill (if they skip planning).
 
 ## The Process
 
@@ -132,8 +132,16 @@ Wait for the user's response. If they request changes, make them and re-run the 
 
 **Implementation:**
 
-- Invoke the writing-plans skill to create a detailed implementation plan
-- Do NOT invoke any other skill. writing-plans is the next step.
+After the user approves the spec, offer the implementation path:
+
+> "Spec approved. How would you like to proceed?
+>
+> **1. Write a detailed plan first** — I'll invoke writing-plans to break this into bite-sized tasks before any code is written. Best for complex, multi-file changes.
+>
+> **2. Jump straight to implementation** — I'll start building directly from the spec. Best for straightforward changes where the spec is clear enough to work from."
+
+- If the user chooses **plan first**: invoke writing-plans skill
+- If the user chooses **skip planning**: proceed directly to implementation using the appropriate execution skill (subagent-driven-development, executing-plans, or just start coding for simple tasks)
 
 ## Key Principles
 
