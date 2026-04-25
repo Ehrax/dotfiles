@@ -206,6 +206,9 @@ create_symlink "$HOME/.claude/skills"  "$HOME/.claude-work/skills"
 # OpenCode
 create_symlink "$DOTFILES_DIR/configs/opencode/opencode.json" "$HOME/.config/opencode/opencode.json"
 
+# Codex
+create_symlink "$DOTFILES_DIR/configs/codex/config.toml" "$HOME/.codex/config.toml"
+
 # =============================================================================
 # Shell Setup
 # =============================================================================

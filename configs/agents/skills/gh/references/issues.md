@@ -70,11 +70,19 @@ gh issue unpin 42
 ## Common Workflows
 
 ```bash
+# Inspect the repo's existing issue title pattern first
+gh issue list --state all --limit 20 --json number,title
+
 # Create and self-assign a bug
 gh issue create \
   --title "[Bug]: Checkout fails with empty cart" \
   --label "bug" \
   --assignee "@me"
+
+# Create an infrastructure / operations issue
+gh issue create \
+  --title "[Infra]: Finalize production cutover and test-data cleanup" \
+  --label "infra"
 
 # Search for duplicates before creating
 gh issue list --search "login timeout" --state all

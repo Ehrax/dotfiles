@@ -77,7 +77,12 @@ gh pr create --title "feat(api): v2 migration" --draft
 
 ### Create an Issue
 
+Before creating an issue in a repo you have not worked in recently, inspect the latest issue titles and mirror the dominant pattern. Do not assume conventional commits or bare imperative titles are acceptable for issues.
+
 ```bash
+# Inspect recent issue titles first
+gh issue list --state all --limit 20 --json number,title
+
 # Bug report
 gh issue create \
   --title "[Bug]: Login button unresponsive on iOS Safari 17" \
@@ -169,6 +174,7 @@ gh api issues --paginate
 ## Tips
 
 - **Title conventions**: Always use conventional commits for PR titles (`feat(scope): title`). See `references/writing-prs-and-issues.md`.
+- **Issue title conventions**: Inspect recent issue titles before creating a new one and mirror the repo's existing pattern. If the repo uses bracketed prefixes such as `[Feature]: ...` or `[Infra]: ...`, keep using them for every new issue.
 - **Auto-detection**: `gh` reads your Git remote to determine the repo — no need for `-R` inside the project.
 - **Body via heredoc**: Use `--body "$(cat <<'EOF' ... EOF)"` to pass multi-line bodies without an editor.
 - **Closing issues**: Include `Closes #123` in the PR body — GitHub auto-closes the issue on merge.

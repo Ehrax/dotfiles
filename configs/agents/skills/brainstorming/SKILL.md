@@ -27,9 +27,9 @@ You MUST create a task for each of these items and complete them in order:
 4. **Propose 2-3 approaches** — with trade-offs and your recommendation
 5. **Present design** — in sections scaled to their complexity, get user approval after each section
 6. **Write design doc** — save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` and commit
-7. **Spec review loop** — dispatch spec-document-reviewer subagent with precisely crafted review context (never your session history); fix issues and re-dispatch until approved (max 3 iterations, then surface to human)
+7. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
 8. **User reviews written spec** — ask user to review the spec file before proceeding
-9. **Transition to implementation** — ask user: write a detailed plan (writing-plans) or jump straight to implementation?
+9. **Offer implementation plan** — ask if the user wants to create a detailed plan via writing-plans, or skip straight to implementation
 
 ## Process Flow
 
@@ -43,10 +43,9 @@ digraph brainstorming {
     "Present design sections" [shape=box];
     "User approves design?" [shape=diamond];
     "Write design doc" [shape=box];
-    "Spec review loop" [shape=box];
-    "Spec review passed?" [shape=diamond];
+    "Spec self-review\n(fix inline)" [shape=box];
     "User reviews spec?" [shape=diamond];
-    "Offer implementation path" [shape=doublecircle];
+    "Invoke writing-plans skill" [shape=doublecircle];
 
     "Explore project context" -> "Visual questions ahead?";
     "Visual questions ahead?" -> "Offer Visual Companion\n(own message, no other content)" [label="yes"];
@@ -57,16 +56,20 @@ digraph brainstorming {
     "Present design sections" -> "User approves design?";
     "User approves design?" -> "Present design sections" [label="no, revise"];
     "User approves design?" -> "Write design doc" [label="yes"];
-    "Write design doc" -> "Spec review loop";
-    "Spec review loop" -> "Spec review passed?";
-    "Spec review passed?" -> "Spec review loop" [label="issues found,\nfix and re-dispatch"];
-    "Spec review passed?" -> "User reviews spec?" [label="approved"];
+    "Write design doc" -> "Spec self-review\n(fix inline)";
+    "Spec self-review\n(fix inline)" -> "User reviews spec?";
     "User reviews spec?" -> "Write design doc" [label="changes requested"];
-    "User reviews spec?" -> "Offer implementation path" [label="approved"];
+    "User reviews spec?" -> "Want a plan?" [label="approved"];
+    "Want a plan?" [shape=diamond];
+    "Want a plan?" -> "Invoke writing-plans skill" [label="yes"];
+    "Want a plan?" -> "Proceed to implementation" [label="no"];
+    "Proceed to implementation" [shape=doublecircle];
 }
 ```
 
-**The terminal state is offering the implementation path choice.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill directly. The only skills you may invoke after brainstorming are writing-plans (if the user chooses to write a plan) or an execution skill (if they skip planning).
+**After spec approval, ask the user:** "Want me to create a detailed implementation plan (writing-plans), or would you prefer to jump straight to implementation?"
+
+If they want a plan, invoke writing-plans. If they skip, proceed directly to implementation using the appropriate skill. Do NOT invoke frontend-design, mcp-builder, or any other implementation skill unless the user explicitly skips the plan.
 
 ## The Process
 
@@ -116,12 +119,15 @@ digraph brainstorming {
 - Use elements-of-style:writing-clearly-and-concisely skill if available
 - Commit the design document to git
 
-**Spec Review Loop:**
-After writing the spec document:
+**Spec Self-Review:**
+After writing the spec document, look at it with fresh eyes:
 
-1. Dispatch spec-document-reviewer subagent (see spec-document-reviewer-prompt.md)
-2. If Issues Found: fix, re-dispatch, repeat until Approved
-3. If loop exceeds 3 iterations, surface to human for guidance
+1. **Placeholder scan:** Any "TBD", "TODO", incomplete sections, or vague requirements? Fix them.
+2. **Internal consistency:** Do any sections contradict each other? Does the architecture match the feature descriptions?
+3. **Scope check:** Is this focused enough for a single implementation plan, or does it need decomposition?
+4. **Ambiguity check:** Could any requirement be interpreted two different ways? If so, pick one and make it explicit.
+
+Fix any issues inline. No need to re-review — just fix and move on.
 
 **User Review Gate:**
 After the spec review loop passes, ask the user to review the written spec before proceeding:
@@ -132,16 +138,9 @@ Wait for the user's response. If they request changes, make them and re-run the 
 
 **Implementation:**
 
-After the user approves the spec, offer the implementation path:
-
-> "Spec approved. How would you like to proceed?
->
-> **1. Write a detailed plan first** — I'll invoke writing-plans to break this into bite-sized tasks before any code is written. Best for complex, multi-file changes.
->
-> **2. Jump straight to implementation** — I'll start building directly from the spec. Best for straightforward changes where the spec is clear enough to work from."
-
-- If the user chooses **plan first**: invoke writing-plans skill
-- If the user chooses **skip planning**: proceed directly to implementation using the appropriate execution skill (subagent-driven-development, executing-plans, or just start coding for simple tasks)
+- Ask the user: "Want me to create a detailed implementation plan (writing-plans), or would you prefer to jump straight to implementation?"
+- If they want a plan: invoke the writing-plans skill
+- If they skip: proceed directly to implementation
 
 ## Key Principles
 

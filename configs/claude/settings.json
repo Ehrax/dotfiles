@@ -1,6 +1,7 @@
 {
   "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_CODE_NO_FLICKER": "1"
   },
   "attribution": {
     "commit": "",
@@ -14,7 +15,11 @@
     "code-simplifier@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true
   },
-  "effortLevel": "high",
+  "effortLevel": "medium",
+  "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
-  "teammateMode": "tmux"
+  "editorMode": "vim",
+  "autoCompactEnabled": false,
+  "teammateMode": "tmux",
+  "theme": "dark-ansi"
 }

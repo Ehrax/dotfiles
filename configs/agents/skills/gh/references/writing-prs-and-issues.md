@@ -152,21 +152,37 @@ gh pr create --title "fix(prod): hotfix null crash" --base main
 
 ## Issue Titles
 
+Before creating an issue, inspect recent issues in the target repo and mirror the dominant title pattern:
+
+```bash
+gh issue list --state all --limit 20 --json number,title
+```
+
+If the repo uses bracketed type prefixes, keep using that format for every new issue. Do not switch to conventional commits (`fix:`) or bare imperative titles unless the repo already does.
+
 ### Format by Type
 
 | Type | Format | Example |
 |------|--------|---------|
 | Bug | `[Bug]: <component> <symptom> <context>` | `[Bug]: Login button unresponsive on iOS Safari 17` |
 | Feature | `[Feature]: <user story or capability>` | `[Feature]: Add dark mode toggle` |
+| Infra | `[Infra]: <infrastructure or operational task>` | `[Infra]: Finalize production cutover and test-data cleanup` |
+| Chore | `[Chore]: <maintenance task>` | `[Chore]: Restore real async coverage for release gate` |
+| Cleanup | `[Cleanup]: <cleanup task>` | `[Cleanup]: Remove unreachable code branches in classifier` |
+| Investigation | `[Investigation]: <question or verification task>` | `[Investigation]: Verify Payrexx auto-renewal webhook behavior` |
 | Docs | `[Docs]: <what to update>` | `[Docs]: Update CLI install guide for macOS` |
-| Task | Imperative statement | `Refactor auth middleware to JWT v3` |
+| Refactor | `[Refactor]: <refactor scope>` | `[Refactor]: Break down and clean up internal/verify package` |
+| Testing | `[Testing]: <test scope>` | `[Testing]: Verify idempotency under concurrent duplicate webhooks` |
 | Question | `[Question]: <specific question>` | `[Question]: Best way to handle rate limits?` |
 
 ### Title Rules
 
 - **50-70 characters ideal**
-- Sentence case — capitalize only the first word
+- Reuse the exact prefix style already established in the repo
+- Sentence case after the prefix — capitalize only the first word unless the repo consistently does otherwise
 - Specific: include component, symptom, and context when possible
+- Keep issue titles bracketed when the repo's pattern is bracketed
+- Do not use conventional commit syntax for issues unless the repo already does
 - Avoid "not working", "broken", "issue with" — describe the actual problem
 
 ### Good vs Bad
@@ -175,6 +191,8 @@ gh pr create --title "fix(prod): hotfix null crash" --base main
 |-----|------|
 | `Something broken` | `[Bug]: API returns 500 on POST /users with invalid email` |
 | `Add feature` | `[Feature]: Support CSV export on the reports page` |
+| `fix: payment bug` | `[Bug]: Payment callback returns 500 on invalid signature` |
+| `Refactor auth middleware to JWT v3` | `[Refactor]: Refactor auth middleware to JWT v3` |
 | `Login problem` | `[Bug]: Login fails after 30-min session timeout on mobile` |
 
 ---
@@ -250,9 +268,14 @@ gh issue create \
   --label "enhancement" \
   --assignee "@me"
 
+# Infrastructure / ops task
+gh issue create \
+  --title "[Infra]: Finalize production cutover and test-data cleanup" \
+  --label "infra"
+
 # Assign to milestone and project
 gh issue create \
-  --title "Refactor auth middleware to JWT v3" \
+  --title "[Refactor]: Refactor auth middleware to JWT v3" \
   --milestone "v3.0" \
   --label "refactor"
 ```
