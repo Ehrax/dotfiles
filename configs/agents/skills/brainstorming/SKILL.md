@@ -5,7 +5,7 @@ description: "You MUST use this before any creative work - creating features, bu
 
 # Brainstorming Ideas Into Designs
 
-Help turn ideas into fully formed designs and specs through natural collaborative dialogue.
+Help turn ideas into fully formed designs through natural collaborative dialogue, with optional written specs when they are useful or requested.
 
 Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design and get user approval.
 
@@ -19,16 +19,16 @@ Every project goes through this process. A todo list, a single-function utility,
 
 ## Checklist
 
-You MUST create a task for each of these items and complete them in order:
+Create tasks for the required discovery and design items. Create documentation or planning tasks only when the user chooses them.
 
 1. **Explore project context** — check files, docs, recent commits
 2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
 4. **Present design** — in sections scaled to their complexity, get user approval after each section
-5. **Write design doc** — save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` and commit
-6. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
-7. **User reviews written spec** — ask user to review the spec file before proceeding
-8. **Offer implementation plan** — ask if the user wants to create a detailed plan via writing-plans, or skip straight to implementation
+5. **Offer next step** — ask whether the user wants a written spec, an implementation plan, or direct implementation
+6. **If spec requested:** write and review the spec, then ask whether to plan or implement
+7. **If plan requested:** invoke writing-plans
+8. **If direct implementation chosen:** proceed using the appropriate implementation skill or normal coding workflow
 
 ## Process Flow
 
@@ -39,31 +39,34 @@ digraph brainstorming {
     "Propose 2-3 approaches" [shape=box];
     "Present design sections" [shape=box];
     "User approves design?" [shape=diamond];
-    "Write design doc" [shape=box];
+    "Want written spec?" [shape=diamond];
+    "Write design spec" [shape=box];
     "Spec self-review\n(fix inline)" [shape=box];
     "User reviews spec?" [shape=diamond];
+    "Want a plan?" [shape=diamond];
     "Invoke writing-plans skill" [shape=doublecircle];
+    "Proceed to implementation" [shape=doublecircle];
 
     "Explore project context" -> "Ask clarifying questions";
     "Ask clarifying questions" -> "Propose 2-3 approaches";
     "Propose 2-3 approaches" -> "Present design sections";
     "Present design sections" -> "User approves design?";
     "User approves design?" -> "Present design sections" [label="no, revise"];
-    "User approves design?" -> "Write design doc" [label="yes"];
-    "Write design doc" -> "Spec self-review\n(fix inline)";
+    "User approves design?" -> "Want written spec?" [label="yes"];
+    "Want written spec?" -> "Write design spec" [label="yes"];
+    "Want written spec?" -> "Want a plan?" [label="no"];
+    "Write design spec" -> "Spec self-review\n(fix inline)";
     "Spec self-review\n(fix inline)" -> "User reviews spec?";
-    "User reviews spec?" -> "Write design doc" [label="changes requested"];
+    "User reviews spec?" -> "Write design spec" [label="changes requested"];
     "User reviews spec?" -> "Want a plan?" [label="approved"];
-    "Want a plan?" [shape=diamond];
     "Want a plan?" -> "Invoke writing-plans skill" [label="yes"];
     "Want a plan?" -> "Proceed to implementation" [label="no"];
-    "Proceed to implementation" [shape=doublecircle];
 }
 ```
 
-**After spec approval, ask the user:** "Want me to create a detailed implementation plan (writing-plans), or would you prefer to jump straight to implementation?"
+**After design approval, ask the user:** "Want me to write a spec, create an implementation plan, or jump straight to implementation?"
 
-If they want a plan, invoke writing-plans. If they skip, proceed directly to implementation using the appropriate skill. Do NOT invoke frontend-design, mcp-builder, or any other implementation skill unless the user explicitly skips the plan.
+If they want a spec, write it and ask for review. If they want a plan, invoke writing-plans. If they skip both, proceed directly to implementation using the appropriate skill or normal coding workflow.
 
 ## The Process
 
@@ -71,7 +74,7 @@ If they want a plan, invoke writing-plans. If they skip, proceed directly to imp
 
 - Check out the current project state first (files, docs, recent commits)
 - Before asking detailed questions, assess scope: if the request describes multiple independent subsystems (e.g., "build a platform with chat, file storage, billing, and analytics"), flag this immediately. Don't spend questions refining details of a project that needs to be decomposed first.
-- If the project is too large for a single spec, help the user decompose into sub-projects: what are the independent pieces, how do they relate, what order should they be built? Then brainstorm the first sub-project through the normal design flow. Each sub-project gets its own spec → plan → implementation cycle.
+- If the project is too large for a single pass, help the user decompose it into sub-projects: what are the independent pieces, how do they relate, what order should they be built? Then brainstorm the first sub-project through the normal design flow. Each sub-project gets an approved design, then optionally a written spec or plan based on user preference.
 - For appropriately-scoped projects, ask questions one at a time to refine the idea
 - Prefer multiple choice questions when possible, but open-ended is fine too
 - Only one question per message - if a topic needs more exploration, break it into multiple questions
@@ -106,15 +109,16 @@ If they want a plan, invoke writing-plans. If they skip, proceed directly to imp
 
 ## After the Design
 
-**Documentation:**
+**Optional Documentation:**
 
-- Write the validated design (spec) to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`
+- Ask whether the user wants a written spec before creating one.
+- If requested, write the validated design/spec to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`
   - (User preferences for spec location override this default)
 - Use elements-of-style:writing-clearly-and-concisely skill if available
-- Commit the design document to git
+- Commit the design document only when the user asked for a saved spec or commit
 
 **Spec Self-Review:**
-After writing the spec document, look at it with fresh eyes:
+If you write a spec document, look at it with fresh eyes:
 
 1. **Placeholder scan:** Any "TBD", "TODO", incomplete sections, or vague requirements? Fix them.
 2. **Internal consistency:** Do any sections contradict each other? Does the architecture match the feature descriptions?
@@ -124,9 +128,9 @@ After writing the spec document, look at it with fresh eyes:
 Fix any issues inline. No need to re-review — just fix and move on.
 
 **User Review Gate:**
-After the spec review loop passes, ask the user to review the written spec before proceeding:
+If you wrote a spec and the spec review loop passes, ask the user to review it before proceeding:
 
-> "Spec written and committed to `<path>`. Please review it and let me know if you want to make any changes before we start writing out the implementation plan."
+> "Spec written to `<path>`. Please review it and let me know if you want changes. After that we can either create a plan or implement directly."
 
 Wait for the user's response. If they request changes, make them and re-run the spec review loop. Only proceed once the user approves.
 
