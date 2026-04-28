@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+description: Use only when the user explicitly asks to brainstorm, think through an idea, explore options, workshop an approach, or says phrases like "let's brainstorm", "let's think about it", "help me design this", or "what are my options"; do not use for direct implementation, fix, edit, or change requests
 ---
 
 # Brainstorming Ideas Into Designs
@@ -9,13 +9,27 @@ Help turn ideas into fully formed designs through natural collaborative dialogue
 
 Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design and get user approval.
 
-<HARD-GATE>
-Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it. This applies to EVERY project regardless of perceived simplicity.
-</HARD-GATE>
+<TRIGGER>
+Manual intent only. Use this skill only when the user explicitly asks to brainstorm, think through, workshop, explore options, or design before implementation.
 
-## Anti-Pattern: "This Is Too Simple To Need A Design"
+Do not infer brainstorming intent from requests like "implement", "fix", "change", "edit", "add", "update", "refactor", "make this work", or "do X". Those are direct work instructions unless the user also asks to brainstorm first.
 
-Every project goes through this process. A todo list, a single-function utility, a config change — all of them. "Simple" projects are where unexamined assumptions cause the most wasted work. The design can be short (a few sentences for truly simple projects), but you MUST present it and get approval.
+If this skill was loaded for a direct implementation request, stop following it and proceed with the requested work normally.
+</TRIGGER>
+
+## When Active
+
+When the user explicitly starts a brainstorming/design conversation, do not invoke any implementation skill, write code, scaffold a project, or take implementation action until you have presented a design and the user has approved the next step.
+
+## Non-Triggers
+
+Do not use this skill for:
+- Direct implementation instructions
+- Bug fixes or debugging requests
+- Config edits
+- Code review requests
+- Small targeted changes where the user already stated what to do
+- Follow-up requests that continue an already chosen implementation path
 
 ## Checklist
 
@@ -25,10 +39,9 @@ Create tasks for the required discovery and design items. Create documentation o
 2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
 4. **Present design** — in sections scaled to their complexity, get user approval after each section
-5. **Offer next step** — ask whether the user wants a written spec, an implementation plan, or direct implementation
-6. **If spec requested:** write and review the spec, then ask whether to plan or implement
-7. **If plan requested:** invoke writing-plans
-8. **If direct implementation chosen:** proceed using the appropriate implementation skill or normal coding workflow
+5. **Offer next step** — ask whether the user wants a written spec or direct implementation
+6. **If spec requested:** write and review the spec, then ask whether to implement
+7. **If direct implementation chosen:** proceed using the appropriate implementation skill or normal coding workflow
 
 ## Process Flow
 
@@ -43,8 +56,6 @@ digraph brainstorming {
     "Write design spec" [shape=box];
     "Spec self-review\n(fix inline)" [shape=box];
     "User reviews spec?" [shape=diamond];
-    "Want a plan?" [shape=diamond];
-    "Invoke writing-plans skill" [shape=doublecircle];
     "Proceed to implementation" [shape=doublecircle];
 
     "Explore project context" -> "Ask clarifying questions";
@@ -54,19 +65,17 @@ digraph brainstorming {
     "User approves design?" -> "Present design sections" [label="no, revise"];
     "User approves design?" -> "Want written spec?" [label="yes"];
     "Want written spec?" -> "Write design spec" [label="yes"];
-    "Want written spec?" -> "Want a plan?" [label="no"];
+    "Want written spec?" -> "Proceed to implementation" [label="no"];
     "Write design spec" -> "Spec self-review\n(fix inline)";
     "Spec self-review\n(fix inline)" -> "User reviews spec?";
     "User reviews spec?" -> "Write design spec" [label="changes requested"];
-    "User reviews spec?" -> "Want a plan?" [label="approved"];
-    "Want a plan?" -> "Invoke writing-plans skill" [label="yes"];
-    "Want a plan?" -> "Proceed to implementation" [label="no"];
+    "User reviews spec?" -> "Proceed to implementation" [label="approved"];
 }
 ```
 
-**After design approval, ask the user:** "Want me to write a spec, create an implementation plan, or jump straight to implementation?"
+**After design approval, ask the user:** "Want me to write a spec, or jump straight to implementation?"
 
-If they want a spec, write it and ask for review. If they want a plan, invoke writing-plans. If they skip both, proceed directly to implementation using the appropriate skill or normal coding workflow.
+If they want a spec, write it and ask for review. If they skip it, proceed directly to implementation using the appropriate skill or normal coding workflow.
 
 ## The Process
 
@@ -74,7 +83,7 @@ If they want a spec, write it and ask for review. If they want a plan, invoke wr
 
 - Check out the current project state first (files, docs, recent commits)
 - Before asking detailed questions, assess scope: if the request describes multiple independent subsystems (e.g., "build a platform with chat, file storage, billing, and analytics"), flag this immediately. Don't spend questions refining details of a project that needs to be decomposed first.
-- If the project is too large for a single pass, help the user decompose it into sub-projects: what are the independent pieces, how do they relate, what order should they be built? Then brainstorm the first sub-project through the normal design flow. Each sub-project gets an approved design, then optionally a written spec or plan based on user preference.
+- If the project is too large for a single pass, help the user decompose it into sub-projects: what are the independent pieces, how do they relate, what order should they be built? Then brainstorm the first sub-project through the normal design flow. Each sub-project gets an approved design, then optionally a written spec based on user preference.
 - For appropriately-scoped projects, ask questions one at a time to refine the idea
 - Prefer multiple choice questions when possible, but open-ended is fine too
 - Only one question per message - if a topic needs more exploration, break it into multiple questions
@@ -122,7 +131,7 @@ If you write a spec document, look at it with fresh eyes:
 
 1. **Placeholder scan:** Any "TBD", "TODO", incomplete sections, or vague requirements? Fix them.
 2. **Internal consistency:** Do any sections contradict each other? Does the architecture match the feature descriptions?
-3. **Scope check:** Is this focused enough for a single implementation plan, or does it need decomposition?
+3. **Scope check:** Is this focused enough for direct implementation, or does it need decomposition?
 4. **Ambiguity check:** Could any requirement be interpreted two different ways? If so, pick one and make it explicit.
 
 Fix any issues inline. No need to re-review — just fix and move on.
@@ -130,15 +139,13 @@ Fix any issues inline. No need to re-review — just fix and move on.
 **User Review Gate:**
 If you wrote a spec and the spec review loop passes, ask the user to review it before proceeding:
 
-> "Spec written to `<path>`. Please review it and let me know if you want changes. After that we can either create a plan or implement directly."
+> "Spec written to `<path>`. Please review it and let me know if you want changes. After that we can implement directly."
 
 Wait for the user's response. If they request changes, make them and re-run the spec review loop. Only proceed once the user approves.
 
 **Implementation:**
 
-- Ask the user: "Want me to create a detailed implementation plan (writing-plans), or would you prefer to jump straight to implementation?"
-- If they want a plan: invoke the writing-plans skill
-- If they skip: proceed directly to implementation
+- Proceed directly to implementation after the approved design, or after the optional spec is approved.
 
 ## Key Principles
 

@@ -1,6 +1,6 @@
 ---
 name: using-superpowers
-description: Use when the user explicitly asks about skill selection, wants to troubleshoot or change the Superpowers workflow, or asks to audit which skills should apply
+description: Use only when the user explicitly says to use, run, or activate the Superpowers flow or the using-superpowers skill; never infer from ordinary skill, workflow, planning, debugging, or implementation requests
 ---
 
 <SUBAGENT-STOP>
@@ -8,13 +8,15 @@ If you were dispatched as a subagent to execute a specific task, skip this skill
 </SUBAGENT-STOP>
 
 <EXTREMELY-IMPORTANT>
-Do not invoke this skill merely because a new conversation or prompt started.
+Manual opt-in only.
 
-Use skills when they are directly relevant to the user's request, explicitly requested by the user, or needed for a high-risk workflow where the skill materially improves the result.
+Do not invoke this skill because a new conversation or prompt started.
+Do not invoke this skill for ordinary skill selection, workflow troubleshooting, planning, debugging, implementation, code review, or meta-discussion about skills.
+Do not infer that the user wants this skill from the word "skill" or "workflow".
 
-IF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.
+Only use this skill when the user explicitly says to use, run, activate, enable, or audit the Superpowers flow, or explicitly names `using-superpowers`.
 
-This is not negotiable. This is not optional. You cannot rationalize your way out of this.
+If this skill was loaded unintentionally, stop following it and proceed normally.
 </EXTREMELY-IMPORTANT>
 
 ## Instruction Priority
@@ -45,30 +47,24 @@ Skills use Claude Code tool names. Non-CC platforms: see `references/copilot-too
 
 ## The Rule
 
-**Invoke directly relevant or requested skills before taking action.** Do not run a global skill check for every prompt. If no listed skill clearly applies, proceed normally.
+**This skill is not an automatic skill router.** It describes a manual Superpowers mode. Outside an explicit user request to use Superpowers, do not run any global skill check and do not announce this skill.
+
+When the user explicitly activates this flow, help them choose or apply skills within the scope they requested.
 
 ```dot
 digraph skill_flow {
     "User message received" [shape=doublecircle];
-    "Did user request a skill?" [shape=diamond];
-    "Does a skill directly apply?" [shape=diamond];
-    "Invoke Skill tool" [shape=box];
-    "Announce: 'Using [skill] to [purpose]'" [shape=box];
-    "Has checklist?" [shape=diamond];
-    "Create TodoWrite todo per item" [shape=box];
-    "Follow skill exactly" [shape=box];
-    "Respond (including clarifications)" [shape=doublecircle];
+    "Did user explicitly activate Superpowers?" [shape=diamond];
+    "Proceed normally" [shape=doublecircle];
+    "Ask/confirm requested Superpowers scope" [shape=box];
+    "Use only skills in that scope" [shape=box];
+    "Respond" [shape=doublecircle];
 
-    "User message received" -> "Did user request a skill?";
-    "Did user request a skill?" -> "Invoke Skill tool" [label="yes"];
-    "Did user request a skill?" -> "Does a skill directly apply?" [label="no"];
-    "Does a skill directly apply?" -> "Invoke Skill tool" [label="yes"];
-    "Does a skill directly apply?" -> "Respond (including clarifications)" [label="no"];
-    "Invoke Skill tool" -> "Announce: 'Using [skill] to [purpose]'";
-    "Announce: 'Using [skill] to [purpose]'" -> "Has checklist?";
-    "Has checklist?" -> "Create TodoWrite todo per item" [label="yes"];
-    "Has checklist?" -> "Follow skill exactly" [label="no"];
-    "Create TodoWrite todo per item" -> "Follow skill exactly";
+    "User message received" -> "Did user explicitly activate Superpowers?";
+    "Did user explicitly activate Superpowers?" -> "Ask/confirm requested Superpowers scope" [label="yes"];
+    "Did user explicitly activate Superpowers?" -> "Proceed normally" [label="no"];
+    "Ask/confirm requested Superpowers scope" -> "Use only skills in that scope";
+    "Use only skills in that scope" -> "Respond";
 }
 ```
 
@@ -78,14 +74,14 @@ These thoughts mean STOP—you're rationalizing:
 
 | Thought | Reality |
 |---------|---------|
-| "The user explicitly asked for a skill, but I can answer from memory" | Use the requested skill. |
-| "A skill directly matches this workflow, but it feels like overhead" | Use the matching skill. |
-| "I remember this skill" | Skills evolve. Read current version. |
-| "The skill trigger is close enough" | Only use it when the trigger clearly matches the request. |
+| "The user mentioned skills, so Superpowers probably applies" | Do not use this skill unless they explicitly activated Superpowers. |
+| "This workflow would benefit from Superpowers" | Offer it only if useful; do not activate it automatically. |
+| "The user asked to edit skills" | Edit the requested skill directly; do not invoke this flow unless named. |
+| "The trigger is close enough" | Close is not enough. Manual opt-in only. |
 
 ## Skill Priority
 
-When multiple directly relevant skills could apply, use this order:
+When the user explicitly activates Superpowers and multiple skills are in scope, use this order:
 
 1. **Process skills first** (brainstorming, debugging) - these determine HOW to approach the task
 2. **Implementation skills second** (frontend-design, mcp-builder) - these guide execution
@@ -103,6 +99,6 @@ The skill itself tells you which.
 
 ## User Instructions
 
-Instructions say WHAT, not HOW. "Add X" or "Fix Y" doesn't mean skip workflows.
+Instructions say WHAT, not HOW. "Add X" or "Fix Y" does not activate Superpowers.
 
-User instructions can also narrow when workflows should trigger. If the user says a skill or workflow is too noisy, update or follow the trigger conditions so it activates only for directly relevant work.
+User instructions control whether this flow runs. If the user says they will tell you when to use Superpowers, treat that as the default: never trigger it automatically.
