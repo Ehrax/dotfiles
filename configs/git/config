@@ -1,6 +1,6 @@
 [user]
-    name = Alexander Rasputin
-    email = rasputin.alex@hotmail.de
+	name = Alexander Rasputin
+	email = rasputin.alex@hotmail.de
 
 [init]
     defaultBranch = main
@@ -52,3 +52,31 @@
 
 [rerere]
     enabled = true
+[safe]
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-1-prd-normalize-persistence-and-enable-icloud-sync
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-14-architecture-introduce-workspacepersistence-for-store-boot-and-reload
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-16-architecture-extract-invoice-finalization-workflow-outcome
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-16-architecture-extract-invoice-finalization-workflow-outcome
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-14-architecture-introduce-workspacepersistence-for-store-boot-and-reload
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-14-architecture-introduce-workspacepersistence-for-store-boot-and-reload
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-16-architecture-extract-invoice-finalization-workflow-outcome
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-20-architecture-move-dashboard-projections-out-of-workspacesnapshot
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-20-architecture-move-dashboard-projections-out-of-workspacesnapshot
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-21-architecture-move-project-and-bucket-projections-out-of-workspacesnapsho
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-21-architecture-move-project-and-bucket-projections-out-of-workspacesnapsho
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-22-architecture-move-invoice-list-and-preview-projections-out-of-workspaces
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-22-architecture-move-invoice-list-and-preview-projections-out-of-workspaces
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-15-architecture-move-seed-import-through-workspacepersistence
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-15-architecture-move-seed-import-through-workspacepersistence
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture
+	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture
