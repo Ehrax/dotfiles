@@ -18,8 +18,9 @@
   "effortLevel": "medium",
   "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
+  "theme": "dark-ansi",
   "editorMode": "vim",
   "autoCompactEnabled": false,
   "teammateMode": "tmux",
-  "theme": "dark-ansi"
+  "skipAutoPermissionPrompt": true
 }
