@@ -203,25 +203,8 @@ alias tks='tmux kill-server'
 # Claude Code
 # =============================================================================
 
-alias c="clear; claude --dangerously-skip-permissions"
+alias c="clear; claude --permission-mode auto"
 alias cx="clear; codex --yolo"
-function cw --description "Claude Code in a worktree"
-    clear
-    if test (count $argv) -gt 0
-        claude --dangerously-skip-permissions --model opus --worktree=$argv[1] --tmux
-    else
-        claude --dangerously-skip-permissions --model opus --worktree --tmux
-    end
-end
-alias cwl="git worktree list"
-function cwd --description "Remove a git worktree"
-    if test (count $argv) -eq 0
-        echo "Usage: cwd <worktree-path>"
-        echo "Run cwl to list worktrees"
-        return 1
-    end
-    git worktree remove $argv[1] && git worktree prune
-end
 
 # Claude config dir switchers
 function cc --description "Switch to personal Claude config"
@@ -230,7 +213,7 @@ function cc --description "Switch to personal Claude config"
     echo "Switched to personal ($HOME/.claude)"
 end
 
-function cm --description "Switch to work Claude config"
+function cw --description "Switch to work Claude config"
     echo "set -gx CLAUDE_CONFIG_DIR \"$HOME/.claude-work\"" > ~/.fish_claude_dir
     set -gx CLAUDE_CONFIG_DIR "$HOME/.claude-work"
     echo "Switched to work ($HOME/.claude-work)"
@@ -353,20 +336,6 @@ function wtc --description "CD into git worktree by branch name"
     end
 
     cd $worktree_path
-end
-
-# Create worktree and launch Claude Code in it
-# Usage: wtcc feature-name [base-branch]
-function wtcc --description "Create worktree and start Claude Code"
-    if test (count $argv) -eq 0
-        echo "Usage: wtcc <branch-name> [base-branch]"
-        return 1
-    end
-
-    wt $argv
-    and wtc $argv[1]
-    and echo "Starting Claude Code in worktree..."
-    and claude --dangerously-skip-permissions
 end
 
 # =============================================================================

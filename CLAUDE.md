@@ -32,7 +32,7 @@ Everything in `configs/` gets symlinked to its target location. Editing files he
 
 ### Dual Claude Config
 
-Two Claude Code profiles exist, switchable via `cc` (personal → `~/.claude`) and `cm` (work → `~/.claude-work`). Both share the same `settings.json`, `mcp.json`, skills, and plugins from this repo, and OpenCode shares the same skills source. The active profile is persisted via `CLAUDE_CONFIG_DIR` in `~/.fish_claude_dir` and restored on shell startup.
+Two Claude Code profiles exist, switchable via `cc` (personal → `~/.claude`) and `cw` (work → `~/.claude-work`). Both share the same `settings.json`, `mcp.json`, skills, and plugins from this repo, and OpenCode shares the same skills source. The active profile is persisted via `CLAUDE_CONFIG_DIR` in `~/.fish_claude_dir` and restored on shell startup.
 
 ### Neovim
 
@@ -54,11 +54,8 @@ bash scripts/sweep.sh [--dry-run] # Interactive disk cleanup (requires gum)
 ## Shell Aliases (Fish)
 
 Key aliases defined in `configs/fish/config.fish`:
-- `c` — launch Claude Code (opus, dangerously-skip-permissions)
-- `cw` — Claude Code in a worktree with tmux
-- `cwl` — list git worktrees
-- `cwd <path>` — remove a git worktree and prune
-- `cc` / `cm` — switch Claude config to personal / work
+- `c` — launch Claude Code (permission-mode auto)
+- `cc` / `cw` — switch Claude config to personal / work
 - `lg` — lazygit
 - `v` / `vim` — nvim
 - `sweep` — interactive disk cleanup (requires gum)
