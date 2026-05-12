@@ -203,7 +203,7 @@ alias tks='tmux kill-server'
 # Claude Code
 # =============================================================================
 
-alias c="clear; claude --permission-mode auto"
+alias c="clear; claude --dangerously-skip-permissions"
 alias cx="clear; codex --yolo"
 
 # Claude config dir switchers
