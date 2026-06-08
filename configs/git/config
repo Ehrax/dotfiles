@@ -80,3 +80,9 @@
 	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture/.sandcastle/worktrees/sandcastle-issue-15-architecture-move-seed-import-through-workspacepersistence
 	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture
 	directory = /Users/ehrax/Projects/ehrax.dev/pika/.sandcastle/worktrees/sandcastle-prd-13-prd-deepen-workspace-store-architecture
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
