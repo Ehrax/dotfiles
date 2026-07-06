@@ -13,7 +13,7 @@
     "fff": {
       "type": "local",
       "command": [
-        "/Users/ehrax/.local/bin/fff-mcp",
+        "/opt/homebrew/bin/fff-mcp",
         "--no-warmup",
         "--max-cached-files",
         "5000"

@@ -67,6 +67,9 @@ fish_add_path $HOME/.cargo/bin
 set -gx BUN_INSTALL $HOME/.bun
 fish_add_path $BUN_INSTALL/bin
 
+# Drone Bay
+fish_add_path /Users/ehrax/Projects/ehrax.dev/dronebay/apps/bay/dist
+
 # Load last set Claude config dir
 if test -f ~/.fish_claude_dir
     source ~/.fish_claude_dir
@@ -418,3 +421,10 @@ end
 
 # opencode
 fish_add_path /Users/ehrax/.opencode/bin
+
+# pnpm
+set -gx PNPM_HOME "/Users/ehrax/Library/pnpm"
+if not string match -q -- "$PNPM_HOME/bin" $PATH
+  set -gx PATH "$PNPM_HOME/bin" $PATH
+end
+# pnpm end

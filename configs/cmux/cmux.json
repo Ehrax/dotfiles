@@ -1,0 +1,53 @@
+{
+  "$schema": "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
+  "schemaVersion": 1,
+
+  "app": {
+    "appearance": "dark",
+    "newWorkspacePlacement": "afterCurrent",
+    "workspaceInheritWorkingDirectory": true,
+    "reorderOnNotification": false,
+    "openSupportedFilesInCmux": true,
+    "openMarkdownInCmuxViewer": true,
+    "preferredEditor": "code"
+  },
+
+  "terminal": {
+    "copyOnSelect": true,
+    "autoResumeAgentSessions": true
+  },
+
+  "browser": {
+    "openTerminalLinksInCmuxBrowser": true,
+    "interceptTerminalOpenCommandInCmuxBrowser": true,
+    "insecureHttpHostsAllowedInEmbeddedBrowser": [
+      "localhost",
+      "*.localhost",
+      "127.0.0.1",
+      "::1",
+      "0.0.0.0",
+      "*.localtest.me"
+    ]
+  },
+
+  "automation": {
+    "socketControlMode": "cmuxOnly",
+    "claudeCodeIntegration": true,
+    "suppressSubagentNotifications": true
+  },
+
+  "shortcuts": {
+    "bindings": {
+      "splitRight": ["ctrl+<space>", "shift+backslash"],
+      "splitDown": ["ctrl+<space>", "minus"],
+
+      "focusLeft": "ctrl+h",
+      "focusDown": "ctrl+j",
+      "focusUp": "ctrl+k",
+      "focusRight": "ctrl+l",
+
+      "toggleFileExplorer": ["ctrl+<space>", "e"],
+      "openBrowser": ["ctrl+<space>", "b"]
+    }
+  }
+}

@@ -166,6 +166,10 @@ create_symlink "$DOTFILES_DIR/configs/starship/starship.toml" "$HOME/.config/sta
 mkdir -p "$HOME/Library/Application Support/com.mitchellh.ghostty"
 create_symlink "$DOTFILES_DIR/configs/ghostty/config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
 
+# cmux
+mkdir -p "$HOME/.config/cmux"
+create_symlink "$DOTFILES_DIR/configs/cmux/cmux.json" "$HOME/.config/cmux/cmux.json"
+
 # Lazygit
 mkdir -p "$HOME/.config/lazygit"
 create_symlink "$DOTFILES_DIR/configs/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"

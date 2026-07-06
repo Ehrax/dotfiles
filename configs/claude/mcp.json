@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "fff": {
-      "command": "/Users/ehrax/.local/bin/fff-mcp",
+      "command": "/opt/homebrew/bin/fff-mcp",
       "args": ["--no-warmup", "--max-cached-files", "5000"]
     }
   }

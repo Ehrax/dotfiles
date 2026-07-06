@@ -640,6 +640,10 @@ scan() {
         "no|IDE|Xcode DeviceSupport|$HOME/Library/Developer/Xcode/iOS DeviceSupport|Potentially risky|Device symbol files are removed and may need re-download."
         "yes|IDE|CoreSimulator Caches|$HOME/Library/Developer/CoreSimulator/Caches|Safe|Simulator caches are recreated automatically."
         "yes|IDE|Android build cache|$HOME/.android/build-cache|Rebuild|Android build cache is regenerated on next build."
+        "no|IDE|Android AVDs|$HOME/.android/avd|Potentially risky|Deletes local Android emulators and their device data permanently."
+        "no|IDE|Android SDK NDK|$HOME/Library/Android/sdk/ndk|Potentially risky|Installed Android NDK toolchains are removed and may need re-download."
+        "no|IDE|Android SDK system-images|$HOME/Library/Android/sdk/system-images|Re-download|Android emulator system images are removed and can be re-downloaded later."
+        "no|IDE|Android SDK build-tools|$HOME/Library/Android/sdk/build-tools|Potentially risky|Installed Android build-tools versions are removed and may need re-download."
         # System (user)
         "no|System|User caches ~/Library/Caches|$HOME/Library/Caches|Potentially risky|May clear app caches/sessions; some apps may need re-login."
         "yes|System|User logs|$HOME/Library/Logs|Safe|Log files removed; diagnostics history is lost."

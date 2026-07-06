@@ -1,6 +1,7 @@
 # Taps
 tap "homebrew/cask-fonts"
 tap "leoafarias/fvm"
+tap "manaflow-ai/cmux"
 
 # =============================================================================
 # CLI Tools
@@ -64,6 +65,7 @@ brew "claude"
 
 ## Development
 cask "ghostty"
+cask "cmux"
 cask "android-studio"
 cask "visual-studio-code"
 

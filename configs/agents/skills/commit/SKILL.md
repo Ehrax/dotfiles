@@ -2,7 +2,6 @@
 name: commit
 description: Commit all current changes as a single conventional commit. Use when the user asks to commit everything quickly and safely.
 disable-model-invocation: true
-allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*)
 ---
 
 # Commit All Changes
