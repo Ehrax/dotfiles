@@ -116,6 +116,22 @@ Parallel fan-out: one `codex exec` per git worktree — concurrent writers in on
 
 Never use `--dangerously-bypass-approvals-and-sandbox` on this machine. `workspace-write` plus network access covers everything short of system-level changes — do those yourself.
 
+## GUI / computer-use / browser tasks
+
+`$computer-use` operates **any** Mac app — screenshot + accessibility tree (`get_app_state`), `click`, `type_text`, `set_value`, `scroll`, `drag`, `press_key` — and **works headlessly** for any app that has been trusted once with "Always allow". Verified end-to-end: headless `codex exec` opened Notes, created a note, typed into it, and screenshot-verified the result.
+
+Per-app trust is the only gate. An untrusted app fails with `Computer Use approval denied via MCP elicitation for app '<bundle-id>'`. Unlock it once by driving the TUI through tmux and answering the approval yourself:
+
+```bash
+tmux new-session -d -s cu -x 200 -y 50
+tmux send-keys -t cu "codex '\$computer-use take a screenshot of <App>'" Enter
+# poll: tmux capture-pane -t cu -p   → until the "Allow Codex to use <App>?" menu appears
+tmux send-keys -t cu Down Enter      # selects "2. Always allow" (persists; plain "Allow" does NOT)
+# poll until done, then: tmux kill-session -t cu
+```
+
+After that, every future headless run controls that app directly. `$browser` (in-app browser/Chrome) is the exception: its backends bind to the interactive app session — `agent.browsers.list()` is `[]` under `exec` — so browser-plugin work stays in interactive Codex. Details, tool list, and error signatures: REFERENCE.md.
+
 ## Gotchas
 
 - Startup warnings (plugin hooks parse failure, "skills context budget") are noise, not errors. So is "Reading additional input from stdin…" when stdin is `</dev/null` — it prints the line, hits EOF, proceeds.

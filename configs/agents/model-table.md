@@ -17,6 +17,9 @@ quality, API design, copy.
 | opus-4.8  | 4    | 7            | 8     |
 | sonnet-5  | 6    | 5            | 7     |
 
+- Don't start dev servers (assume one is already running) and don't run builds unless told — verify with the project's check commands (typecheck, lint, tests).
+- If asked to do too much work at once, stop and state that clearly.
+- If computer use helps to complete or verify work (clicking through a UI, screenshots), shell out to gpt-5.5 with codex — it has built-in computer use.
 - Defaults, not limits: if a cheaper model's output misses the bar, redo with a smarter one without asking. Judge the output, not the price tag.
 - When axes conflict for anything that ships: intelligence > taste > cost.
 - Bulk/mechanical with a tight brief (clear-spec implementation, migrations, commit/push sweeps): gpt-5.5. Never pick haiku on your own — the user invokes it explicitly when wanted.

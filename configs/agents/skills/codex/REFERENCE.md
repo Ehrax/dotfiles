@@ -94,6 +94,33 @@ Verified against `codex-cli 0.142.4`.
 - Most local repos are `trust_level = "trusted"` under `[projects]`
 - `notify` hook pings the Codex desktop app on turn end
 
+## Computer use & browser plugins (verified 2026-07)
+
+Codex has two GUI surfaces. Plugin tools are lazy-loaded — a fresh session shows none until Codex pulls them in via its internal `tool_search`. Plugin sources and full docs live under `~/.codex/.tmp/bundled-marketplaces/openai-bundled/plugins/{computer-use,browser}/` — read them when tool-level detail is needed.
+
+### `$computer-use` — full macOS control
+
+An MCP server (`SkyComputerUseClient`, a signed macOS app) that reads the screen and operates **any** Mac app. Tools: `list_apps`, `get_app_state` (screenshot + numbered accessibility tree), `click`, `type_text`, `set_value`, `perform_secondary_action`, `scroll`, `drag`, `press_key` — actions target elements by index from `get_app_state`. Ships per-app playbooks (Notion, Spotify, Numbers, Clock, iPhone Mirroring — the last means it can drive a mirrored iPhone). Risky UI actions (deletes, sends, purchases, logins, CAPTCHAs, system settings) follow a built-in confirmation taxonomy in the plugin skill.
+
+Headless `exec` behavior (verified end-to-end with Notes: read, click, type, screenshot):
+
+- **Works fully for trusted apps.** The only gate is a per-app trust decision.
+- Untrusted app → every tool except `list_apps` fails with `Computer Use approval denied via MCP elicitation for app '<bundle-id>'`.
+- The elicitation menu (TUI) offers Allow / **Always allow** / Deny / Cancel. **"Always allow" persists across sessions and into headless `exec`; one-shot "Allow" does not** (a one-shot-approved app is still denied headlessly). A TUI run that seems hung is this menu waiting.
+- The trust store lives inside the CUAService's private storage — not in `config.toml` or `defaults`, so it cannot be pre-seeded by file edit. Seed it via the tmux-driven TUI approval recipe in SKILL.md, or the user approves once themselves.
+- `--disable tool_call_mcp_elicitation` does not bypass the gate for untrusted apps.
+- Glitch: `type_text` can drop emoji/special characters; `set_value` on the text element is the reliable fallback (Codex self-recovers, but briefs can mention it).
+
+### `$browser` — in-app browser / Chrome control
+
+Not a direct tool set: control flows through the `node_repl` MCP `js` tool and a `browser-client` runtime — `agent.browsers.getDefault()` / `.get("iab")` (in-app browser) / `.get("extension")` (Chrome via extension) / `.getForUrl(url)`, then a `tab.playwright` API. Backends on this machine: `chrome,iab` (the separate `chrome@openai-bundled` plugin is not installed, so iab is the working default).
+
+Headless `exec` behavior: `agent.browsers.list()` returns `[]` **even with the Codex desktop app running** — backends bind to the interactive app session only.
+
+### Consequence for orchestration
+
+Headless GUI delegation works via computer-use once the target app is trusted ("Always allow") — unlock recipe in SKILL.md. Browser-plugin work (`$browser`) is the remaining interactive-only surface; for it, hand the task to interactive Codex, or capture the needed state yourself and attach it to a headless brief (`-i shot.png`, pasted text).
+
 ## Output anatomy of a headless run
 
 ```
