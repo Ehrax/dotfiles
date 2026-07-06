@@ -44,14 +44,16 @@ Review — two modes, pick by how much steering you need:
 codex exec -C <repo> -s read-only -o "$SCRATCH/review.md" "Load and apply the <rubric-skill> skill. Review git diff main...HEAD. FINDINGS ONLY, no edits: [BLOCKING]/[ADVISORY] bullets anchored to file:line. If nothing blocks, start with APPROVED." </dev/null
 ```
 
-**Quick built-in review** (`codex review` — no `-C`, `-m`, or `-o`; run from the repo root, steer only via `-c`, capture stdout; it cannot load skills or take a rubric):
+**Quick built-in review** (`codex review` — the subcommand has no `-m`/`-o`, but top-level `-C` works; steer via `-c`, capture stdout):
 
 ```bash
-cd <repo> && codex review --uncommitted                # staged + unstaged + untracked
-codex review --base main                               # diff against a base branch
+codex -C <repo> review --uncommitted     # staged + unstaged + untracked
+codex -C <repo> review --base main       # diff against a base branch
+codex -C <repo> review --commit <sha>    # a single commit
+codex -C <repo> review "<instructions>"  # custom focus — CANNOT combine with a target flag; name the target inside the prompt instead
 ```
 
-Built-in findings arrive on stdout as priority bullets (`[P1]`–`[P3]`) anchored to `file:line`.
+Built-in findings arrive on stdout as priority bullets (`[P1]`–`[P3]`) anchored to `file:line`. Full review ritual (prompt template, verify-before-relay, reporting rules): the `codex-review` skill.
 
 - Always append `</dev/null` — with piped stdin, `codex exec` blocks on "Reading additional input from stdin…".
 - `-o` writes Codex's final message to a file: the reliable way to capture the result.

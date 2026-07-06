@@ -71,7 +71,7 @@ Verified against `codex-cli 0.142.4`.
 
 | Flag | Meaning |
 |---|---|
-| `[PROMPT]` | Custom review instructions (`-` reads stdin) |
+| `[PROMPT]` | Custom review instructions (`-` reads stdin) — **mutually exclusive with target flags**; prompt form reviews the working tree, so name the target inside the prompt |
 | `--uncommitted` | Review staged + unstaged + untracked changes |
 | `--base <branch>` | Review against a base branch |
 | `--commit <sha>` | Review a single commit |
