@@ -19,7 +19,7 @@
     "swift-lsp@claude-plugins-official": true,
     "vercel@claude-plugins-official": true
   },
-  "effortLevel": "low",
+  "effortLevel": "xhigh",
   "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark-ansi",
