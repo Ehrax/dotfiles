@@ -11,7 +11,7 @@ Verified against `codex-cli 0.142.4` — on a version bump, re-check flags with 
 
 ## Defaults on this machine
 
-`~/.codex/config.toml` (symlinked from this repo's `configs/codex/config.toml`) sets model `gpt-5.5` at reasoning effort `xhigh`. `codex exec` runs with approval `never`.
+`~/.codex/config.toml` is machine-local and not tracked in dotfiles. On this machine it sets model `gpt-5.5` at reasoning effort `xhigh`. `codex exec` runs with approval `never`.
 
 **Always pass the sandbox explicitly** (`-s workspace-write` or `-s read-only` on exec; `-c sandbox_mode="..."` on resume). Observed in practice: with no flag, the header showed `workspace-write` — config can override the documented read-only default, so a "read-only" review run without an explicit flag may be writable. Check the header, don't assume.
 

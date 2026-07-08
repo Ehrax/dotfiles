@@ -86,7 +86,7 @@ Verified against `codex-cli 0.142.4`.
 | `shell_environment_policy.inherit=all` | Pass the full environment to spawned commands |
 | `features.<name>=true` | Same as `--enable <name>` |
 
-## This machine's config highlights (`configs/codex/config.toml` → `~/.codex/config.toml`)
+## This machine's config highlights (`~/.codex/config.toml`, local-only)
 
 - `model = "gpt-5.5"`, `model_reasoning_effort = "xhigh"`, `service_tier = "default"`
 - MCP server `fff` (grep/multi_grep/find_files) pre-approved — Codex has fast code search

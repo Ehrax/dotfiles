@@ -18,7 +18,6 @@ Personal macOS dotfiles for Alexander Rasputin: `./init.sh` installs Homebrew pa
 | `configs/claude/settings.json` | `~/.claude/settings.json` AND `~/.claude-work/settings.json` |
 | `configs/claude/mcp.json` | `~/.claude/mcp.json` AND `~/.claude-work/mcp.json` |
 | `configs/claude/statusline.sh` | `~/.claude/statusline.sh` |
-| `configs/codex/config.toml` | `~/.codex/config.toml` |
 | `configs/agents/skills/` | `~/.agents/skills`, `~/.claude/skills`, `~/.config/opencode/skills`, `~/.gemini/skills`, `~/.codex/skills` |
 | `configs/opencode/opencode.json` | `~/.config/opencode/opencode.json` |
 | `~/.claude/plugins` | `~/.claude-work/plugins` (symlinked to each other) |
