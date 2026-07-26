@@ -1,31 +1,25 @@
-# Model table — canonical pattern
+# Model routing
 
-Paste-source for the "Picking models for delegated work" block in every project's AGENTS.md.
-Not symlinked by design: each project may tweak it. When the roster changes (new model,
-pricing shift), update HERE first, then sweep the projects.
+Scores are directional defaults, not benchmarks. Higher is better. Cost means lower
+real subscription pressure, not lower API list price. Intelligence = how hard a problem
+the model handles unsupervised. Taste = UI/UX, code quality, API design, and copy. New
+model scores are provisional until repeated project work gives better evidence.
 
-<!-- BLOCK START — copy from here -->
-## Picking models for delegated work
+| model           | cost | intelligence | taste |
+|-----------------|------|--------------|-------|
+| gpt-5.6-sol     | 5    | 10           | 8     |
+| fable-5         | 2    | 9            | 9     |
+| gpt-5.6-terra   | 8    | 8            | 7     |
+| gpt-5.6-luna    | 10   | 6            | 6     |
+| opus-4.8        | 4    | 7            | 8     |
+| sonnet-5        | 6    | 5            | 7     |
 
-Rankings, higher = better. Cost reflects real subscription pressure, not list price.
-Intelligence = how hard a problem the model handles unsupervised. Taste = UI/UX, code
-quality, API design, copy.
-
-| model     | cost | intelligence | taste |
-|-----------|------|--------------|-------|
-| gpt-5.5   | 7    | 8            | 5     |
-| opus-4.8  | 4    | 7            | 8     |
-| sonnet-5  | 6    | 5            | 7     |
-
-- Don't start dev servers (assume one is already running) and don't run builds unless told — verify with the project's check commands (typecheck, lint, tests).
-- If asked to do too much work at once, stop and state that clearly.
-- If computer use helps to complete or verify work (clicking through a UI, screenshots), shell out to gpt-5.5 with codex — it has built-in computer use.
-- Defaults, not limits: if a cheaper model's output misses the bar, redo with a smarter one without asking. Judge the output, not the price tag.
+- Defaults are not limits. If a cheaper model misses the bar, redo with a stronger one. Judge the output, not the price tag.
 - When axes conflict for anything that ships: intelligence > taste > cost.
-- Bulk/mechanical with a tight brief (clear-spec implementation, migrations, commit/push sweeps): gpt-5.5. Never pick haiku on your own — the user invokes it explicitly when wanted.
-- Anything user-facing (UI, copy, API design) needs taste ≥ 7: opus-4.8, sonnet-5 as budget option.
-- Default driver split: gpt-5.5 drives backend and logic work (services, data, glue — including logic inside frontend code); Claude drives frontend/visual work.
-- Reviews of plans/implementations: opus-4.8, plus gpt-5.5 as an independent second perspective.
-- Also on the codex account (via `codex -m`): gpt-5.4, gpt-5.4-mini, gpt-5.3-codex-spark (very fast execution) — the user invokes these explicitly; don't auto-pick them.
-- Mechanics: gpt-5.5 only via the codex CLI (`codex exec` / `codex review`); Claude models via the Agent/Workflow `model` parameter. Full delegation playbook: the `orchestrate` skill.
-<!-- BLOCK END -->
+- Tight, mechanical work: gpt-5.6-luna. Escalate to Terra if the task stops being mechanical.
+- Backend, services, data, glue, and frontend logic: gpt-5.6-terra.
+- Hard unsupervised work, architecture, difficult debugging, and final high-stakes review: gpt-5.6-sol.
+- User-facing UI, copy, and API design require taste ≥ 7: fable-5 when quality matters most; opus-4.8 by default; Sol when maximum reasoning is also required; Terra or sonnet-5 as budget options.
+- Reviews: gpt-5.6-sol, with fable-5 or opus-4.8 as the independent taste-and-design perspective.
+- Also available through `codex -m`: gpt-5.5, gpt-5.4, gpt-5.4-mini, and gpt-5.3-codex-spark. Use these only when explicitly requested.
+- GPT models run through the Codex CLI (`codex exec` / `codex review`); Claude models run through the Agent/Workflow `model` parameter. Use the `orchestrate` skill for the full delegation playbook.

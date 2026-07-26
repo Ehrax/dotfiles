@@ -1,17 +1,18 @@
 ---
 name: claude
-description: Drive the Claude Code CLI to delegate work to a Claude model — headless runs via `claude -p`, model selection (opus/sonnet), resuming sessions. Use when you are NOT a Claude model yourself and the task needs taste (UI, copy, API design, code review) or an independent second perspective, or when the user says to hand work to Claude.
+description: Drive the Claude Code CLI to delegate work to a Claude model.
+disable-model-invocation: true
 ---
 
 # Claude Code CLI
 
-Delegate work to Claude and stay the foreman: you scope the job, Claude executes headlessly, you verify and integrate. Mirror of the `codex` skill, pointed the other way.
+Delegate work to Claude and stay the foreman: you scope the job, Claude executes headlessly, you verify and integrate. Mirror of the `codex-cli` skill, pointed the other way.
 
-Verified against `claude 2.1.202` — on a version bump, re-check flags with `claude -p --help`.
+Verified against `claude 2.1.214` — on a version bump, re-check flags with `claude -p --help`.
 
 ## When to reach for Claude instead of doing it yourself
 
-Consult the project AGENTS.md model table ("Picking models for delegated work"). Default driver split: gpt-5.5 drives backend and logic work; **Claude drives frontend/visual work** (UI, copy, API design — taste ≥ 7 → opus-4.8, sonnet-5 as budget option). Also: an independent review of your own plan or diff needs a fresh session — a fresh Claude run qualifies; your own session never does.
+Consult the canonical [model routing table](../../model-table.md) before selecting a model. Also: an independent review of your own plan or diff needs a fresh session — a fresh Claude run qualifies; your own session never does.
 
 ## Launch
 
@@ -20,7 +21,8 @@ cd <repo-or-worktree> && claude -p "<brief>" --model opus --permission-mode acce
 ```
 
 - `-p` = headless: runs the task, prints the result, exits. cwd = workspace. There is no `-o` flag — capture stdout.
-- `--model opus | sonnet` — aliases resolve to the latest version; pick per the model table.
+- `--model fable | opus | sonnet` — aliases resolve to the latest version; pick per the model table. The full Fable name is `claude-fable-5`.
+- `--effort low | medium | high | xhigh | max` — pass the requested effort explicitly. For example, an independent Fable taste review uses `--model fable --effort high`.
 - `--output-format json` returns one JSON object: `result` (final message), `session_id` (needed to iterate), `total_cost_usd`, `is_error`, and `permission_denials`.
 - **Permission modes (verified behavior):** `acceptEdits` lets Claude create/edit files unattended. Default mode fails CLOSED headlessly — a Write is denied, recorded in `permission_denials`, and the file is never created. Use default mode + "FINDINGS ONLY, do not edit" for read-only reviews: it is enforced, not just requested.
 - Claude auto-reads CLAUDE.md/AGENTS.md and loads this same shared skills folder — don't restate what's already there; a brief may tell Claude to use a skill by name.
@@ -80,3 +82,18 @@ claude -p -c "<feedback>"                                           # most recen
 - `--dangerously-skip-permissions` exists but don't reach for it headlessly; `acceptEdits` covers implementation work.
 - Never let the same Claude session that implemented a change also review it — reviews get a fresh session (new `claude -p`, not `--resume`).
 - Plain-text output (no `--output-format json`) is just the final message — fine for one-shots, but you lose the session id and the denial log.
+
+## Fable read-only review
+
+Pass the review brief as the real positional prompt argument. Do not reference an unset shell variable such as `"$PROMPT"`; Claude will otherwise receive an empty task even though the model flags are valid.
+
+```bash
+cd <repo-or-worktree> && claude -p "<complete review brief>" \
+  --model fable \
+  --effort high \
+  --output-format json
+```
+
+- Omit `--permission-mode acceptEdits` for a findings-only review. Default headless permissions fail closed on writes.
+- Do not pass `--fallback-model` when the user requested Fable specifically.
+- A wrapper must wait for this same foreground process to emit its final JSON. JSON mode can remain silent until completion; silence alone is not a reason to start a second call.

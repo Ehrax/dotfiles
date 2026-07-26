@@ -1,6 +1,6 @@
 ---
 name: orchestrate
-description: Orchestrator playbook for delegating work to subagents and cheaper models — stakes calibration, brief anatomy with pinned goldens, review gates, and the write-back loop. Use when acting as an orchestrator, when splitting a PRD into slices for executor models, or when the user says "orchestrate", "delegate", or "fan out".
+description: Manually invoked orchestrator playbook for delegating work to subagents and cheaper models — stakes calibration, brief anatomy with pinned goldens, review gates, and the write-back loop. Use only when the user explicitly invokes the orchestrate skill. Do not auto-trigger merely because a task could benefit from delegation, subagents, PRD slicing, fan-out, or orchestration.
 ---
 
 # Orchestrate
@@ -39,7 +39,7 @@ Pre-diagnose when you can: "Root cause (already diagnosed — do not re-investig
 
 ## 2. Model tiering
 
-- The project AGENTS.md model table ("Picking models for delegated work") is the routing source of truth — cost/intelligence/taste per model plus the backend-vs-frontend driver split.
+- The canonical [model routing table](../../model-table.md) is the routing source of truth.
 - Mechanical work with a tight brief → cheapest model. A good brief makes the model matter less; that is the whole point of writing one.
 - Judgment, synthesis, architecture, final review → the best model you have.
 - Judge the output, not the price: if a cheap model's result misses the bar, redo with a stronger one immediately instead of iterating on the cheap one.

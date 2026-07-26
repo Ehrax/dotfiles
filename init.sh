@@ -191,6 +191,7 @@ mkdir -p "$HOME/.config/opencode"
 mkdir -p "$HOME/.gemini"
 mkdir -p "$HOME/.codex"
 
+create_symlink "$DOTFILES_DIR/configs/codex/AGENTS.md" "$HOME/.codex/AGENTS.md"
 create_symlink "$DOTFILES_DIR/configs/claude/settings.json" "$HOME/.claude/settings.json"
 create_symlink "$DOTFILES_DIR/configs/claude/settings.json" "$HOME/.claude-work/settings.json"
 create_symlink "$DOTFILES_DIR/configs/claude/statusline.sh" "$HOME/.claude/statusline.sh"
