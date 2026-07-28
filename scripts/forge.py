@@ -315,7 +315,8 @@ def _resolution_rows(state: Path) -> List[dict]:
     projects = generated.get("projects")
     if not isinstance(root_value, str) or not isinstance(projects, list):
         raise ForgeError("projects.generated.json has an invalid root/projects contract")
-    root = Path(root_value)
+    root = Path(root_value).expanduser().resolve()
+    _validate_territory_contract(state, root)
     rows = []
     for project in projects:
         if not isinstance(project, dict):
@@ -326,10 +327,20 @@ def _resolution_rows(state: Path) -> List[dict]:
         relative = project.get("relative_path")
         if not all(isinstance(value, str) for value in (path, name, project_id, relative)):
             continue
+        safe_path = _alias_target(
+            root, relative, "generated project {!r}".format(project_id)
+        )
+        stored_path = Path(path).expanduser().resolve()
+        if stored_path != safe_path:
+            raise ForgeError(
+                "generated project {!r} path mismatch: {} != {}".format(
+                    project_id, stored_path, safe_path
+                )
+            )
         rows.append(
             {
                 "id": project_id,
-                "path": path,
+                "path": str(safe_path),
                 "names": [name, name.replace("-", " ").replace("_", " "), relative],
                 "source": "generated",
             }
@@ -419,6 +430,7 @@ def doctor(root: Path, state: Path) -> dict:
     _validate_territory_contract(state, root.resolve())
     generated = _read_json(state / "projects.generated.json")
     aliases = _read_json(state / "aliases.yaml")
+    _resolution_rows(state)
     rows = list(_alias_rows(aliases, root.resolve()))
     missing = sorted({row["path"] for row in rows if not Path(row["path"]).exists()})
     return {

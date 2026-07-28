@@ -186,6 +186,20 @@ class ForgeRegistryTests(unittest.TestCase):
         with self.assertRaises(forge.ForgeError):
             forge.scan(self.root, self.state, self.seed)
 
+    def test_generated_project_path_must_match_safe_relative_path(self) -> None:
+        self.make_project("work/fathom", (".git", "README.md"))
+        outside = Path(self.temp.name) / "outside"
+        outside.mkdir()
+        forge.scan(self.root, self.state, self.seed)
+
+        generated_path = self.state / "projects.generated.json"
+        generated = json.loads(generated_path.read_text())
+        generated["projects"][0]["path"] = str(outside.resolve())
+        generated_path.write_text(json.dumps(generated))
+
+        with self.assertRaises(forge.ForgeError):
+            forge.resolve("fathom", self.state)
+
 
 if __name__ == "__main__":
     unittest.main()
