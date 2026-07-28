@@ -11,6 +11,12 @@ Use the `fff` MCP tools for file and content search whenever available.
 
 Before selecting or delegating models, read `~/Projects/ehrax.dev/Dotfiles/configs/agents/model-table.md`.
 
+# Forge — project registry
+
+- Code projects live under the unchanged physical root `~/Projects`; “Forge” is only the internal territory name.
+- Before starting work for a named project, resolve it with `python3 ~/Projects/ehrax.dev/Dotfiles/scripts/forge.py resolve "<project phrase>"`.
+- Use only a `resolved` path. For `ambiguous`, `not_found`, or `invalid_registry`, do not guess the project destination.
+
 # Atlas — personal knowledge OS
 
 - Atlas (`~/Documents/99_Vaults/Atlas`) is curated knowledge, not scratch notes: consult `10_wiki/` before guessing, assuming, or re-researching. Read `index.md` + `SCHEMA.md` before using it seriously.

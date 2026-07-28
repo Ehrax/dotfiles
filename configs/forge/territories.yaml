@@ -1,0 +1,12 @@
+{
+  "schema": "forge-territories/v0",
+  "territories": [
+    {
+      "id": "forge",
+      "root": "~/Projects",
+      "mode": "project_local",
+      "discovery": "project markers plus nested Git roots",
+      "canonical_docs": "in_place"
+    }
+  ]
+}

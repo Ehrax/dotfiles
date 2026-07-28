@@ -1,0 +1,62 @@
+{
+  "schema": "forge-aliases/v0",
+  "groups": {
+    "bikepark": {
+      "aliases": ["bikepark", "bikepark thun", "bpts"],
+      "default": "ehrax.dev/bikepark-thunersee",
+      "members": {
+        "app": {
+          "aliases": ["bikepark app", "bikepark frontend"],
+          "path": "ehrax.dev/bikepark-thunersee/bikepark-thunersee-app"
+        },
+        "api": {
+          "aliases": ["bikepark api", "bikepark backend"],
+          "path": "ehrax.dev/bikepark-thunersee/bikepark-thunsersee-api"
+        }
+      }
+    },
+    "fathom": {
+      "aliases": ["fathom"],
+      "default": "ehrax.dev/fathom",
+      "members": {
+        "core": {
+          "aliases": ["fathom core", "fathom app"],
+          "path": "ehrax.dev/fathom"
+        },
+        "landing": {
+          "aliases": ["fathom landing", "fathom website"],
+          "path": "ehrax.dev/fathom-landing-page"
+        },
+        "video": {
+          "aliases": ["fathom video", "fathom remotion"],
+          "path": "ehrax.dev/fathom-remotion"
+        }
+      }
+    },
+    "atlas-eval": {
+      "aliases": ["atlas eval", "atlas eval harness", "atlas harness", "eval harness"],
+      "default": "ehrax.dev/atlas-eval",
+      "members": {}
+    },
+    "notes-cli": {
+      "aliases": ["notes cli", "apple notes cli", "apple notes cli export", "notes exporter"],
+      "default": "ehrax.dev/notes-cli",
+      "members": {}
+    },
+    "on-device-ai": {
+      "aliases": ["on device ai", "on device ai experimente", "on-device experiments"],
+      "default": "markveys/on-device-ai-experiments",
+      "members": {}
+    },
+    "cidp": {
+      "aliases": ["cidp", "takeda cidp"],
+      "default": "markveys/cidp",
+      "members": {}
+    },
+    "ehrax-threejs": {
+      "aliases": ["ehrax threejs", "ehrax dev threejs"],
+      "default": "ehrax.dev/ehrax.dev-threejs",
+      "members": {}
+    }
+  }
+}
