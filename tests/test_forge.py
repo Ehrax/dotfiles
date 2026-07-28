@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import contextlib
 import importlib.util
+import io
 import json
 import tempfile
 import unittest
@@ -199,6 +201,32 @@ class ForgeRegistryTests(unittest.TestCase):
 
         with self.assertRaises(forge.ForgeError):
             forge.resolve("fathom", self.state)
+
+        with contextlib.redirect_stderr(io.StringIO()):
+            exit_code = forge.main(
+                [
+                    "--root",
+                    str(self.root),
+                    "--state",
+                    str(self.state),
+                    "resolve",
+                    "fathom",
+                    "--no-refresh",
+                ]
+            )
+        self.assertEqual(2, exit_code)
+
+    def test_doctor_rejects_tampered_generated_root(self) -> None:
+        self.make_project("work/fathom", (".git", "README.md"))
+        forge.scan(self.root, self.state, self.seed)
+
+        generated_path = self.state / "projects.generated.json"
+        generated = json.loads(generated_path.read_text())
+        generated["root"] = str(Path(self.temp.name) / "outside")
+        generated_path.write_text(json.dumps(generated))
+
+        with self.assertRaises(forge.ForgeError):
+            forge.doctor(self.root, self.state)
 
 
 if __name__ == "__main__":
