@@ -24,7 +24,7 @@
           "path": "ehrax.dev/fathom"
         },
         "landing": {
-          "aliases": ["fathom landing", "fathom website"],
+          "aliases": ["fathom landing", "fathom landing page", "fathom website"],
           "path": "ehrax.dev/fathom-landing-page"
         },
         "video": {

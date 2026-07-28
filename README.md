@@ -49,7 +49,7 @@ fnm (Node.js) · bun · rbenv (Ruby) · fvm (Flutter) · Claude Code
 
 ```
 configs/       Shell, editor, terminal, git configs (symlinked to ~/.config/)
-scripts/       macOS system preferences, disk cleanup utilities
+scripts/       macOS utilities, including the local Forge project registry
 docs/          Setup guides and references
 Brewfile       Homebrew packages
 init.sh        Setup script

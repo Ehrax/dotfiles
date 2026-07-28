@@ -183,11 +183,42 @@ def _initialize_manual_state(state: Path, seed: Path) -> None:
             shutil.copyfile(str(source), str(destination))
 
 
+def _validate_territory_contract(state: Path, root: Path) -> dict:
+    contract = _read_json(state / "territories.yaml")
+    territories = contract.get("territories")
+    if not isinstance(territories, list):
+        raise ForgeError("territories.yaml requires a 'territories' array")
+    matches = [
+        territory
+        for territory in territories
+        if isinstance(territory, dict) and territory.get("id") == "forge"
+    ]
+    if len(matches) != 1:
+        raise ForgeError("territories.yaml requires exactly one Forge territory")
+    forge = matches[0]
+    declared_root = forge.get("root")
+    if not isinstance(declared_root, str):
+        raise ForgeError("Forge territory requires a string root")
+    resolved_declared_root = Path(declared_root).expanduser().resolve()
+    if resolved_declared_root != root.resolve():
+        raise ForgeError(
+            "Forge root mismatch: runtime {} != contract {}".format(
+                root.resolve(), resolved_declared_root
+            )
+        )
+    if forge.get("mode") != "project_local":
+        raise ForgeError("Forge territory mode must be 'project_local'")
+    if forge.get("canonical_docs") != "in_place":
+        raise ForgeError("Forge canonical_docs must be 'in_place'")
+    return forge
+
+
 def scan(root: Path, state: Path, seed: Path = SEED_DIRECTORY) -> dict:
     root = root.expanduser().resolve()
     state = state.expanduser().resolve()
     seed = seed.expanduser().resolve()
     _initialize_manual_state(state, seed)
+    _validate_territory_contract(state, root)
     projects = discover_projects(root)
     result = {
         "schema": SCHEMA,
@@ -215,6 +246,27 @@ def _name_forms(value: str) -> Set[str]:
     return {normalized, normalized.replace(" ", "")}
 
 
+def _row_extends_phrase(row: dict, phrase: str) -> bool:
+    prefix = phrase + " "
+    return any(
+        normalize(name).startswith(prefix)
+        for name in row["names"]
+        if isinstance(name, str)
+    )
+
+
+def _alias_target(root: Path, relative: str, label: str) -> Path:
+    raw = Path(relative).expanduser()
+    if raw.is_absolute():
+        raise ForgeError("{} must be relative to Forge, got {}".format(label, relative))
+    target = (root / raw).resolve()
+    try:
+        target.relative_to(root.resolve())
+    except ValueError:
+        raise ForgeError("{} escapes Forge root: {}".format(label, relative))
+    return target
+
+
 def _alias_rows(aliases: dict, root: Path) -> Iterable[dict]:
     groups = aliases.get("groups")
     if not isinstance(groups, dict):
@@ -228,7 +280,7 @@ def _alias_rows(aliases: dict, root: Path) -> Iterable[dict]:
             raise ForgeError("alias group {!r} has invalid default/aliases".format(group_id))
         yield {
             "id": group_id,
-            "path": str(root / default),
+            "path": str(_alias_target(root, default, "alias group {!r}".format(group_id))),
             "names": names,
             "source": "alias",
         }
@@ -244,7 +296,13 @@ def _alias_rows(aliases: dict, root: Path) -> Iterable[dict]:
                 raise ForgeError("alias member {!r} has invalid path/aliases".format(member_id))
             yield {
                 "id": "{}:{}".format(group_id, member_id),
-                "path": str(root / relative),
+                "path": str(
+                    _alias_target(
+                        root,
+                        relative,
+                        "alias member {!r}:{!r}".format(group_id, member_id),
+                    )
+                ),
                 "names": member_names,
                 "source": "alias",
             }
@@ -307,6 +365,21 @@ def resolve(query: str, state: Path) -> dict:
 
     if len(exact) == 1:
         row = next(iter(exact.values()))
+        related = {
+            path: candidate
+            for path, candidate in fuzzy.items()
+            if path != row["path"] and _row_extends_phrase(candidate, phrase)
+        }
+        if row["source"] == "generated" and related:
+            candidates = [row] + sorted(
+                related.values(), key=lambda candidate: (candidate["path"], candidate["id"])
+            )
+            return {
+                "status": "ambiguous",
+                "query": query,
+                "phrase": phrase,
+                "candidates": candidates,
+            }
         if not Path(row["path"]).exists():
             return {
                 "status": "invalid_registry",
@@ -343,6 +416,7 @@ def resolve(query: str, state: Path) -> dict:
 
 
 def doctor(root: Path, state: Path) -> dict:
+    _validate_territory_contract(state, root.resolve())
     generated = _read_json(state / "projects.generated.json")
     aliases = _read_json(state / "aliases.yaml")
     rows = list(_alias_rows(aliases, root.resolve()))
@@ -385,7 +459,9 @@ def main(argv: Optional[List[str]] = None) -> int:
                 scan(root, state)
             result = resolve(arguments.query, state)
         elif arguments.command == "list":
-            result = scan(root, state)
+            if not (state / "projects.generated.json").exists():
+                raise ForgeError("registry is missing; run 'forge.py scan' first")
+            result = _read_json(state / "projects.generated.json")
         elif arguments.command == "doctor":
             if not (state / "projects.generated.json").exists():
                 scan(root, state)

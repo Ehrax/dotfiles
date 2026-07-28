@@ -26,7 +26,14 @@ class ForgeRegistryTests(unittest.TestCase):
             json.dumps(
                 {
                     "schema": "forge-territories/v0",
-                    "territories": [{"id": "forge", "root": str(self.root)}],
+                    "territories": [
+                        {
+                            "id": "forge",
+                            "root": str(self.root),
+                            "mode": "project_local",
+                            "canonical_docs": "in_place",
+                        }
+                    ],
                 }
             )
         )
@@ -141,6 +148,43 @@ class ForgeRegistryTests(unittest.TestCase):
         result = forge.resolve("Mach bei Timo weiter", self.state)
         self.assertEqual("ambiguous", result["status"])
         self.assertGreaterEqual(len(result["candidates"]), 2)
+
+    def test_generated_exact_name_does_not_hide_related_ambiguity(self) -> None:
+        self.make_project("work/ehrax.dev", (".git", "README.md"))
+        threejs = self.make_project("work/ehrax.dev-threejs", (".git", "README.md"))
+        forge.scan(self.root, self.state, self.seed)
+
+        result = forge.resolve("Mach bei Ehrax dev weiter", self.state)
+        self.assertEqual("ambiguous", result["status"])
+        self.assertGreaterEqual(len(result["candidates"]), 2)
+        specific = forge.resolve("Mach bei Ehrax dev ThreeJS weiter", self.state)
+        self.assertEqual("resolved", specific["status"])
+        self.assertEqual(str(threejs), specific["path"])
+
+    def test_alias_target_cannot_escape_forge_root(self) -> None:
+        self.make_project("work/bikepark", ("README.md",))
+        outside = Path(self.temp.name) / "outside"
+        outside.mkdir()
+        aliases = json.loads((self.seed / "aliases.yaml").read_text())
+        aliases["groups"]["escape"] = {
+            "aliases": ["escape"],
+            "default": "../outside",
+            "members": {},
+        }
+        (self.seed / "aliases.yaml").write_text(json.dumps(aliases))
+        forge.scan(self.root, self.state, self.seed)
+
+        with self.assertRaises(forge.ForgeError):
+            forge.resolve("escape", self.state)
+
+    def test_territory_contract_must_match_runtime_root(self) -> None:
+        contract = json.loads((self.seed / "territories.yaml").read_text())
+        contract["territories"][0]["root"] = str(Path(self.temp.name) / "other")
+        (self.seed / "territories.yaml").write_text(json.dumps(contract))
+        self.make_project("work/fathom", (".git", "README.md"))
+
+        with self.assertRaises(forge.ForgeError):
+            forge.scan(self.root, self.state, self.seed)
 
 
 if __name__ == "__main__":
