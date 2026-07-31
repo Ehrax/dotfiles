@@ -3,6 +3,14 @@
     "fff": {
       "command": "/opt/homebrew/bin/fff-mcp",
       "args": ["--no-warmup", "--max-cached-files", "5000"]
+    },
+    "agentic_os": {
+      "command": "/Users/ehrax/Library/Application Support/AgenticOS/runtime/venv/bin/python",
+      "args": [
+        "/Users/ehrax/Projects/ehrax.dev/atlas-eval/scripts/agentic_os_mcp.py",
+        "--config",
+        "/Users/ehrax/Projects/ehrax.dev/atlas-eval/agentic-os.ini"
+      ]
     }
   }
 }

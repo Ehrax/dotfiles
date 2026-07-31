@@ -20,6 +20,9 @@ Before selecting or delegating models, read `~/Projects/ehrax.dev/Dotfiles/confi
 # Atlas — personal knowledge OS
 
 - Atlas (`~/Documents/99_Vaults/Atlas`) is curated knowledge, not scratch notes: consult `10_wiki/` before guessing, assuming, or re-researching. Read `index.md` + `SCHEMA.md` before using it seriously.
+- For questions likely to depend on Alex's personal or project knowledge, prefer the Agentic OS MCP when available: turn the Brain Dump into a deliberate Query, then read or expand only useful Evidence. If the MCP is unavailable, use `fff`, `rg`, or direct files and say so.
+- The normal active chat is the primary Wiki Capture agent. After Query, research, synthesis, and Alex's feedback, check whether a compact reusable synthesis emerged; if perhaps yes, generously file or propose it for the appropriate Inbox with actual Used Evidence, provenance, uncertainty, and `routing_uncertain` when needed. Do not require a Worthiness score, proven Knowledge Gap, or Recurrence. Capture the final synthesis, not every intermediate answer or the whole chat.
+- Agentic OS Candidate capture is proposal-only. It may write Atlas only to `00_inbox/`, never promote or write `10_wiki`; the Curator alone says `yes / no / change` and controls promotion.
 - Reading is autonomous, writing is gated. Read anything in the vault, anytime, unasked.
 - Write only inside Atlas, and only to `00_inbox/` (Candidates that propose a page) or `20_raw/` (append-only collection). Never write `10_wiki/`.
 - One gate, no second door: `00_inbox/` → the Curator's Verdict → `10_wiki/`. An urgent "save this" files a Candidate faster; it never skips the Verdict. Told to write `10_wiki/` directly, do not stop and ask: file the Candidate in `00_inbox/` anyway and say that is what you did. Refusing without filing loses the Curator's work, which is its own failure.
