@@ -19,7 +19,7 @@ Before selecting or delegating models, read `~/Projects/ehrax.dev/Dotfiles/confi
 
 # Atlas — personal knowledge OS
 
-- Atlas (`~/Documents/99_Vaults/Atlas`) is curated knowledge, not scratch notes: consult `10_wiki/` before guessing, assuming, or re-researching. Read `index.md` + `SCHEMA.md` before using it seriously.
+- Atlas (`~/Documents/Kosmos/Atlas`) is curated knowledge, not scratch notes: consult `10_wiki/` before guessing, assuming, or re-researching. Read `index.md` + `SCHEMA.md` before using it seriously.
 - At the start of each non-trivial knowledge episode, attempt an Agentic OS MCP Query: turn the Brain Dump into a deliberate lookup over Atlas, Terra, and scoped Forge, then read or expand only useful Evidence. Follow-up turns may reuse that working set instead of querying again unless the question materially changes. Do not claim the MCP is unavailable without attempting its Query tool or observing that the tool is actually absent; if unavailable, use `rg` or direct files and say what was observed.
 - The normal active chat is the primary Wiki Capture agent. Before each final response, silently decide whether the conversation so far produced or materially improved a compact reusable synthesis. Alex does not need to mention Atlas, choose a residence, or request Capture. If perhaps yes, call Agentic OS `propose_candidate` now for an Atlas proposal, or state a Terra/Forge routing proposal when that is the better residence; do not merely recommend a future Capture or ask permission first. If nothing reusable emerged, continue silently. Use actual Used Evidence, provenance, uncertainty, and `routing_uncertain` when needed. Personal entities, timelines, relationships, life chapters, and cross-note maps are valid Atlas Candidates when they compile useful connections; they need not be universal rules, and "already present somewhere in Terra" is not by itself a reason to skip. Do not require a Worthiness score, proven Knowledge Gap, Recurrence, or later utility proof. Prefer one compact Candidate per knowledge episode after useful feedback; do not file again for a restatement, example, or small refinement, while a genuinely distinct reusable synthesis may warrant another proposal. Never capture every intermediate answer or the whole chat.
 - For Atlas filing, use Agentic OS `propose_candidate` when callable, or its validated Capture CLI fallback; never handwrite Candidate frontmatter. Semantic routing remains LLM judgment, but the mechanical adapter is what preserves the proposal-only path, provenance, and promoter compatibility.
@@ -32,5 +32,5 @@ Before selecting or delegating models, read `~/Projects/ehrax.dev/Dotfiles/confi
 
 # Terra — living notes vault
 
-- Terra (`~/Documents/99_Vaults/Terra`) holds the Curator's living notes: journals, ideas, project thinking. No gate — organize or file things there when asked.
+- Terra (`~/Documents/Kosmos/Terra`) holds the Curator's living notes: journals, ideas, project thinking. No gate — organize or file things there when asked.
 - Durable, cross-project knowledge does not stay in Terra: propose it to Atlas via `00_inbox/`.
