@@ -1,6 +1,6 @@
 # Codex CLI Reference
 
-Verified against `codex-cli 0.142.4`.
+Verified against `codex-cli 0.144.1`.
 
 ## Subcommand map
 
@@ -9,7 +9,8 @@ Verified against `codex-cli 0.142.4`.
 | `codex` | Interactive TUI (options forwarded; optional `[PROMPT]` starts the session) |
 | `codex exec` (`e`) | Run non-interactively — the delegation workhorse |
 | `codex exec resume` | Resume a session by id/thread-name, or `--last` |
-| `codex review` | Non-interactive code review of the current repo |
+| `codex review` | Top-level non-interactive code review of the current repo |
+| `codex exec review` | Exec-family review with model/output/JSON controls |
 | `codex resume` / `fork` | Interactive session picker; `fork` branches a copy, `--last` skips the picker |
 | `codex archive` / `unarchive` / `delete` | Manage saved sessions by id or name |
 | `codex apply` (`a`) | `git apply` the diff of a Codex **Cloud** task to the working tree |
@@ -29,7 +30,7 @@ Verified against `codex-cli 0.142.4`.
 
 | Mode | Semantics |
 |---|---|
-| `read-only` | Read anywhere; no writes, no network. **Default for `exec`.** |
+| `read-only` | Read anywhere; no writes, no network. Pass explicitly for review work. |
 | `workspace-write` | Write inside the workdir (`-C`), `--add-dir` dirs, and temp dirs. Network **off** unless `-c sandbox_workspace_write.network_access=true`. |
 | `danger-full-access` | No sandbox. Only inside an externally sandboxed environment. |
 
@@ -37,7 +38,7 @@ Verified against `codex-cli 0.142.4`.
 
 | Policy | Semantics |
 |---|---|
-| `never` | Never asks; failures return straight to the model. **Default for `exec`** — nothing can block a headless run. |
+| `never` | Never asks; failures return straight to the model. Pin with top-level `codex -a never exec ...` so machine config cannot change headless behavior. |
 | `on-request` | Model decides when to ask. Preferred for interactive runs. |
 | `untrusted` | Only trusted commands (ls, cat, sed…) run without asking. |
 | `on-failure` | Deprecated — asks only to escalate a failed command out of the sandbox. |
@@ -65,7 +66,7 @@ Verified against `codex-cli 0.142.4`.
 | `--enable/--disable <feature>` | Toggle feature flags |
 | `--color <always\|never\|auto>` | Output color |
 
-`codex exec resume` accepts the same steering flags plus `[SESSION_ID]` (UUID or thread name), `--last`, and `--all` (disable cwd filtering).
+`codex exec resume` accepts `[SESSION_ID]` (UUID or thread name), `--last`, `--all`, `-m`, `-o`, `-i`, `--json`, `--output-schema`, config/feature controls, and session-policy flags. It does not accept `-C`, `-s`, `--add-dir`, `-p`, or `--search`; change to the worktree first and use `-c sandbox_mode=...` plus `sandbox_workspace_write.writable_roots` when needed.
 
 ## `codex review` flags
 
@@ -81,15 +82,14 @@ Verified against `codex-cli 0.142.4`.
 
 | Key | Effect |
 |---|---|
-| `model_reasoning_effort` | `minimal`/`low`/`medium`/`high`/`xhigh` — this machine defaults to `xhigh` |
+| `model_reasoning_effort` | Model-specific effort level chosen by the Chief; do not rely on a machine default |
 | `sandbox_workspace_write.network_access=true` | Network inside workspace-write sandbox |
 | `shell_environment_policy.inherit=all` | Pass the full environment to spawned commands |
 | `features.<name>=true` | Same as `--enable <name>` |
 
 ## This machine's config highlights (`~/.codex/config.toml`, local-only)
 
-- `model = "gpt-5.5"`, `model_reasoning_effort = "xhigh"`, `service_tier = "default"`
-- MCP server `fff` (grep/multi_grep/find_files) pre-approved — Codex has fast code search
+- Model and reasoning defaults are intentionally omitted because they change frequently; orchestration should choose them per task and pass them explicitly when reproducibility matters.
 - Plugins enabled: github, browser, computer-use, figma, posthog, documents/spreadsheets/presentations, pdf
 - Most local repos are `trust_level = "trusted"` under `[projects]`
 - `notify` hook pings the Codex desktop app on turn end
@@ -124,10 +124,10 @@ Headless GUI delegation works via computer-use once the target app is trusted ("
 ## Output anatomy of a headless run
 
 ```
-OpenAI Codex v0.142.4
+OpenAI Codex v0.144.1
 --------
-workdir: …          model: gpt-5.5       provider: openai
-approval: never     sandbox: read-only   reasoning effort: xhigh
+workdir: …          model: <selected>       provider: openai
+approval: never     sandbox: <selected>     reasoning effort: <selected>
 session id: 019f216d-0724-72b1-…         ← capture for resume
 --------
 user …              (echo of the brief)

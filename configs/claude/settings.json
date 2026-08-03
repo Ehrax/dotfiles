@@ -8,6 +8,20 @@
     "pr": ""
   },
   "model": "opus[1m]",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/ehrax/Library/Application Support/Kosmos/runtime/venv/bin/python' /Users/ehrax/Projects/ehrax.dev/kosmos/scripts/query_live_hook.py --socket /tmp/kosmos-501/query.sock --timeout 0.25 --log '/Users/ehrax/Library/Application Support/Kosmos/events/query-hook.jsonl' --source claude --expected-generation gen-1785773835348105000-20e926ee77ba --expected-service-instance 7dc7f1fb56b1c422045f265b498dffc1 --kosmos-owner kosmos-query-v1",
+            "timeout": 1,
+            "statusMessage": "Connecting knowledge"
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline.sh"
@@ -19,7 +33,7 @@
     "swift-lsp@claude-plugins-official": true,
     "vercel@claude-plugins-official": true
   },
-  "effortLevel": "xhigh",
+  "effortLevel": "medium",
   "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark-ansi",
