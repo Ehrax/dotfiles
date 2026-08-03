@@ -31,4 +31,4 @@ Before selecting or delegating models, read `~/Projects/ehrax.dev/Dotfiles/confi
 # Terra — living notes vault
 
 - Terra (`~/Documents/Kosmos/Terra`) holds the Curator's living notes: journals, ideas, project thinking. No gate — organize or file things there when asked.
-- Durable, cross-project knowledge does not stay in Terra: propose it to Atlas via `00_inbox/`.
+- Durable, cross-project knowledge does not stay in Terra: compile it into an Atlas `10_wiki/` page.
