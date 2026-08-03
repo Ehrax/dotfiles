@@ -33,9 +33,9 @@
         }
       }
     },
-    "atlas-eval": {
-      "aliases": ["atlas eval", "atlas eval harness", "atlas harness", "eval harness"],
-      "default": "ehrax.dev/atlas-eval",
+    "kosmos": {
+      "aliases": ["kosmos", "agentic os", "agentic-os", "atlas eval", "atlas eval harness", "atlas harness", "eval harness"],
+      "default": "ehrax.dev/kosmos",
       "members": {}
     },
     "notes-cli": {
