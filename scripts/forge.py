@@ -227,7 +227,15 @@ def scan(root: Path, state: Path, seed: Path = SEED_DIRECTORY) -> dict:
         "excludes": sorted(EXCLUDED_DIRECTORIES),
         "projects": projects,
     }
-    _write_json_atomic(state / "projects.generated.json", result)
+    try:
+        _write_json_atomic(state / "projects.generated.json", result)
+    except OSError:
+        # A sandboxed caller (e.g. `kosmos sync` inside a session workspace)
+        # may not be allowed to refresh the cache. Resolving must still work
+        # from the registry that already exists on disk, so a failed cache
+        # write is only fatal when there is no registry at all.
+        if not (state / "projects.generated.json").exists():
+            raise
     return result
 
 
