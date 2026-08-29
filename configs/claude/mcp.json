@@ -7,10 +7,6 @@
         "--max-cached-files",
         "5000"
       ]
-    },
-    "kosmos": {
-      "type": "http",
-      "url": "http://127.0.0.1:38765/mcp"
     }
   }
 }
