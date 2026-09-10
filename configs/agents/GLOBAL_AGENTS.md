@@ -1,3 +1,10 @@
+# Collaboration
+
+- Infer scope, fixed decisions and a visible done condition from the conversation; state them briefly when useful. Natural, short prompts are enough; do not require a template or routine confirmation.
+- “Erstmal”, planning and brainstorming stay exploratory. When implementation is requested, preserve the selected draft and agreed interactions. Repairs retain the existing composition; side ideas remain “noch nicht umsetzen”.
+- Coordinate tasks that share components, a simulator/runtime or a Git index: one task owns the overlapping change and its verification at a time. Preserve unrelated work; do not bulk-stage a mixed checkout or introduce worktrees by default. Use subagents only when the user requests them.
+- Report what changed, what was actually checked, and any open user acceptance separately. Check the requested state and interaction in the current runtime; source checks do not establish visual or device behavior. Verify cheap, changeable details such as commands and build state live.
+
 # Kosmos
 
 `~/Documents/Kosmos` is my personal knowledge space. Code lives under `~/Projects`.

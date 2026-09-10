@@ -1,6 +1,6 @@
 # UI Prototype
 
-Generate **several radically different UI variations** on a single route, switchable from a floating bottom bar. The user flips between variants in the browser, picks one (or steals bits from each), then throws the rest away.
+Explore the unresolved UI decision with one to three options in a realistic app context. For an existing component, retain the current composition as the baseline and compare a focused alternative. For an open new flow, structurally different options can be useful.
 
 If the question is about logic/state rather than what something looks like — wrong branch. Use [LOGIC.md](LOGIC.md).
 
@@ -29,13 +29,13 @@ Create a **throwaway route** following whatever routing convention the project a
 
 Before committing to sub-shape B, sanity-check: is there really no existing page this could be embedded in? An empty route hides design problems that a populated one would expose.
 
-In both sub-shapes the floating bottom bar is identical.
+The switcher below is a web example for multiple options. Use an existing preview control or a suitable native preview when appropriate; one option needs no variant bar. Do not replace established native navigation to fit this example.
 
 ## Process
 
 ### 1. State the question and pick N
 
-Default to **3 variants**. More than 5 stops being radically different and starts being noise — cap there.
+Choose **one to three options** based on the open question and any explicit user request. A focused refinement can be the current state plus one alternative. Do not generate extra variants just to fill a quota.
 
 Write down the plan in one line, in the prototype's location or a top-of-file comment:
 
@@ -43,7 +43,7 @@ Write down the plan in one line, in the prototype's location or a top-of-file co
 
 This works whether the user is here to push back or not.
 
-### 2. Generate radically different variants
+### 2. Generate options that answer the question
 
 Draft each variant. Hold each one to:
 
@@ -51,7 +51,7 @@ Draft each variant. Hold each one to:
 - The project's component library / styling system (TailwindCSS, shadcn, MUI, plain CSS, whatever).
 - A clear exported component name, e.g. `VariantA`, `VariantB`, `VariantC`.
 
-Variants must be **structurally different** — different layout, different information hierarchy, different primary affordance, not just different colours. Three slightly-tweaked card grids isn't a UI prototype, it's wallpaper. If two drafts come out too similar, redo one with explicit "do not use a card grid" guidance.
+Vary the dimension the user is deciding: structure for an open layout question, interaction for a behavior question, or visual treatment for a style question. Keep approved navigation, shared components and selected composition fixed unless they are explicitly under review.
 
 ### 3. Wire them together
 
@@ -97,16 +97,13 @@ Surface the URL (and the `?variant=` keys). The user will flip through whenever 
 
 ### 6. Capture the answer and clean up
 
-Once a variant has won, capture the answer — which variant and why — then capture the prototype the way the [SKILL](SKILL.md) describes. Fold the winner into the real code and move the rest onto the throwaway branch, not into main:
+Record the selected option and agreed details as described in [SKILL.md](SKILL.md). Preserve the prototype as a reference using the repo's existing convention or a local artifact; do not require a throwaway branch or issue.
 
-- **Sub-shape A** — fold the winner into the existing page; drop the losing variants and the switcher from main.
-- **Sub-shape B** — promote the winning variant to a real route; drop the throwaway route and the switcher from main.
-
-The full set of variants is the primary source, so it lands on the throwaway branch, not the bin — variant components and the switcher left in the main branch rot fast and confuse the next reader.
+When implementation is requested, retain the selected composition and interactions while adapting the code to production requirements. Remove the losing variants and switcher from the production path, preserving the reference and unrelated work.
 
 ## Anti-patterns
 
-- **Variants that differ only in colour or copy.** That's a tweak, not a prototype. Real variants disagree about structure.
-- **Sharing too much code between variants.** A shared `<Header>` is fine; a shared `<Layout>` defeats the point. Each variant should be free to throw out the layout.
+- **Variants that do not answer the open question.** Avoid unrelated structural redesign when the decision is a targeted visual or interaction refinement.
+- **Changing established components without cause.** Share the fixed parts of the app; vary only what the question requires.
 - **Wiring variants to real mutations.** Read-only prototypes are fine. If a variant needs to mutate, point it at a stub — the question is "what should this look like", not "does the backend work".
-- **Promoting the prototype directly to production.** The variant code was written under prototype constraints (no tests, minimal error handling). Rewrite it properly when you fold it in.
+- **Shipping prototype constraints.** Preserve the chosen design, but add the production behavior and checks it needs before replacing the real flow.

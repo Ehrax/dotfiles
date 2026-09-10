@@ -68,11 +68,11 @@ Give the user the run command. They'll drive it themselves; the interesting mome
 
 ### 7. Capture the answer and the prototype
 
-Once the prototype has answered its question, capture the answer, then capture the prototype the way the [SKILL](SKILL.md) describes. The logic-specific mapping: the validated reducer / machine / function set lifts into the real module (the decision, absorbed); the TUI shell rides along to the throwaway branch that keeps the prototype as a primary source.
+Once the prototype has answered its question, record the decision and keep the rerunnable prototype reference as described in [SKILL.md](SKILL.md). When implementation is requested, adapt the validated logic to the real module and verify its behavior there. Archival does not require a branch or issue.
 
 ## Anti-patterns
 
-- **Don't add tests.** A prototype that needs tests is no longer a prototype.
+- **Avoid production hardening by default.** Validate the transitions the question depends on; add a small executable check only when it improves confidence in the demonstrated logic.
 - **Don't wire it to the real database.** Use an in-memory store unless the question is specifically about persistence.
 - **Don't generalise.** No "what if we wanted to support X later." The prototype answers one question.
 - **Don't blur the logic and the TUI together.** If the reducer / state machine references `console.log`, prompts, or terminal escape codes, it's no longer portable. Keep the TUI as a thin shell over a pure module.
