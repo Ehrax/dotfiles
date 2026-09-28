@@ -80,29 +80,37 @@ done. `successWhen` = the code-checked proof. Each stage should be answerable by
 Rules, each from a stalled run:
 
 1. **One action per stage.** "Open the layer menu and choose Shapers" → two stages.
-2. **Name controls by label, never by position.** "Tap Map shows All", not "the button at the bottom
+2. **One target, not "any".** "Open any visible listing" splits probability across equally valid
+   cards and stalled below the gate (0.74–0.77); "Open the first board listing shown on the Feed"
+   reached 0.87–0.92.
+3. **Name controls by label, never by position.** "Tap Map shows All", not "the button at the bottom
    right" (it was at the top; Jev escalated).
-3. **No conditions or narrated preconditions.** Jev decides one step at a time. "If signed in, sign
+4. **No conditions or narrated preconditions.** Jev decides one step at a time. "If signed in, sign
    out" and "Start with Settings open" belong in setup or `launch`, or in their own stage.
-4. **Prove success with text the tree contains.** Give every stage a `successWhen` when a stable text
+5. **Prove success with text the tree contains.** Give every stage a `successWhen` when a stable text
    exists. A stage with `successWhen` is checked in code before Jev is asked, so an already-met stage
    costs nothing.
    - `visibleText` is an exact match: "Contact seller" never matches `Contact seller €600`. Use
-     `textStartsWith` or a different stable anchor (for example "Share board" for a detail screen).
+     `textStartsWith` for a stable prefix, `textContains` when variable text surrounds it
+     (`Open <seller> public profile` → `textContains: "public profile"`), or another stable anchor
+     (for example "Share board" for a detail screen).
    - `editable: false` when the same text in a composer must not count.
    - `inputsVerified: true` for a stage that only enters approved input; it completes on readback
      without another model call.
    - `visibleText` + `scrollTo: true` when the text is further down the same screen; the driver then
      searches in one command. Never use it when the text appears only after navigating.
-5. **Never rely on appearance or state the tree lacks:** colors, badges, order, map-marker styling,
+6. **Never rely on appearance or state the tree lacks:** colors, badges, order, map-marker styling,
    and (natively) which tab or segment is selected. Prove the effect through content it reveals.
-6. **Success must be observable.** "Nothing has been submitted" cannot be seen; drop it or give the
+7. **Success must be observable.** "Nothing has been submitted" cannot be seen; drop it or give the
    non-submission its own observable check.
-7. **Say which route is under test.** When the entry point matters, make it a required stage so Jev
+8. **Expectations must hold for the data you get.** Staging data changes: a seller may be a shaper
+   whose page has no "Listings" heading. Check the source or the tree before asserting copy, and
+   describe the outcome when the exact text depends on data.
+9. **Say which route is under test.** When the entry point matters, make it a required stage so Jev
    cannot reach the goal another way.
-8. **Enable gestures only where needed** (`gestures: ["swipe"]` for panning a map); every extra action
+10. **Enable gestures only where needed** (`gestures: ["swipe"]` for panning a map); every extra action
    is another option to choose from.
-9. **Keep default gates** (action 0.75, success 0.75). `wait` already has its own lower gate.
+11. **Keep default gates** (action 0.75, success 0.75). `wait` already has its own lower gate.
 
 Before and after:
 
